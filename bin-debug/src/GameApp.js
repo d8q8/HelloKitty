@@ -1,29 +1,29 @@
 /**
-* Copyright (c) 2014,Egret-Labs.org
-* All rights reserved.
-* Redistribution and use in source and binary forms, with or without
-* modification, are permitted provided that the following conditions are met:
-*
-*     * Redistributions of source code must retain the above copyright
-*       notice, this list of conditions and the following disclaimer.
-*     * Redistributions in binary form must reproduce the above copyright
-*       notice, this list of conditions and the following disclaimer in the
-*       documentation and/or other materials provided with the distribution.
-*     * Neither the name of the Egret-Labs.org nor the
-*       names of its contributors may be used to endorse or promote products
-*       derived from this software without specific prior written permission.
-*
-* THIS SOFTWARE IS PROVIDED BY EGRET-LABS.ORG AND CONTRIBUTORS "AS IS" AND ANY
-* EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-* WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-* DISCLAIMED. IN NO EVENT SHALL EGRET-LABS.ORG AND CONTRIBUTORS BE LIABLE FOR ANY
-* DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
-* (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
-* LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
-* ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-* (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-* SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
+ * Copyright (c) 2014,Egret-Labs.org
+ * All rights reserved.
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ *     * Redistributions of source code must retain the above copyright
+ *       notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the
+ *       documentation and/or other materials provided with the distribution.
+ *     * Neither the name of the Egret-Labs.org nor the
+ *       names of its contributors may be used to endorse or promote products
+ *       derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY EGRET-LABS.ORG AND CONTRIBUTORS "AS IS" AND ANY
+ * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL EGRET-LABS.ORG AND CONTRIBUTORS BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
 var __extends = this.__extends || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -40,25 +40,23 @@ var GameApp = (function (_super) {
         //设置加载进度界面
         this.loadingView = new LoadingUI();
         this.stage.addChild(this.loadingView);
-
+        egret.Profiler.getInstance().run();
         //初始化Resource资源加载库
         RES.addEventListener(RES.ResourceEvent.CONFIG_COMPLETE, this.onConfigComplete, this);
         RES.loadConfig("resource/resource.json", "resource/");
     };
-
     /**
-    * 配置文件加载完成,开始预加载preload资源组。
-    */
+     * 配置文件加载完成,开始预加载preload资源组。
+     */
     GameApp.prototype.onConfigComplete = function (event) {
         RES.removeEventListener(RES.ResourceEvent.CONFIG_COMPLETE, this.onConfigComplete, this);
         RES.addEventListener(RES.ResourceEvent.GROUP_COMPLETE, this.onResourceLoadComplete, this);
         RES.addEventListener(RES.ResourceEvent.GROUP_PROGRESS, this.onResourceProgress, this);
         RES.loadGroup("preload");
     };
-
     /**
-    * preload资源组加载完成
-    */
+     * preload资源组加载完成
+     */
     GameApp.prototype.onResourceLoadComplete = function (event) {
         if (event.groupName == "preload") {
             this.stage.removeChild(this.loadingView);
@@ -67,19 +65,17 @@ var GameApp = (function (_super) {
             this.createGameScene();
         }
     };
-
     /**
-    * preload资源组加载进度
-    */
+     * preload资源组加载进度
+     */
     GameApp.prototype.onResourceProgress = function (event) {
         if (event.groupName == "preload") {
             this.loadingView.setProgress(event.itemsLoaded, event.itemsTotal);
         }
     };
-
     /**
-    * 创建游戏场景
-    */
+     * 创建游戏场景
+     */
     GameApp.prototype.createGameScene = function () {
         var sky = this.createBitmapByName("bgImage");
         this.addChild(sky);
@@ -87,59 +83,55 @@ var GameApp = (function (_super) {
         var stageH = this.stage.stageHeight;
         sky.width = stageW;
         sky.height = stageH;
-
-        var topMask = new egret.Shape();
-        topMask.graphics.beginFill(0x000000, 0.5);
-        topMask.graphics.drawRect(0, 0, stageW, stageH);
-        topMask.graphics.endFill();
-        topMask.width = stageW;
-        topMask.height = stageH;
-        this.addChild(topMask);
-
-        var icon = this.createBitmapByName("egretIcon");
-        icon.anchorX = icon.anchorY = 0.5;
-        this.addChild(icon);
-        icon.x = stageW / 2;
-        icon.y = stageH / 2 - 60;
-        icon.scaleX = 0.55;
-        icon.scaleY = 0.55;
-
-        var colorLabel = new egret.TextField();
-        colorLabel.x = stageW / 2;
-        colorLabel.y = stageH / 2 + 50;
-        colorLabel.anchorX = colorLabel.anchorY = 0.5;
-        colorLabel.textColor = 0xffffff;
-        colorLabel.textAlign = "center";
-        colorLabel.text = "Hello Egret";
-        colorLabel.size = 20;
-        this.addChild(colorLabel);
-
-        var textContainer = new egret.Sprite();
-        textContainer.anchorX = textContainer.anchorY = 0.5;
-        this.addChild(textContainer);
-        textContainer.x = stageW / 2;
-        textContainer.y = stageH / 2 + 100;
-        textContainer.alpha = 0;
-
-        this.textContainer = textContainer;
-
+        //序列帧动画
+        var data = RES.getRes("images_json"); //获取描述
+        var texture = RES.getRes("images_png"); //获取大图
+        var person = new egret.MovieClip(data, texture); //创建电影剪辑
+        console.log(person);
+        this.addChild(person); //添加到显示列表
+        person.frameRate = 12; //设置动画的帧频
+        person.gotoAndStop("stand");
+        person.x = (this.stage.stageWidth - person.width) / 2;
+        person.y = (this.stage.stageHeight - person.height) / 2;
+        var button_state = 0;
+        var start_button = this.createBitmapByName("start_button");
+        this.addChild(start_button);
+        start_button.touchEnabled = true;
+        start_button.anchorX = start_button.anchorY = 0.5;
+        start_button.x = stageW / 2;
+        start_button.y = stageH - 120;
+        start_button.scaleX = start_button.scaleY = 0.55;
+        start_button.addEventListener(egret.TouchEvent.TOUCH_TAP, function (e) {
+            button_state++;
+            if (button_state & 1) {
+                start_button.texture = RES.getRes("stop_button");
+                person.gotoAndPlay("stand");
+            }
+            else {
+                start_button.texture = RES.getRes("start_button");
+                person.gotoAndStop("stand");
+            }
+        }, this);
         //根据name关键字，异步获取一个json配置文件，name属性请参考resources/resource.json配置文件的内容。
-        RES.getResAsync("description", this.startAnimation, this);
+        //RES.getResAsync("description",this.startAnimation,this);*/
+        this.stage.addEventListener(egret.TouchEvent.TOUCH_BEGIN, function (e) {
+            console.log(e.stageX, e.stageY, e.localX, e.localY);
+        }, this);
+        var request = '123';
+        console.log(typeof request == 'string');
     };
-
     /**
-    * 根据name关键字创建一个Bitmap对象。name属性请参考resources/resource.json配置文件的内容。
-    */
+     * 根据name关键字创建一个Bitmap对象。name属性请参考resources/resource.json配置文件的内容。
+     */
     GameApp.prototype.createBitmapByName = function (name) {
         var result = new egret.Bitmap();
         var texture = RES.getRes(name);
         result.texture = texture;
         return result;
     };
-
     /**
-    * 描述文件加载成功，开始播放动画
-    */
+     * 描述文件加载成功，开始播放动画
+     */
     GameApp.prototype.startAnimation = function (result) {
         var textContainer = this.textContainer;
         var count = -1;
@@ -150,22 +142,18 @@ var GameApp = (function (_super) {
                 count = 0;
             }
             var lineArr = result[count];
-
             self.changeDescription(textContainer, lineArr);
-
             var tw = egret.Tween.get(textContainer);
             tw.to({ "alpha": 1 }, 200);
             tw.wait(2000);
             tw.to({ "alpha": 0 }, 200);
             tw.call(change, this);
         };
-
         change();
     };
-
     /**
-    * 切换描述内容
-    */
+     * 切换描述内容
+     */
     GameApp.prototype.changeDescription = function (textContainer, lineArr) {
         textContainer.removeChildren();
         var w = 0;
@@ -178,10 +166,8 @@ var GameApp = (function (_super) {
             colorLabel.text = info["text"];
             colorLabel.size = 40;
             textContainer.addChild(colorLabel);
-
             w += colorLabel.width;
         }
     };
     return GameApp;
 })(egret.DisplayObjectContainer);
-GameApp.prototype.__class__ = "GameApp";

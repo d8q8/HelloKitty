@@ -1,13 +1,20 @@
 /**
  * Created by d8q8 on 2014/8/12.
+ * @module Lcp
+ * @class LListener
+ * @constructor
  */
 module Lcp{
+    /**
+     * 全局侦听类及消息处理
+     */
     export class LListener{
+        public CLASS_NAME:string = "LListener";
         private static _instance:LListener;
         private _dispatcher:egret.EventDispatcher;
         constructor(){
-            egret.Logger.warning("不可以实例化LListener类,请实例Lcp.LListener.getInstance()开始");
-            if(this._dispatcher==null){
+            egret.Logger.warning("不可以实例化"+this.CLASS_NAME+"类,请实例Lcp."+this.CLASS_NAME+".getInstance()开始");
+            if(this._dispatcher == null){
                 this._dispatcher = new egret.EventDispatcher();
             }
         }

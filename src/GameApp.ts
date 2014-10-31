@@ -41,7 +41,7 @@ class GameApp extends egret.DisplayObjectContainer{
         //设置加载进度界面
         this.loadingView  = new LoadingUI();
         this.stage.addChild(this.loadingView);
-
+        egret.Profiler.getInstance().run();
         //初始化Resource资源加载库
         RES.addEventListener(RES.ResourceEvent.CONFIG_COMPLETE,this.onConfigComplete,this);
         RES.loadConfig("resource/resource.json","resource/");
@@ -88,43 +88,49 @@ class GameApp extends egret.DisplayObjectContainer{
         sky.width = stageW;
         sky.height = stageH;
 
-        var topMask:egret.Shape = new egret.Shape();
-        topMask.graphics.beginFill(0x000000, 0.5);
-        topMask.graphics.drawRect(0, 0, stageW, stageH);
-        topMask.graphics.endFill();
-        topMask.width = stageW;
-        topMask.height = stageH;
-        this.addChild(topMask);
+        //序列帧动画
+        var data = RES.getRes("images_json");//获取描述
+        var texture = RES.getRes("images_png");//获取大图
+        var person = new egret.MovieClip(data,texture);//创建电影剪辑
+        console.log(person);
+        this.addChild(person);//添加到显示列表
+        person.frameRate = 12;//设置动画的帧频
+        person.gotoAndStop("stand");
+        person.x = (this.stage.stageWidth - person.width)/2;
+        person.y = (this.stage.stageHeight - person.height)/2;
 
-        var icon:egret.Bitmap = this.createBitmapByName("egretIcon");
-        icon.anchorX = icon.anchorY = 0.5;
-        this.addChild(icon);
-        icon.x = stageW / 2;
-        icon.y = stageH / 2 - 60;
-        icon.scaleX = 0.55;
-        icon.scaleY = 0.55;
+        var button_state:number=0;
+        var start_button:egret.Bitmap = this.createBitmapByName("start_button");
+        this.addChild(start_button);
+        start_button.touchEnabled=true;
+        start_button.anchorX = start_button.anchorY = 0.5;
+        start_button.x = stageW / 2;
+        start_button.y = stageH - 120;
+        start_button.scaleX = start_button.scaleY = 0.55;
 
-        var colorLabel:egret.TextField = new egret.TextField();
-        colorLabel.x = stageW / 2;
-        colorLabel.y = stageH / 2 + 50;
-        colorLabel.anchorX = colorLabel.anchorY = 0.5;
-        colorLabel.textColor = 0xffffff;
-        colorLabel.textAlign = "center";
-        colorLabel.text = "Hello Egret";
-        colorLabel.size = 20;
-        this.addChild(colorLabel);
+        start_button.addEventListener(egret.TouchEvent.TOUCH_TAP,(e)=>{
+            button_state++;
+            if(button_state&1){
+                start_button.texture = RES.getRes("stop_button");
+                person.gotoAndPlay("stand");
+            }
+            else{
+                start_button.texture = RES.getRes("start_button");
+                person.gotoAndStop("stand");
+            }
+        },this);
 
-        var textContainer:egret.Sprite = new egret.Sprite();
-        textContainer.anchorX = textContainer.anchorY = 0.5;
-        this.addChild(textContainer);
-        textContainer.x = stageW / 2;
-        textContainer.y = stageH / 2 + 100;
-        textContainer.alpha = 0;
-
-        this.textContainer = textContainer;
 
         //根据name关键字，异步获取一个json配置文件，name属性请参考resources/resource.json配置文件的内容。
-        RES.getResAsync("description",this.startAnimation,this)
+        //RES.getResAsync("description",this.startAnimation,this);*/
+
+        this.stage.addEventListener(egret.TouchEvent.TOUCH_BEGIN,(e)=>{
+            console.log(e.stageX,e.stageY,e.localX,e.localY);
+        },this);
+
+        var request:string = '123';
+        console.log(typeof request == 'string');
+
     }
     /**
      * 根据name关键字创建一个Bitmap对象。name属性请参考resources/resource.json配置文件的内容。
@@ -179,6 +185,8 @@ class GameApp extends egret.DisplayObjectContainer{
             w += colorLabel.width;
         }
     }
+
+
 }
 
 
