@@ -1,20 +1,28 @@
 /**
- * Created by d8q8 on 2014/8/12.
- */
+ * Created by d8q8 on 2014/8/15.
+ * @module Lcp
+ * @class LRect
+ * @constructor
+ **/
 module Lcp{
-    export class LRect extends LBase{
-        constructor(x:number,y:number,width:number,height:number,color?:number){
-            super();
-            this.x=x+width/2;
-            this.y=y+height/2;
-            this.width=width;
-            this.height=height;
-            if(color)
-                this.color=color;
-            this.draw();
+    /**
+     * 绘制矩形
+     */
+    export class LRect extends LGraphics{
+        public CLASS_NAME:string = "LRect";
+
+        constructor(vars?:IGraphics){
+            super(vars);
+            this.x = vars.x + vars.width/2;
+            this.y = vars.y + vars.height/2;
         }
-        public drawShape(offsetX:number,offsetY:number):void{
-            this.graphics.drawRect(0,0,this.width,this.height);
+
+        public drawShape():void{
+            this.graphics.drawRect(0,0,this.vars.width,this.vars.height);
+        }
+
+        public clone():LRect{
+            return new LRect(this.vars);
         }
     }
 }

@@ -1,13 +1,16 @@
 {
 "resources":
 	[
-		{"name":"bgImage","type":"image","url":"assets/bg.jpg"},
-		{"name":"egretIcon","type":"image","url":"assets/egret_icon.png"},
-        {"name":"description","type":"json","url":"config/description.json"}
+		{"name":"bgImage","type":"image","url":"assets/background.png"},
+		{"name":"start_button","type":"image","url":"assets/start_button.png"},
+        {"name":"stop_button","type":"image","url":"assets/stop_button.png"},
+
+		{"name":"images_png","type":"image","url":"assets/images.png"},
+		{"name":"images_json","type":"json","url":"config/images.json"}
 	],
 
 "groups":
 	[
-        {"name":"preload","keys":"bgImage,egretIcon"}
+        {"name":"preload","keys":"bgImage,start_button,stop_button,images_png,images_json"}
 	]
 }

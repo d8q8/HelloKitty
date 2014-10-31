@@ -38,7 +38,7 @@ egret_native.egtMain = function () {
 
     context.run();
 
-    var document_class = "HelloKitty";
+    var document_class = "GameApp";
     var rootClass;
     if(document_class){
         rootClass = egret.getDefinitionByName(document_class);

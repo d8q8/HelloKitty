@@ -294,7 +294,7 @@ interface TweenPlugin {
 }
 
 //com.greensock.easing
-declare var Back:Back;
+declare var back:Back;
 declare var Bounce:Bounce;
 declare var Circ:Circ;
 declare var Cubic:Cubic;

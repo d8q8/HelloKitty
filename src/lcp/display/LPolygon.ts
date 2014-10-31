@@ -1,37 +1,33 @@
 /**
- * Created by d8q8 on 2014/8/12.
- */
+ * Created by d8q8 on 2014/8/15.
+ * @module Lcp
+ * @class LPolygon
+ * @constructor
+ **/
 module Lcp{
-    export class LPolygon extends LBase{
-        private _corner:number = 3;
-		public get corner():number{return this._corner;}
-		public set corner(value:number)
-		{
-			this._corner = value;
-			this.draw();
-		}
+    /**
+     * 绘制多边形
+     */
+    export class LPolygon extends LGraphics{
+        public CLASS_NAME:string = "LPolygon";
 
-        constructor(x:number,y:number,width:number,height:number,corner:number=3,color?:number){
-            super();
-            this.x=x;
-            this.y=y;
-            this.width=width;
-            this.height=height;
-            this.corner=corner;
-            if(color)
-                this.color=color;
-            this.draw();
+        constructor(vars?:IGraphics){
+            super(vars);
+            this.vars.corner = vars.corner ? vars.corner : 3;
         }
 
-		public drawShape(offsetX:number, offsetY:number):void
+		public drawShape():void
 		{
-			this.graphics.moveTo(offsetX + this.width / 2, offsetY);
-			for(var i:number = 1; i < this.corner; i++)
+			this.graphics.moveTo(this.vars.width / 2, 0);
+			for(var i:number = 1; i < this.vars.corner; i++)
 			{
-				var rad:number = 2 * Math.PI / this.corner * i;
-				this.graphics.lineTo(offsetX + this.width  / 2 * (1 + Math.sin(rad)),
-				                offsetY + this.height / 2 * (1 - Math.cos(rad)));
+				var rad:number = 2 * Math.PI / this.vars.corner * i;
+				this.graphics.lineTo(this.vars.width  / 2 * (1 + Math.sin(rad)), this.vars.height / 2 * (1 - Math.cos(rad)));
 			}
 		}
+
+        public clone():LPolygon{
+            return new LPolygon(this.vars);
+        }
     }
 }
