@@ -46,7 +46,7 @@ var HelloKitty = (function (_super) {
             /*sp.addEventListener(egret.TouchEvent.TOUCH_MOVE,(e)=>{
              sp.x=e.stageX;
              sp.y=e.stageY;
-             Lcp.LTrace.trace("侦听移动开始",sp.x,sp.y);
+             lcp.LTrace.trace("侦听移动开始",sp.x,sp.y);
              },this);*/
         }, this);
         sp.addEventListener(egret.TouchEvent.TOUCH_END, function (e) {
@@ -76,23 +76,23 @@ var HelloKitty = (function (_super) {
         }, this);
         //框架自带的缓动类
         //egret.Tween.get(sp).to({x:200,scaleX:.5,scaleY:.5,rotation:360},1000).call(function(){
-        //    Lcp.LTrace.trace("我回调了[缓动类],哟西!");
+        //    lcp.LTrace.trace("我回调了[缓动类],哟西!");
         //});
         var tweenlite1 = TweenLite.to(sp, 1, { x: 200, y: 500, scaleX: .5, scaleY: .5, rotation: 360, onComplete: function (e) {
             Lcp.LTrace.trace("动画完成回调之后：", sp.x, sp.y, sp.width, sp.height);
         } });
         //画方
-        /*var shp:egret.Sprite = new Lcp.LRoundRect({x:250,y:200,width:200,height:100,radius:20,fillcolor:0x00ff00,thickness:10,linecolor:0xff0000});
+        /*var shp:egret.Sprite = new lcp.LRoundRect({x:250,y:200,width:200,height:100,radius:20,fillcolor:0x00ff00,thickness:10,linecolor:0xff0000});
          this.addChild(shp);
          shp.touchEnabled=true;
          shp.addEventListener(egret.TouchEvent.TOUCH_TAP,this.touchTap,this);
 
          //        egret.Tween.get(shp).to({x:100,y:200},1000).call(()=>{
-         //            Lcp.LTrace.trace("动画完成处理回调。");
+         //            lcp.LTrace.trace("动画完成处理回调。");
          //        });
 
          var tweenlite2:TweenLite = TweenLite.to(shp,1,{x:500,y:500,scaleX:.5,scaleY:.5,rotation:360,onComplete:(e)=>{
-         Lcp.LTrace.trace("方动画完成回调。",shp.x,shp.y,shp.width,shp.height);
+         lcp.LTrace.trace("方动画完成回调。",shp.x,shp.y,shp.width,shp.height);
          }});*/
         /*var timeline:TimelineMax = new TimelineMax({repeat:-1,yoyo:true});
          //timeline.append(tweenlite1);
