@@ -4,6 +4,7 @@
     <file url="file://$PROJECT_DIR$/build.bat" charset="GBK" />
     <file url="file://$PROJECT_DIR$/build_engine.bat" charset="GBK" />
     <file url="file://$PROJECT_DIR$/build_me.bat" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/build_upgrade.bat" charset="GBK" />
     <file url="file://$PROJECT_DIR$/run.bat" charset="GBK" />
   </component>
 </project>

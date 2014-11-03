@@ -1,8 +1,26 @@
 {
-    "document_class" : "HelloKitty",
-    "native": {
-        "path_ignore": [
-            "libs"
-        ]
-    }
+	"document_class": "HelloKitty",
+	"native": {
+		"path_ignore": [],
+		"support_path": [
+			"E:\\Egret\\HelloAndroid\\proj.android\\assets\\egret-game"
+		]
+	},
+	"modules": [
+		{
+			"name": "core"
+		},
+		{
+			"name": "gui"
+		},
+		{
+			"name": "greensock",
+			"path": "."
+		},
+		{
+		  "name":"lcp",
+		  "path":"."
+		}
+	],
+	"egret_version": "1.1.2"
 }
