@@ -1,0 +1,23 @@
+{
+  "name": "lcp",
+  "dependence": ["core"],
+  "source":"src/lcp/",
+  "file_list": [
+    "data/LVars.ts",
+    "display/LCircle.ts",
+    "display/LEllipse.ts",
+    "display/LGraphics.ts",
+    "display/LHeart.ts",
+    "display/LPolygon.ts",
+    "display/LRect.ts",
+    "display/LRose.ts",
+    "display/LRoundRect.ts",
+    "display/LStar.ts",
+    "events/LEvent.ts",
+    "events/LListener.ts",
+    "interfaces/IGraphics.ts",
+    "utils/LGlobal.ts",
+    "utils/LString.ts",
+    "utils/LTrace.ts"
+  ]
+}

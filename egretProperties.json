@@ -18,8 +18,8 @@
 			"path": "."
 		},
 		{
-		  "name":"lcp",
-		  "path":"."
+			"name":"lcp",
+			"path":"."
 		}
 	],
 	"egret_version": "1.1.2"
