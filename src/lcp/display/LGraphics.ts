@@ -53,7 +53,6 @@ module lcp {
 
         public init(vars:IGraphics):void{
             LVars.some(this.vars,vars);
-            //console.log(this.vars);
         }
 
         public draw():void {

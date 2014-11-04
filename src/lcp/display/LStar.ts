@@ -20,6 +20,7 @@ module lcp{
             this.height = this.vars.height;
             this.touchEnabled = this.vars.touchEnabled;
             this.name = this.vars.name;
+            super.draw();
         }
 
 		public drawShape():void
