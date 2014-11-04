@@ -10,61 +10,56 @@ module lcp {
      */
     export class LGraphics extends egret.Sprite {
         public CLASS_NAME:string = "LGraphics";
-        public _vars:IGraphics;
-        public get vars():IGraphics{ return this._vars;}
-        public set vars(value:IGraphics){
-            if(this._vars==value){
-                return;
-            }
-            this._vars = value;
 
-        }
-        constructor(vars?:IGraphics) {
+        constructor(public vars?:IGraphics) {
             super();
-            this.init();
+            this.initValue();
             if(vars){
-                LVars.some(this._vars,vars);
+                this.init(vars);
             }
-
             this.draw();
-
         }
 
-        public init():void{
-            this._vars = {};
-            this._vars.x = 0;
-            this._vars.y = 0;
-            this._vars.name = this.CLASS_NAME;
-            this._vars.width = 0;
-            this._vars.height = 0;
-            this._vars.anchorX = .5;
-            this._vars.anchorY = .5;
-            this._vars.touchEnabled = true;
+        public initValue():void{
+            this.vars = {};
+            this.vars.x = 0;
+            this.vars.y = 0;
+            this.vars.name = this.CLASS_NAME;
+            this.vars.width = 0;
+            this.vars.height = 0;
+            this.vars.anchorX = .5;
+            this.vars.anchorY = .5;
+            this.vars.touchEnabled = true;
 
-            this._vars.thickness = NaN;
-            this._vars.linecolor = 0;
-            this._vars.linealpha = 1.0;
-            this._vars.pixelHinting = false;
-            this._vars.scaleMode = "normal";
-            this._vars.caps = null;
-            this._vars.joints = null;
-            this._vars.miterLimit = 3;
+            this.vars.thickness = NaN;
+            this.vars.linecolor = 0;
+            this.vars.linealpha = 1.0;
+            this.vars.pixelHinting = false;
+            this.vars.scaleMode = "normal";
+            this.vars.caps = null;
+            this.vars.joints = null;
+            this.vars.miterLimit = 3;
 
-            this._vars.fillcolor = 0xffffff;
-            this._vars.fillalpha = 1;
+            this.vars.fillcolor = 0xffffff;
+            this.vars.fillalpha = 1;
 
-            this._vars.radius = 5;
-            this._vars.ellipseWidth = 5;
-            this._vars.ellipseHeight = this._vars.ellipseWidth;
-            this._vars.corner = 3;
-            this._vars.ratio = .5;
-            this._vars.petal = 4;
+            this.vars.radius = 5;
+            this.vars.ellipseWidth = 5;
+            this.vars.ellipseHeight = this.vars.ellipseWidth;
+            this.vars.corner = 3;
+            this.vars.ratio = .5;
+            this.vars.petal = 4;
+        }
+
+        public init(vars:IGraphics):void{
+            LVars.some(this.vars,vars);
+            //console.log(this.vars);
         }
 
         public draw():void {
             this.graphics.clear();
-            this.graphics.lineStyle(this._vars.thickness, this._vars.linecolor, this._vars.linealpha, this._vars.pixelHinting, this._vars.scaleMode, this._vars.caps, this._vars.joints, this._vars.miterLimit);
-            this.graphics.beginFill(this._vars.fillcolor, this._vars.fillalpha);
+            this.graphics.lineStyle(this.vars.thickness, this.vars.linecolor, this.vars.linealpha, this.vars.pixelHinting, this.vars.scaleMode, this.vars.caps, this.vars.joints, this.vars.miterLimit);
+            this.graphics.beginFill(this.vars.fillcolor, this.vars.fillalpha);
             this.drawShape();
             this.graphics.endFill();
         }

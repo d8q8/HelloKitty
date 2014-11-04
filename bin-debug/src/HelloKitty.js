@@ -79,17 +79,11 @@ var HelloKitty = (function (_super) {
             this.stage.removeEventListener(egret.TouchEvent.TOUCH_MOVE,arguments.callee,this);
         },this);*/
         //var circle = new egret.Sprite();
-        var circle = new lcp.LCircle({ x: 50, y: 50, radius: 100, fillcolor: 0xff0000 });
+        var circle = new lcp.LStar({ x: 50, y: 100, width: 200, height: 200, corner: 5, fillcolor: 0xff0000 });
         this.addChild(circle);
-        console.log("我初始化了圆", circle.x, circle.y, circle.width, circle.height, circle.touchEnabled, circle.name);
-        //circle.touchEnabled=true;
-        //circle.graphics.beginFill(0xff0000);
-        //circle.graphics.drawCircle(50,50,50);
-        //circle.graphics.endFill();
-        //circle.x=circle.y=0;
-        //circle.width=circle.height=100;
+        var i = 1;
         circle.addEventListener(egret.TouchEvent.TOUCH_TAP, function (e) {
-            console.log("我单击了圆", circle.x, circle.y, circle.width, circle.height, circle.touchEnabled);
+            console.log("我单击了元件" + (i++) + "次", circle.name, circle.x, circle.y, circle.width, circle.height, circle.touchEnabled);
         }, this);
     };
     return HelloKitty;
