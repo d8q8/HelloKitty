@@ -78,13 +78,30 @@ var HelloKitty = (function (_super) {
             this.stage.removeEventListener(egret.TouchEvent.TOUCH_END,arguments.callee,this);
             this.stage.removeEventListener(egret.TouchEvent.TOUCH_MOVE,arguments.callee,this);
         },this);*/
-        //var circle = new egret.Sprite();
-        var circle = new lcp.LStar({ x: 50, y: 100, width: 200, height: 200, corner: 5, fillcolor: 0xff0000 });
-        this.addChild(circle);
+        //console.log(document.body.clientWidth,document.body.clientHeight,document.documentElement.clientWidth,document.documentElement.clientHeight);
+        //圆
+        var sp = new lcp.LCircle({ name: "sp", x: 100, y: 200, radius: 100, fillcolor: 0xff0000, thickness: 5, linecolor: 0x00ff00 });
+        //方
+        //var sp= new lcp.LRect({name:"sp",x:100,y:200,width:200,height:100,fillcolor:0xff0000,thickness:5,linecolor:0x00ff00});
+        //圆角矩形
+        //var sp = new lcp.LRoundRect({name:"sp",x:100,y:200,width:200,height:100,ellipseWidth:30,ellipseHeight:20,fillcolor:0xff0000,thickness:5,linecolor:0x00ff00});
+        //椭圆
+        //var sp = new lcp.LEllipse({name:"sp",x:100,y:200,width:200,height:100,fillcolor:0xff0000,thickness:5,linecolor:0x00ff00});
+        //多边形,如三角形
+        //var sp = new lcp.LPolygon({name:"sp",x:100,y:200,width:200,height:200,corner:3,fillcolor:0xff0000,thickness:5,linecolor:0x00ff00});
+        //心形
+        //var sp = new lcp.LHeart({name:"sp",x:100,y:200,radius:100,fillcolor:0xff0000,thickness:5,linecolor:0x00ff00});
+        //玫瑰形,花瓣偶数翻倍,奇数不变
+        //var sp = new lcp.LRose({name:"sp",x:100,y:200,radius:100,petal:4,fillcolor:0xff0000,thickness:5,linecolor:0x00ff00});
+        //多角星,如五角星
+        //var sp = new lcp.LStar({name:"sp",x:100,y:200,width:200,height:200,corner:5,ratio:.4,fillcolor:0xff0000,thickness:5,linecolor:0x00ff00});
+        this.addChild(sp);
+        lcp.LTrace.trace("初始化元件", sp.name, sp.x, sp.y, sp.width, sp.height, sp.touchEnabled);
         var i = 1;
-        circle.addEventListener(egret.TouchEvent.TOUCH_TAP, function (e) {
-            console.log("我单击了元件" + (i++) + "次", circle.name, circle.x, circle.y, circle.width, circle.height, circle.touchEnabled);
+        sp.addEventListener(egret.TouchEvent.TOUCH_TAP, function (e) {
+            lcp.LTrace.trace("我单击了元件" + (i++) + "次", sp.name, sp.x, sp.y, sp.width, sp.height, sp.touchEnabled);
         }, this);
+        //TweenLite.to(sp,.5,{x:100,y:300});
     };
     return HelloKitty;
 })(egret.DisplayObjectContainer);

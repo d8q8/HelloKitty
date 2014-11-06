@@ -11,15 +11,12 @@ module lcp{
     export class LPolygon extends LGraphics{
         public CLASS_NAME:string = "LPolygon";
 
-        constructor(vars?:IGraphics){
-            super(vars);
+        public constructor(vars?:IGraphics){
+            super();
 
-            this.x = this.vars.x;
-            this.y = this.vars.y;
-            this.width = this.vars.width;
-            this.height = this.vars.height;
-            this.touchEnabled = this.vars.touchEnabled;
-            this.name = this.vars.name;
+            if(vars){
+                super.init(vars);
+            }
         }
 
 		public drawShape():void
@@ -32,8 +29,8 @@ module lcp{
 			}
 		}
 
-        public clone():LPolygon{
-            return arguments.callee(this.vars);
+        public clone(vars?:LPolygon):LPolygon{
+            return new LPolygon(vars?vars:this.vars);
         }
     }
 }

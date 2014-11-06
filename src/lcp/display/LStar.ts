@@ -11,16 +11,11 @@ module lcp{
     export class LStar extends LGraphics{
         public CLASS_NAME:string = "LStar";
 
-        constructor(vars?:IGraphics){
-            super(vars);
-
-            this.x = this.vars.x;
-            this.y = this.vars.y;
-            this.width = this.vars.width;
-            this.height = this.vars.height;
-            this.touchEnabled = this.vars.touchEnabled;
-            this.name = this.vars.name;
-            super.draw();
+        public constructor(vars?:IGraphics){
+            super();
+            if(vars){
+                super.init(vars);
+            }
         }
 
 		public drawShape():void
@@ -35,8 +30,8 @@ module lcp{
 			}
 		}
 
-        public clone():LStar{
-            return arguments.callee(this.vars);
+        public clone(vars?:IGraphics):LStar{
+            return new LStar(vars?vars:this.vars);
         }
     }
 }

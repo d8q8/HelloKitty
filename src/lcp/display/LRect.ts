@@ -11,23 +11,20 @@ module lcp{
     export class LRect extends LGraphics{
         public CLASS_NAME:string = "LRect";
 
-        constructor(vars?:IGraphics){
-            super(vars);
+        public constructor(vars?:IGraphics){
+            super();
 
-            this.x = this.vars.x;
-            this.y = this.vars.y;
-            this.width = this.vars.width;
-            this.height = this.vars.height;
-            this.touchEnabled = this.vars.touchEnabled;
-            this.name = this.vars.name;
+            if(vars){
+                super.init(vars);
+            }
         }
 
         public drawShape():void{
             this.graphics.drawRect(0,0,this.vars.width,this.vars.height);
         }
 
-        public clone():LRect{
-            return arguments.callee(this.vars);
+        public clone(vars?:IGraphics):LRect{
+            return new LRect(vars?vars:this.vars);
         }
     }
 }

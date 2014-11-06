@@ -12,15 +12,13 @@ module lcp {
     export class LRose extends LGraphics{
         public CLASS_NAME:string = 'LRose';
 
-        constructor(vars?:IGraphics) {
-            super(vars);
-
-            this.x = this.vars.x;
-            this.y = this.vars.y;
-            this.width = this.vars.radius * 2;
-            this.height = this.vars.radius * 2;
-            this.touchEnabled = this.vars.touchEnabled;
-            this.name = this.vars.name;
+        public constructor(vars?:IGraphics) {
+            super();
+            if(vars){
+                vars.width = vars.radius * 2;
+                vars.height = vars.radius * 2;
+                super.init(vars);
+            }
         }
 
         public drawShape():void{
@@ -42,8 +40,8 @@ module lcp {
             }
         }
 
-        public clone():LRose{
-            return arguments.callee(this.vars);
+        public clone(vars?:IGraphics):LRose{
+            return new LRose(vars?vars:this.vars);
         }
 
 

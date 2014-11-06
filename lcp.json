@@ -15,8 +15,11 @@
     "display/LStar.ts",
     "events/LEvent.ts",
     "events/LListener.ts",
+    "interfaces/IActivatable.ts",
+    "interfaces/IDisposable.ts",
     "interfaces/IGraphics.ts",
     "utils/LGlobal.ts",
+    "utils/LHelper.ts",
     "utils/LString.ts",
     "utils/LTrace.ts"
   ]

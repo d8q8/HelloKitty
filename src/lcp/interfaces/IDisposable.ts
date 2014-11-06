@@ -1,18 +1,23 @@
 /**
- * Created by d8q8 on 2014/8/18.
+ * Created by d8q8 on 2014/11/6.
  * @module Lcp
- * @class LString
+ * @class IDisposable
  * @constructor
  **/
 module lcp {
     /**
-     * 字符处理类(暂未完善)
+     * 销毁类
      */
-    export class LString {
-        public CLASS_NAME:string = "LString";
+    export class IDisposable {
+        public CLASS_NAME:string = "IDisposable";
+        public isDisposed: boolean;
 
         public constructor() {
-            egret.Logger.warning("不可以实例化"+this.CLASS_NAME+"类,这是字符串处理类");
+
+        }
+
+        public dispose() {
+            this.isDisposed = true;
         }
 
         /**
