@@ -91,7 +91,7 @@ class HelloKitty extends egret.DisplayObjectContainer{
         console.log("舞台高:",this.stage.stageHeight);
 
         //圆
-        var sp = new lcp.LCircle({name:"sp",x:100,y:200,radius:100,fillcolor:0xff0000,thickness:5,linecolor:0x00ff00});
+        var sp = new lcp.LCircle({name:"sp",x:100,y:400,radius:100,fillcolor:0xff0000,thickness:5,linecolor:0x00ff00});
         //方
         //var sp= new lcp.LRect({name:"sp",x:100,y:200,width:200,height:100,fillcolor:0xff0000,thickness:5,linecolor:0x00ff00});
         //圆角矩形
@@ -150,9 +150,18 @@ class HelloKitty extends egret.DisplayObjectContainer{
         var shp = new egret.Shape();
         this.addChild(shp);
         shp.graphics.beginFill(0xff0000);
-        shp.graphics.drawArc(100,100,50,0,60,true);
+        shp.graphics.lineStyle(5,0x00ff00);
+        shp.graphics.drawArc(50,50,50,0,Math.PI/3,true);
         shp.graphics.endFill();
-        shp.width = shp.height = 150;
+        shp.width = 100;
+        shp.height = 100;
+        shp.x = shp.y = 100;
+        shp.touchEnabled=true;
+
+        shp.addEventListener(egret.TouchEvent.TOUCH_TAP,(e)=>{
+            console.log("点击",shp.x,shp.y,shp.width,shp.height);
+        },this);
+        console.log(shp.x,shp.y,shp.width,shp.height);
 
     }
 

@@ -85,7 +85,7 @@ var HelloKitty = (function (_super) {
         console.log("舞台宽:", this.stage.stageWidth);
         console.log("舞台高:", this.stage.stageHeight);
         //圆
-        var sp = new lcp.LCircle({ name: "sp", x: 100, y: 200, radius: 100, fillcolor: 0xff0000, thickness: 5, linecolor: 0x00ff00 });
+        var sp = new lcp.LCircle({ name: "sp", x: 100, y: 400, radius: 100, fillcolor: 0xff0000, thickness: 5, linecolor: 0x00ff00 });
         //方
         //var sp= new lcp.LRect({name:"sp",x:100,y:200,width:200,height:100,fillcolor:0xff0000,thickness:5,linecolor:0x00ff00});
         //圆角矩形
@@ -139,9 +139,17 @@ var HelloKitty = (function (_super) {
         var shp = new egret.Shape();
         this.addChild(shp);
         shp.graphics.beginFill(0xff0000);
-        shp.graphics.drawArc(0, 0, 50, 0, 60, true);
+        shp.graphics.lineStyle(5, 0x00ff00);
+        shp.graphics.drawArc(50, 50, 50, 0, Math.PI / 3, true);
         shp.graphics.endFill();
-        shp.width = shp.height = 50;
+        shp.width = 100;
+        shp.height = 100;
+        shp.x = shp.y = 100;
+        shp.touchEnabled = true;
+        shp.addEventListener(egret.TouchEvent.TOUCH_TAP, function (e) {
+            console.log("点击", shp.x, shp.y, shp.width, shp.height);
+        }, this);
+        console.log(shp.x, shp.y, shp.width, shp.height);
     };
     HelloKitty.prototype.sp_click = function (e) {
         lcp.LTrace.trace(this, "我单击了元件" + (this._i++) + "次", this._sp.name, this._sp.x, this._sp.y, this._sp.width, this._sp.height, this._sp.touchEnabled);
