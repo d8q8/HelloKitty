@@ -78,7 +78,12 @@ var HelloKitty = (function (_super) {
             this.stage.removeEventListener(egret.TouchEvent.TOUCH_END,arguments.callee,this);
             this.stage.removeEventListener(egret.TouchEvent.TOUCH_MOVE,arguments.callee,this);
         },this);*/
-        //console.log(document.body.clientWidth,document.body.clientHeight,document.documentElement.clientWidth,document.documentElement.clientHeight);
+        console.log("主体1宽:", document.body.clientWidth);
+        console.log("主体1高:", document.body.clientHeight);
+        console.log("主体2宽:", document.documentElement.clientWidth);
+        console.log("主体2高:", document.documentElement.clientHeight);
+        console.log("舞台宽:", this.stage.stageWidth);
+        console.log("舞台高:", this.stage.stageHeight);
         //圆
         var sp = new lcp.LCircle({ name: "sp", x: 100, y: 200, radius: 100, fillcolor: 0xff0000, thickness: 5, linecolor: 0x00ff00 });
         //方
@@ -95,13 +100,51 @@ var HelloKitty = (function (_super) {
         //var sp = new lcp.LRose({name:"sp",x:100,y:200,radius:100,petal:4,fillcolor:0xff0000,thickness:5,linecolor:0x00ff00});
         //多角星,如五角星
         //var sp = new lcp.LStar({name:"sp",x:100,y:200,width:200,height:200,corner:5,ratio:.4,fillcolor:0xff0000,thickness:5,linecolor:0x00ff00});
-        this.addChild(sp);
+        //this.addChild(sp);
+        lcp.LHelper.addChildAndInit(this, sp, { x: 200, y: 400 }, 20);
         lcp.LTrace.trace("初始化元件", sp.name, sp.x, sp.y, sp.width, sp.height, sp.touchEnabled);
         var i = 1;
-        sp.addEventListener(egret.TouchEvent.TOUCH_TAP, function (e) {
-            lcp.LTrace.trace("我单击了元件" + (i++) + "次", sp.name, sp.x, sp.y, sp.width, sp.height, sp.touchEnabled);
-        }, this);
+        //sp.addEventListener(egret.TouchEvent.TOUCH_TAP,(e)=>{
+        //    lcp.LTrace.trace(this,"我单击了元件"+(i++)+"次",sp.name,sp.x,sp.y,sp.width,sp.height,sp.touchEnabled);
+        //},this);
+        //
+        //sp.addEventListener(egret.TouchEvent.TOUCH_TAP,function(e:egret.TouchEvent):void{
+        //    lcp.LTrace.trace(this,"我单击了元件"+(i++)+"次",sp.name,sp.x,sp.y,sp.width,sp.height,sp.touchEnabled);
+        //},this);
+        this._i = i;
+        this._sp = sp;
+        sp.addEventListener(egret.TouchEvent.TOUCH_TAP, this.sp_click, this);
         //TweenLite.to(sp,.5,{x:100,y:300});
+        //数字数组排序
+        var num_Arr = [1, 22, 14, 2, 54, 21, 6, 8, 3, 9];
+        lcp.LArray.sort(num_Arr); //默认升序
+        //lcp.LArray.sort(num_Arr,lcp.OrderByType.DESCENDING);//降序
+        console.log(num_Arr);
+        //字符数组排序
+        var str_Arr = ["AAA", "son", "baby", "123456", "hellokitty"];
+        lcp.LArray.sort(str_Arr); //默认升序
+        //lcp.LArray.sort(str_Arr,lcp.OrderByType.DESCENDING);//降序
+        console.log(str_Arr);
+        //字典数组排序
+        var key_Arr = [
+            { name: "George", age: 32, retiredate: "March 12, 2014" },
+            { name: "Edward", age: 17, retiredate: "June 2, 2023" },
+            { name: "Christine", age: 58, retiredate: "December 20, 2036" },
+            { name: "Sarah", age: 62, retiredate: "April 30, 2020" }
+        ];
+        lcp.LArray.sortOn(key_Arr, "age"); //默认升序
+        //lcp.LArray.sortOn(key_Arr,"age",lcp.OrderByType.DESCENDING);//降序
+        console.log(key_Arr);
+        //测试画弧
+        var shp = new egret.Shape();
+        this.addChild(shp);
+        shp.graphics.beginFill(0xff0000);
+        shp.graphics.drawArc(0, 0, 50, 0, 60, true);
+        shp.graphics.endFill();
+        shp.width = shp.height = 50;
+    };
+    HelloKitty.prototype.sp_click = function (e) {
+        lcp.LTrace.trace(this, "我单击了元件" + (this._i++) + "次", this._sp.name, this._sp.x, this._sp.y, this._sp.width, this._sp.height, this._sp.touchEnabled);
     };
     return HelloKitty;
 })(egret.DisplayObjectContainer);
