@@ -11,6 +11,7 @@ var game_file_list = [
     "lcp/display/LRoundRect.js",
     "lcp/display/LStar.js",
     "lcp/utils/LArray.js",
+    "lcp/utils/LDictionary.js",
     "lcp/utils/LHelper.js",
     "HelloKitty.js"
 ];

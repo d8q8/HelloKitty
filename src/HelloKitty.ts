@@ -147,21 +147,28 @@ class HelloKitty extends egret.DisplayObjectContainer{
         console.log(key_Arr);
 
         //测试画弧
-        var shp = new egret.Shape();
-        this.addChild(shp);
-        shp.graphics.beginFill(0xff0000);
-        shp.graphics.lineStyle(5,0x00ff00);
-        shp.graphics.drawArc(50,50,50,0,Math.PI/3,true);
-        shp.graphics.endFill();
-        shp.width = 100;
-        shp.height = 100;
-        shp.x = shp.y = 100;
-        shp.touchEnabled=true;
+        //var shp = new egret.Shape();
+        //this.addChild(shp);
+        //shp.graphics.beginFill(0xff0000);
+        //shp.graphics.lineStyle(5,0x00ff00);
+        //shp.graphics.drawArc(50,50,50,0,Math.PI/3,true);
+        //shp.graphics.endFill();
+        //shp.width = 100;
+        //shp.height = 100;
+        //shp.x = shp.y = 100;
+        //shp.touchEnabled=true;
+        //
+        //shp.addEventListener(egret.TouchEvent.TOUCH_TAP,(e)=>{
+        //    console.log("点击",shp.x,shp.y,shp.width,shp.height);
+        //},this);
+        //console.log(shp.x,shp.y,shp.width,shp.height);
 
-        shp.addEventListener(egret.TouchEvent.TOUCH_TAP,(e)=>{
-            console.log("点击",shp.x,shp.y,shp.width,shp.height);
-        },this);
-        console.log(shp.x,shp.y,shp.width,shp.height);
+        var dic = new lcp.LDictionary({"d":4});
+        dic.set("a",1);
+        dic.set("b",2);
+        dic.set("c","3");
+        dic.remove("c");
+        console.log(dic,dic.get("d"));
 
     }
 
