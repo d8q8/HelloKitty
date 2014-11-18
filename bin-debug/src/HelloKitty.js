@@ -25,59 +25,59 @@ var HelloKitty = (function (_super) {
     HelloKitty.prototype.init = function () {
         //元件
         /*var rect:lcp.LRose = new lcp.LRose({x:100,y:150,radius:100,petal:4,thickness:5,linecolor:0xff0000,fillcolor:0x00ff00});
-        this.addChild(rect);
-        rect.touchEnabled=true;
-        rect.addEventListener(egret.TouchEvent.TOUCH_TAP,(e)=>{
-            console.log("单击了玫瑰,哟西",rect.x,rect.y,e.stageX,e.stageY);
+         this.addChild(rect);
+         rect.touchEnabled=true;
+         rect.addEventListener(egret.TouchEvent.TOUCH_TAP,(e)=>{
+         console.log("单击了玫瑰,哟西",rect.x,rect.y,e.stageX,e.stageY);
 
-        },this);
+         },this);
 
-        TweenLite.to(rect,1,{x:300,y:200,rotation:360});*/
+         TweenLite.to(rect,1,{x:300,y:200,rotation:360});*/
         /*rect.addEventListener(egret.TouchEvent.TOUCH_BEGIN,(e)=>{
-            lcp.LTrace.trace("按下",rect.x,rect.y);
-            e.currentTarget.startDrag(true);
-        },this);
+         lcp.LTrace.trace("按下",rect.x,rect.y);
+         e.currentTarget.startDrag(true);
+         },this);
 
-        rect.addEventListener(egret.TouchEvent.TOUCH_END,(e)=>{
-            lcp.LTrace.trace("抬起",rect.x,rect.y);
-            e.currentTarget.stopDrag();
-        },this);*/
+         rect.addEventListener(egret.TouchEvent.TOUCH_END,(e)=>{
+         lcp.LTrace.trace("抬起",rect.x,rect.y);
+         e.currentTarget.stopDrag();
+         },this);*/
         //椭圆
         /*var ellipse:lcp.LEllipse = new lcp.LEllipse({x:200,y:500,width:200,height:100,thickness:5,linecolor:0x00ff00,fillcolor:0xff0000});
-        this.addChild(ellipse);
-        ellipse.touchEnabled=true;
-        ellipse.addEventListener(egret.TouchEvent.TOUCH_TAP,(e)=>{
-            console.log("单击了椭圆,哟西",e.currentTarget,e.stageX,e.stageY);
-        },this);*/
+         this.addChild(ellipse);
+         ellipse.touchEnabled=true;
+         ellipse.addEventListener(egret.TouchEvent.TOUCH_TAP,(e)=>{
+         console.log("单击了椭圆,哟西",e.currentTarget,e.stageX,e.stageY);
+         },this);*/
         //文本
         /*var txt:egret.TextField = new egret.TextField();
-        this.addChild(txt);
+         this.addChild(txt);
 
-        txt.x=100;
-        txt.y=200;
-        txt.width=200;
-        txt.height=40;
-        txt.text="请输入文本";*/
+         txt.x=100;
+         txt.y=200;
+         txt.width=200;
+         txt.height=40;
+         txt.text="请输入文本";*/
         //涂鸦板
         /*var sp:egret.Sprite = new egret.Sprite();
-        this.addChild(sp);
-        this.stage.addEventListener(egret.TouchEvent.TOUCH_BEGIN,(e)=>{
-            sp.graphics.lineStyle(3,0xff0000);
-            sp.graphics.moveTo(e.stageX,e.stageY);
-            this.stage.addEventListener(egret.TouchEvent.TOUCH_MOVE,arguments.callee,this);
-        },this);
+         this.addChild(sp);
+         this.stage.addEventListener(egret.TouchEvent.TOUCH_BEGIN,(e)=>{
+         sp.graphics.lineStyle(3,0xff0000);
+         sp.graphics.moveTo(e.stageX,e.stageY);
+         this.stage.addEventListener(egret.TouchEvent.TOUCH_MOVE,arguments.callee,this);
+         },this);
 
-        this.stage.addEventListener(egret.TouchEvent.TOUCH_MOVE,(e)=>{
-            //console.log(e.stageX,e.stageY);
-            sp.graphics.lineTo(e.stageX,e.stageY);
-            this.stage.addEventListener(egret.TouchEvent.TOUCH_END,arguments.callee,this);
-        },this);
-        
-        this.stage.addEventListener(egret.TouchEvent.TOUCH_END,(e)=>{
-            this.stage.removeEventListener(egret.TouchEvent.TOUCH_BEGIN,arguments.callee,this);
-            this.stage.removeEventListener(egret.TouchEvent.TOUCH_END,arguments.callee,this);
-            this.stage.removeEventListener(egret.TouchEvent.TOUCH_MOVE,arguments.callee,this);
-        },this);*/
+         this.stage.addEventListener(egret.TouchEvent.TOUCH_MOVE,(e)=>{
+         //console.log(e.stageX,e.stageY);
+         sp.graphics.lineTo(e.stageX,e.stageY);
+         this.stage.addEventListener(egret.TouchEvent.TOUCH_END,arguments.callee,this);
+         },this);
+
+         this.stage.addEventListener(egret.TouchEvent.TOUCH_END,(e)=>{
+         this.stage.removeEventListener(egret.TouchEvent.TOUCH_BEGIN,arguments.callee,this);
+         this.stage.removeEventListener(egret.TouchEvent.TOUCH_END,arguments.callee,this);
+         this.stage.removeEventListener(egret.TouchEvent.TOUCH_MOVE,arguments.callee,this);
+         },this);*/
         console.log("主体1宽:", document.body.clientWidth);
         console.log("主体1高:", document.body.clientHeight);
         console.log("主体2宽:", document.documentElement.clientWidth);
@@ -85,7 +85,15 @@ var HelloKitty = (function (_super) {
         console.log("舞台宽:", this.stage.stageWidth);
         console.log("舞台高:", this.stage.stageHeight);
         //圆
-        var sp = new lcp.LCircle({ name: "sp", x: 100, y: 400, radius: 100, fillcolor: 0xff0000, thickness: 5, linecolor: 0x00ff00 });
+        var sp = new lcp.LCircle({
+            name: "sp",
+            x: 100,
+            y: 400,
+            radius: 100,
+            fillcolor: 0xff0000,
+            thickness: 5,
+            linecolor: 0x00ff00
+        });
         //方
         //var sp= new lcp.LRect({name:"sp",x:100,y:200,width:200,height:100,fillcolor:0xff0000,thickness:5,linecolor:0x00ff00});
         //圆角矩形
@@ -117,13 +125,13 @@ var HelloKitty = (function (_super) {
         //TweenLite.to(sp,.5,{x:100,y:300});
         //数字数组排序
         var num_Arr = [1, 22, 14, 2, 54, 21, 6, 8, 3, 9];
-        lcp.LArray.sort(num_Arr); //默认升序
-        //lcp.LArray.sort(num_Arr,lcp.OrderByType.DESCENDING);//降序
+        lcp.LOrder.sort(num_Arr); //默认升序
+        //lcp.LOrder.sort(num_Arr,lcp.OrderByType.DESCENDING);//降序
         console.log(num_Arr);
         //字符数组排序
         var str_Arr = ["AAA", "son", "baby", "123456", "hellokitty"];
-        lcp.LArray.sort(str_Arr); //默认升序
-        //lcp.LArray.sort(str_Arr,lcp.OrderByType.DESCENDING);//降序
+        lcp.LOrder.sort(str_Arr); //默认升序
+        //lcp.LOrder.sort(str_Arr,lcp.OrderByType.DESCENDING);//降序
         console.log(str_Arr);
         //字典数组排序
         var key_Arr = [
@@ -132,24 +140,33 @@ var HelloKitty = (function (_super) {
             { name: "Christine", age: 58, retiredate: "December 20, 2036" },
             { name: "Sarah", age: 62, retiredate: "April 30, 2020" }
         ];
-        lcp.LArray.sortOn(key_Arr, "age"); //默认升序
-        //lcp.LArray.sortOn(key_Arr,"age",lcp.OrderByType.DESCENDING);//降序
+        lcp.LOrder.sortOn(key_Arr, "age"); //默认升序
+        //lcp.LOrder.sortOn(key_Arr,"age",lcp.OrderByType.DESCENDING);//降序
         console.log(key_Arr);
         //测试画弧
-        var shp = new egret.Shape();
-        this.addChild(shp);
-        shp.graphics.beginFill(0xff0000);
-        shp.graphics.lineStyle(5, 0x00ff00);
-        shp.graphics.drawArc(50, 50, 50, 0, Math.PI / 3, true);
-        shp.graphics.endFill();
-        shp.width = 100;
-        shp.height = 100;
-        shp.x = shp.y = 100;
-        shp.touchEnabled = true;
-        shp.addEventListener(egret.TouchEvent.TOUCH_TAP, function (e) {
-            console.log("点击", shp.x, shp.y, shp.width, shp.height);
-        }, this);
-        console.log(shp.x, shp.y, shp.width, shp.height);
+        //var shp = new egret.Shape();
+        //this.addChild(shp);
+        //shp.graphics.beginFill(0xff0000);
+        //shp.graphics.lineStyle(5,0x00ff00);
+        //shp.graphics.drawArc(50,50,50,0,Math.PI/3,true);
+        //shp.graphics.endFill();
+        //shp.width = 100;
+        //shp.height = 100;
+        //shp.x = shp.y = 100;
+        //shp.touchEnabled=true;
+        //
+        //shp.addEventListener(egret.TouchEvent.TOUCH_TAP,(e)=>{
+        //    console.log("点击",shp.x,shp.y,shp.width,shp.height);
+        //},this);
+        //console.log(shp.x,shp.y,shp.width,shp.height);
+        var people = [
+            { name: "Aaron", sex: "Male", hair: "Brown" },
+            { name: "Linda", sex: "Female", hair: "Blonde" },
+            { name: "Katie", sex: "Female", hair: "Brown" },
+            { name: "Nikki", sex: "Female", hair: "Blonde" }
+        ];
+        var person = lcp.ArrayUtil.getItemByKeys(people, { sex: "Female", hair: "Brown" });
+        console.log(person.name); // 输出 "Katie"
     };
     HelloKitty.prototype.sp_click = function (e) {
         lcp.LTrace.trace(this, "我单击了元件" + (this._i++) + "次", this._sp.name, this._sp.x, this._sp.y, this._sp.width, this._sp.height, this._sp.touchEnabled);

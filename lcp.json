@@ -3,6 +3,12 @@
   "dependence": ["core"],
   "source":"src/lcp/",
   "file_list": [
+    "collection/IList.ts",
+    "collection/List.ts",
+    "core/Activatable.ts",
+    "core/Disposable.ts",
+    "core/Resumable.ts",
+    "core/Runnable.ts",
     "data/LVars.ts",
     "display/LCircle.ts",
     "display/LEllipse.ts",
@@ -15,12 +21,16 @@
     "display/LStar.ts",
     "events/LEvent.ts",
     "events/LListener.ts",
-    "interfaces/IActivatable.ts",
-    "interfaces/IDisposable.ts",
+    "interfaces/GraphicsType.ts",
     "interfaces/IGraphics.ts",
+    "math/Percent.ts",
+    "utils/ArrayUtil.ts",
+    "utils/LDictionary.ts",
     "utils/LGlobal.ts",
     "utils/LHelper.ts",
+    "utils/LOrder.ts",
     "utils/LString.ts",
-    "utils/LTrace.ts"
+    "utils/LTrace.ts",
+    "utils/NumberUtil.ts"
   ]
 }

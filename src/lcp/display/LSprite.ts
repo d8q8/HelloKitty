@@ -1,6 +1,6 @@
 /**
  * Created by d8q8 on 2014/8/20.
- *
+ * @module Lcp
  * @class LSprite
  * @constructor
  **/
@@ -117,7 +117,7 @@ module lcp {
                 this._stopDrag();
             };
             this.stage.addEventListener(egret.TouchEvent.TOUCH_MOVE, this._moveFunc, this);
-            this.stage.addEventListener(egret.TouchEvent.TOUCH_OUT,this._outFunc,this);
+            this.stage.addEventListener(egret.TouchEvent.TOUCH_END,this._outFunc,this);
         }
 
         /**
@@ -134,7 +134,7 @@ module lcp {
             this.__dragBounds = null;
 
             this.stage.removeEventListener(egret.TouchEvent.TOUCH_MOVE, this._moveFunc, this);
-            this.stage.removeEventListener(egret.TouchEvent.TOUCH_OUT,this._outFunc,this);
+            this.stage.removeEventListener(egret.TouchEvent.TOUCH_END,this._outFunc,this);
         }
     }
 }
