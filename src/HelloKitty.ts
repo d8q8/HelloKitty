@@ -1,6 +1,6 @@
 /**
  * Created by d8q8 on 2014/8/14.
- *
+ * @module
  * @class HelloKitty
  * @constructor
  **/
@@ -177,8 +177,14 @@ class HelloKitty extends egret.DisplayObjectContainer {
             {name: "Katie", sex: "Female", hair: "Brown"},
             {name: "Nikki", sex: "Female", hair: "Blonde"}
         ];
-        var person = lcp.ArrayUtil.getItemByKeys(people, {sex: "Female", hair: "Brown"});
-        console.log(person.name); // 输出 "Katie"
+        var person = lcp.ArrayUtil.getItemsByAnyKey(people, {sex: "Female", hair: "Brown"});
+        //console.log(person.name);
+        for(var p in person){
+            console.log(person[p].name);
+        }
+
+        console.log(lcp.ArrayUtil.getItemByKey(people,"name","Linda"));
+
 
     }
 

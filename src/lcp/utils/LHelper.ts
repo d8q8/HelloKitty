@@ -1,6 +1,6 @@
 /**
  * Created by d8q8 on 2014/11/6.
- * @module Lcp
+ * @module lcp
  * @class LHelper
  * @constructor
  **/
@@ -52,7 +52,7 @@ module lcp {
         public static clear($target?:any):boolean {
             if (!$target) { return false }
 
-            var target_array:Array<any> = new Array<any>();
+            var target_array:Array<any> = [];
             var bool:boolean = false;
             if ($target instanceof Array)
                 target_array = $target.concat();
