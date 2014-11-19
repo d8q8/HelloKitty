@@ -270,7 +270,7 @@ var lcp;
                 return false;
             var args = items.concat();
             args.splice(0, 0, index, 0);
-            tarArray.splice.apply(null, args);
+            tarArray.splice.apply(tarArray, args);
             return true;
         };
         /**
@@ -470,8 +470,10 @@ var lcp;
             var t = [];
             var r = inArray.sort(ArrayUtil._sortRandom);
             var i = -1;
-            while (++i < inArray.length)
-                t.push(inArray[r[i]]);
+            var l = inArray.length;
+            while (++i < l) {
+                t.push(r[i]);
+            }
             return t;
         };
         ArrayUtil._sortRandom = function (a, b) {
@@ -523,7 +525,7 @@ var lcp;
          *
          */
         ArrayUtil.getLowestValue = function (inArray) {
-            return inArray[lcp.LOrder.sort(inArray)[0]];
+            return inArray[lcp.LOrder.index(inArray).sort()[0]];
         };
         /**
          * 获取数组中的最大值
@@ -537,7 +539,7 @@ var lcp;
          *
          */
         ArrayUtil.getHighestValue = function (inArray) {
-            return inArray[lcp.LOrder.sort(inArray)[inArray.length - 1]];
+            return inArray[lcp.LOrder.index(inArray).sort(lcp.LOrder.desc)[0]];
         };
         /**
          * 类名

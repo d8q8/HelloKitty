@@ -179,12 +179,21 @@ class HelloKitty extends egret.DisplayObjectContainer {
         ];
         var person = lcp.ArrayUtil.getItemsByAnyKey(people, {sex: "Female", hair: "Brown"});
         //console.log(person.name);
-        for(var p in person){
-            console.log(person[p].name);
-        }
+        //for(var p in person){
+        //    console.log(person[p].name);
+        //}
 
-        console.log(lcp.ArrayUtil.getItemByKey(people,"name","Linda"));
+        console.log(lcp.ArrayUtil.addItemsAt(people,[{name:"白菜",sex:"保密",hair:"黑色"}],1));
+        console.log(people);
 
+        var numberArray:Array<any> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        console.log(numberArray);
+        console.log(lcp.ArrayUtil.getHighestValue(numberArray));
+
+
+        //var color:Array<any>     = ["Red", "Blue", "Green", "Indigo", "Violet"];
+        //var colorsAlt:Array<any> = ["Red", "Blue", "Green", "Violet"];
+        //console.log(lcp.ArrayUtil.getIndexOfDifference(color, colorsAlt));
 
     }
 

@@ -49,6 +49,31 @@ var lcp;
             return typeof a < typeof b ? -1 : 1;
         };
         /**
+         * 获取数组中选定值索引值
+         * @param arr
+         * @param val
+         * @returns {number}
+         */
+        LOrder.indexOf = function (arr, val) {
+            for (var i = 0; i < arr.length; i++) {
+                if (arr[i] == val)
+                    return i;
+            }
+            return -1;
+        };
+        /**
+         * 获取数组的索引值数组
+         * @param arr
+         * @returns {Array<any>}
+         */
+        LOrder.index = function (arr) {
+            var temp_arr = [];
+            for (var i = 0; i < arr.length; i++) {
+                temp_arr[i] = i;
+            }
+            return temp_arr;
+        };
+        /**
          * 对数组中的元素进行排序
          * @param arr 待排序数组
          * @param orderBy 升序或降序,升序默认
@@ -65,6 +90,9 @@ var lcp;
                 else {
                     if (orderBy == 2 /* DESCENDING */) {
                         temp_arr.sort(LOrder.desc);
+                    }
+                    else if (orderBy == 8 /* RETURNINDEXEDARRAY */) {
+                        LOrder.index(temp_arr);
                     }
                     else {
                         temp_arr.sort(LOrder.asc);
@@ -98,6 +126,9 @@ var lcp;
                         else {
                             if (orderBy == 2 /* DESCENDING */) {
                                 return LOrder.desc(a, b);
+                            }
+                            else if (orderBy == 8 /* RETURNINDEXEDARRAY */) {
+                                LOrder.index(temp_arr);
                             }
                             else {
                                 return LOrder.asc(a, b);
