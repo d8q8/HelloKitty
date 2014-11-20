@@ -92,7 +92,7 @@ var lcp;
             return this.CLASS_NAME;
         };
         return LGraphics;
-    })(egret.Sprite);
+    })(lcp.LSprite);
     lcp.LGraphics = LGraphics;
     LGraphics.prototype.__class__ = "lcp.LGraphics";
 })(lcp || (lcp = {}));

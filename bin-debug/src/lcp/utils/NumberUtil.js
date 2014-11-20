@@ -108,6 +108,14 @@ var lcp;
             return !NumberUtil.isEven(value);
         };
         /**
+         * 判断是否数字
+         * @param value
+         * @returns {boolean}
+         */
+        NumberUtil.isNumber = function (value) {
+            return typeof (value) === "number" && !isNaN(value);
+        };
+        /**
          * 判断一个数是否是整数
          * @param value
          * @returns {boolean}

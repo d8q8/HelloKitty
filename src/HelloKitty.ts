@@ -94,12 +94,13 @@ class HelloKitty extends egret.DisplayObjectContainer {
         var sp = new lcp.LCircle({
             name: "sp",
             x: 100,
-            y: 400,
-            radius: 100,
+            y: 200,
+            radius: 50,
             fillcolor: 0xff0000,
             thickness: 5,
             linecolor: 0x00ff00
         });
+
         //方
         //var sp= new lcp.LRect({name:"sp",x:100,y:200,width:200,height:100,fillcolor:0xff0000,thickness:5,linecolor:0x00ff00});
         //圆角矩形
@@ -114,8 +115,8 @@ class HelloKitty extends egret.DisplayObjectContainer {
         //var sp = new lcp.LRose({name:"sp",x:100,y:200,radius:100,petal:4,fillcolor:0xff0000,thickness:5,linecolor:0x00ff00});
         //多角星,如五角星
         //var sp = new lcp.LStar({name:"sp",x:100,y:200,width:200,height:200,corner:5,ratio:.4,fillcolor:0xff0000,thickness:5,linecolor:0x00ff00});
-        //this.addChild(sp);
-        lcp.LHelper.addChildAndInit(this, sp, {x: 200, y: 400}, 20);
+        this.addChild(sp);
+        //lcp.LHelper.addChildAndInit(this, sp, {x: 200, y: 400}, 20);
         lcp.LTrace.trace("初始化元件", sp.name, sp.x, sp.y, sp.width, sp.height, sp.touchEnabled);
         var i:number = 1;
         //sp.addEventListener(egret.TouchEvent.TOUCH_TAP,(e)=>{
@@ -127,7 +128,15 @@ class HelloKitty extends egret.DisplayObjectContainer {
         //},this);
         this._i = i;
         this._sp = sp;
-        sp.addEventListener(egret.TouchEvent.TOUCH_TAP, this.sp_click, this);
+        //sp.addEventListener(egret.TouchEvent.TOUCH_TAP, this.sp_click, this);
+
+        sp.addEventListener(egret.TouchEvent.TOUCH_BEGIN,(e)=>{
+            sp.startDrag(e);
+        },this);
+
+        sp.addEventListener(egret.TouchEvent.TOUCH_END,(e)=>{
+            sp.stopDrag(e);
+        },this);
 
         //TweenLite.to(sp,.5,{x:100,y:300});
 
@@ -194,6 +203,9 @@ class HelloKitty extends egret.DisplayObjectContainer {
         //var color:Array<any>     = ["Red", "Blue", "Green", "Indigo", "Violet"];
         //var colorsAlt:Array<any> = ["Red", "Blue", "Green", "Violet"];
         //console.log(lcp.ArrayUtil.getIndexOfDifference(color, colorsAlt));
+
+        console.log(lcp.NumberUtil.isEven(lcp.NumberUtil.randomWithinRange(1,10)));
+
 
     }
 
