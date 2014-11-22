@@ -55,7 +55,7 @@ var lcp;
                         if ($proper[properties] != null) {
                             if ($proper[properties] instanceof Array) {
                                 try {
-                                    $target[properties].apply(null, $proper[properties]);
+                                    $target[properties].apply($target, $proper[properties]);
                                 }
                                 catch (e) {
                                 }
