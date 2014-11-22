@@ -31,7 +31,12 @@ var lcp;
         LGraphics.prototype.init = function (vars) {
             if (vars) {
                 lcp.LVars.some(this.vars, vars);
-                lcp.LVars.some(this, this.vars);
+                this.x = this.vars.x;
+                this.y = this.vars.y;
+                this.name = this.vars.name;
+                this.width = this.vars.width;
+                this.height = this.vars.height;
+                this.touchEnabled = this.vars.touchEnabled;
             }
             this.draw();
         };

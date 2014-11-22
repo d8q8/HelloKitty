@@ -73,7 +73,7 @@ module lcp {
         public static index(arr:Array<any>):Array<any>{
             var temp_arr:Array<any> = [];
             for (var i = 0; i < arr.length; i++) {
-                    temp_arr[i] = i;
+                temp_arr[i] = i;
             }
             return temp_arr;
         }

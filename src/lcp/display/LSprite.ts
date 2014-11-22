@@ -11,7 +11,7 @@ module lcp {
     export class LSprite extends egret.Sprite {
         public CLASS_NAME:string = 'LSprite';
 
-        private clickOffset:egret.Point;
+        private clickOffset:egret.Point;//拖拽起始坐标
         private _mouseX:number;//舞台x坐标
         private _mouseY:number;//舞台y坐标
         private _target:any;//当前元件
@@ -29,6 +29,8 @@ module lcp {
         public startDrag(e:egret.TouchEvent):void {
             this._target = e.currentTarget;
             this.clickOffset = new egret.Point(e.localX, e.localY);
+            this._mouseX = e.stageX;
+            this._mouseY = e.stageY;
             this._moveFunc = (e)=> {
                 this._mouseX = e.stageX;
                 this._mouseY = e.stageY;
@@ -52,8 +54,8 @@ module lcp {
          */
         private enter_frame(e:egret.Event):void {
             if (this.clickOffset != null) {
-                this.x = this._mouseX - this.clickOffset.x;
-                this.y = this._mouseY - this.clickOffset.y;
+                this._target.x = this._mouseX - this.clickOffset.x;
+                this._target.y = this._mouseY - this.clickOffset.y;
             }
         }
 

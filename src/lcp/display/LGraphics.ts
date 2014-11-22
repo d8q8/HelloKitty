@@ -24,7 +24,6 @@ module lcp {
         public init(vars?:IGraphics){
             if(vars){
                 LVars.some(this.vars,vars);
-                //LVars.some(this,this.vars);
                 this.x = this.vars.x;
                 this.y = this.vars.y;
                 this.name = this.vars.name;

@@ -195,6 +195,9 @@ class HelloKitty extends egret.DisplayObjectContainer {
         //var colorsAlt:Array<any> = ["Red", "Blue", "Green", "Violet"];
         //console.log(lcp.ArrayUtil.getIndexOfDifference(color, colorsAlt));
 
+
+
+
     }
 
     private _sp:lcp.LCircle;

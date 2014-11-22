@@ -62,7 +62,7 @@ module lcp {
          *        ];
          *        var blondeFemales = ArrayUtil.getItemsByKeys(people, {sex: "Female", hair: "Brown"});
          *        for (var p in blondeFemales) {
-		 *			console.log(p.name);
+		 *			console.log(blondeFemales[p].name);
 		 *		}
          *    </code>
          *
@@ -137,7 +137,7 @@ module lcp {
          *        var brownOrFemales = lcp.ArrayUtil.getItemsByAnyKey(people, {sex: "Female", hair: "Brown"});
          *
          *        for (var p in brownOrFemales) {
-		 *			console.log(p.name);
+		 *			console.log(brownOrFemales[p].name);
 		 *		}
          *    </code>
          *
