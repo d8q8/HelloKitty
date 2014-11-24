@@ -88,32 +88,37 @@ var HelloKitty = (function (_super) {
         //这玩意共用一个
         var circlevars = {
             name: "sp",
-            x: 100,
-            y: 400,
+            //x: 100,
+            //y: 400,
             radius: 50,
             fillcolor: 0xff0000,
             thickness: 5,
             linecolor: 0x00ff00
         };
         var arrMc = [];
-        for (var i = 0; i < 10; i++) {
+        for (var i = 0; i < 2; i++) {
             var sp = new lcp.LCircle(circlevars);
             this.addChild(sp);
             sp.name = "sp" + i;
             sp.x = Math.random() * (this.stage.stageWidth - sp.width);
             sp.y = Math.random() * (this.stage.stageHeight - sp.height);
+            sp.isDrag = true;
             arrMc.push(sp);
             sp.addEventListener(egret.TouchEvent.TOUCH_BEGIN, function (e) {
-                e.currentTarget.startDrag(e);
                 _this.setChildIndex(e.currentTarget, _this.numChildren - 1);
-                if (arrMc[0].hitTest(arrMc[1].x, arrMc[1].y, true)) {
-                    console.log("我碰上了哟西");
-                }
+                _this.addEventListener(egret.Event.ENTER_FRAME, onEnterFrame, _this);
             }, this);
             sp.addEventListener(egret.TouchEvent.TOUCH_END, function (e) {
-                e.currentTarget.stopDrag(e);
+                _this.removeEventListener(egret.Event.ENTER_FRAME, onEnterFrame, _this);
             }, this);
         }
+        var onEnterFrame = function (e) {
+            for (var j = 0; j < arrMc.length; j++) {
+                if (e.currentTarget != arrMc[j] && lcp.LSprite.hitTestObject(e.currentTarget, arrMc[j])) {
+                    console.log("我碰上了哟西");
+                }
+            }
+        };
         //方
         //var sp= new lcp.LRect({name:"sp",x:100,y:200,width:200,height:100,fillcolor:0xff0000,thickness:5,linecolor:0x00ff00});
         //圆角矩形
@@ -203,7 +208,7 @@ var HelloKitty = (function (_super) {
         console.log(lcp.NumberUtil.isInteger(12), strNum.toFixed(), Math.round(strNum));
         console.log(lcp.NumberUtil.isInteger(3.1415), lcp.NumberUtil.int(12.5));
         var aaa = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-        console.log(aaa.sum(), aaa.avg());
+        console.log(Array.sum(aaa), Array.average(aaa));
     };
     HelloKitty.prototype.sp_click = function (e) {
         lcp.LTrace.trace(this, "我单击了元件" + (this._i++) + "次", this._sp.name, this._sp.x, this._sp.y, this._sp.width, this._sp.height, this._sp.touchEnabled);

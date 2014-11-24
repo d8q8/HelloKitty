@@ -16,8 +16,13 @@ Array.prototype.sum = function () {
     return sum;
 }
 
-Array.prototype.avg = function () {
+Array.prototype.average = function () {
     var len = this.length;
     if(len==0) return 0;
     return this.sum()/len;
 }
+
+Array.sum = lcp.ArrayUtil.sum;
+Array.average = lcp.ArrayUtil.average;
+Array.random = lcp.ArrayUtil.random;
+Array.randomize = lcp.ArrayUtil.randomize;
