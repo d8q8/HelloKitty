@@ -1,6 +1,7 @@
 var game_file_list = [
     "lcp/display/LSprite.js",
     "lcp/display/LGraphics.js",
+    "lcp/expansions/Array.js",
     "lcp/math/Percent.js",
     "lcp/utils/LTrace.js",
     "lcp/data/LVars.js",

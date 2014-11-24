@@ -128,6 +128,9 @@ var lcp;
         NumberUtil.isInteger = function (value) {
             return (value % 1) == 0;
         };
+        NumberUtil.int = function (value) {
+            return value >> 0;
+        };
         /**
          * 判断一个数是否为质数
          * @param value
