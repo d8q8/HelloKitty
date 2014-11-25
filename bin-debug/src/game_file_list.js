@@ -4,7 +4,6 @@ var game_file_list = [
     "lcp/display/LGraphics.js",
     "lcp/expansions/Array.js",
     "lcp/data/LVars.js",
-    "lcp/math/Percent.js",
     "lcp/utils/LTrace.js",
     "lcp/display/LCircle.js",
     "lcp/display/LEllipse.js",
@@ -14,8 +13,9 @@ var game_file_list = [
     "lcp/display/LRose.js",
     "lcp/display/LRoundRect.js",
     "lcp/display/LStar.js",
+    "lcp/math/Percent.js",
     "lcp/utils/LHelper.js",
     "lcp/utils/LOrder.js",
-    "lcp/utils/NumberUtil.js",
-    "HelloKitty.js"
+    "HelloKitty.js",
+    "lcp/utils/NumberUtil.js"
 ];

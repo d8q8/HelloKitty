@@ -128,6 +128,11 @@ var lcp;
         NumberUtil.isInteger = function (value) {
             return (value % 1) == 0;
         };
+        /**
+         * 取整
+         * @param value
+         * @returns {number}
+         */
         NumberUtil.int = function (value) {
             return value >> 0;
         };

@@ -27,6 +27,7 @@ module lcp {
          * @returns {number} 第一个点和第二个点之间的距离。
          */
         public static distance(p1:egret.Point, p2:egret.Point):number{
+<<<<<<< Updated upstream
             return egret.Point.distance(p1,p2);//官方方法
         }
 
@@ -34,5 +35,14 @@ module lcp {
     }
 }
 
+=======
+            return egret.Point.distance(p1,p2);
+        }
+
+
+
+    }
+}
+>>>>>>> Stashed changes
 //扩展点类方法
 egret.Point.twodis = lcp.LPoint.twodis;

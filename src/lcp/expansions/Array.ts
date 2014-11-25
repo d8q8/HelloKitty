@@ -3,7 +3,7 @@
  */
 interface Array<T>{
     sum():any;
-    avg():any;
+    average():any;
     prototype: Array<T>;
 }
 
