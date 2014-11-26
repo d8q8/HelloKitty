@@ -4,7 +4,6 @@
 interface Array<T>{
     sum():any;
     average():any;
-    prototype: Array<T>;
 }
 
 Array.prototype.sum = function () {
@@ -21,8 +20,3 @@ Array.prototype.average = function () {
     if(len==0) return 0;
     return this.sum()/len;
 }
-
-Array.sum = lcp.ArrayUtil.sum;
-Array.average = lcp.ArrayUtil.average;
-Array.random = lcp.ArrayUtil.random;
-Array.randomize = lcp.ArrayUtil.randomize;

@@ -231,6 +231,27 @@ var egret_h5_graphics;
         this.commandQueue.push(new Command(this._setStyle, this, [_colorStr]));
     }
     egret_h5_graphics.beginFill = beginFill;
+    function beginLinearGradientFill(colors, alphas, ratios, x0, y0, x1, y1) {
+        this.commandQueue.push(new Command(function (colors, alphas, ratios, x0, y0, x1, y1) {
+            var length = colors.length;
+            var newColors = colors.splice(0);
+            var newRatios = ratios.splice(0);
+            for (var i = 0; i < length; ++i) {
+                var _colorBlue = colors[i] & 0x0000FF;
+                var _colorGreen = (colors[i] & 0x00ff00) >> 8;
+                var _colorRed = colors[i] >> 16;
+                var _colorStr = "rgba(" + _colorRed + "," + _colorGreen + "," + _colorBlue + "," + alphas[i] + ")";
+                newColors[i] = _colorStr;
+                newRatios[i] /= 255;
+            }
+            var gradient = this.canvasContext.createLinearGradient(x0, y0, x1, y1);
+            for (var j = 0; j < length; ++j) {
+                gradient.addColorStop(newRatios[j], newColors[j]);
+            }
+            this.canvasContext.fillStyle = gradient;
+        }, this, [colors, alphas, ratios, x0, y0, x1, y1]));
+    }
+    egret_h5_graphics.beginLinearGradientFill = beginLinearGradientFill;
     function drawRect(x, y, width, height) {
         this.commandQueue.push(new Command(function (x, y, width, height) {
             var rendererContext = this.renderContext;

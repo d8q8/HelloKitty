@@ -132,6 +132,7 @@ declare module egret {
 }
 declare module egret_h5_graphics {
     function beginFill(color: number, alpha?: number): void;
+    function beginLinearGradientFill(colors: any[], alphas: any[], ratios: any[], x0: number, y0: number, x1: number, y1: number): void;
     function drawRect(x: number, y: number, width: number, height: number): void;
     function drawCircle(x: number, y: number, r: number): void;
     function drawRoundRect(x: number, y: number, width: number, height: number, ellipseWidth: number, ellipseHeight?: number): void;

@@ -94,8 +94,8 @@ class HelloKitty extends egret.DisplayObjectContainer {
         var sp = new lcp.LCircle({
             name: "sp",
             x: 100,
-            y: 400,
-            radius: 100,
+            y: 300,
+            radius: 50,
             fillcolor: 0xff0000,
             thickness: 5,
             linecolor: 0x00ff00
@@ -127,7 +127,36 @@ class HelloKitty extends egret.DisplayObjectContainer {
         //},this);
         this._i = i;
         this._sp = sp;
-        sp.addEventListener(egret.TouchEvent.TOUCH_TAP, this.sp_click, this);
+        sp.isDrag=true;
+        //sp.addEventListener(egret.TouchEvent.TOUCH_TAP, this.sp_click, this);
+
+        var sp2 = new lcp.LSprite();
+        this.addChild(sp2);
+        sp2.graphics.beginFill(0xff0000);
+        sp2.graphics.drawRect(0,0,100,50);
+        sp2.graphics.endFill();
+        sp2.name="sp2";
+        sp2.x=300;
+        sp2.y=300;
+        sp2.width=100;
+        sp2.height=50;
+        sp2.touchEnabled=true;
+        sp2.isDrag=true;
+        sp2.addEventListener(egret.TouchEvent.TOUCH_BEGIN,(e)=>{
+            console.log("我点击试试");
+        },this);
+
+
+        this.addEventListener(egret.TouchEvent.TOUCH_BEGIN,(e)=>{
+            console.log(e.target.name);
+            this.setChildIndex(e.target,this.numChildren-1);
+            this.addEventListener(egret.TouchEvent.TOUCH_MOVE,(e)=>{
+                if(lcp.LSprite.hitTestObject(sp,sp2)){
+                    console.log("碰撞了哟西");
+                }
+            },this);
+        },this);
+
 
         //TweenLite.to(sp,.5,{x:100,y:300});
 
@@ -171,6 +200,7 @@ class HelloKitty extends egret.DisplayObjectContainer {
         //},this);
         //console.log(shp.x,shp.y,shp.width,shp.height);
 
+        //数组扩展处理工具类使用
         var people:Array<any> = [
             {name: "Aaron", sex: "Male", hair: "Brown"},
             {name: "Linda", sex: "Female", hair: "Blonde"},
@@ -182,21 +212,52 @@ class HelloKitty extends egret.DisplayObjectContainer {
         //for(var p in person){
         //    console.log(person[p].name);
         //}
-
+        //指定位置插入
         console.log(lcp.ArrayUtil.addItemsAt(people,[{name:"白菜",sex:"保密",hair:"黑色"}],1));
         console.log(people);
 
+        //数组的处理方法
         var numberArray:Array<any> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
         console.log(numberArray);
         console.log(lcp.ArrayUtil.getHighestValue(numberArray));
+        console.log("数组求和:",lcp.ArrayUtil.sum(numberArray),"数组求平均值:",lcp.ArrayUtil.average(numberArray));
+        console.log("数组随机:",lcp.ArrayUtil.randomize(numberArray));
 
+        var color:Array<any>     = ["Red", "Blue", "Green", "Indigo", "Violet"];
+        var colorsAlt:Array<any> = ["Red", "Blue", "Green", "Violet"];
+        console.log(lcp.ArrayUtil.getIndexOfDifference(color, colorsAlt));
 
-        //var color:Array<any>     = ["Red", "Blue", "Green", "Indigo", "Violet"];
-        //var colorsAlt:Array<any> = ["Red", "Blue", "Green", "Violet"];
-        //console.log(lcp.ArrayUtil.getIndexOfDifference(color, colorsAlt));
+        //扩展点方法与原官方点方法
+        console.log("官方提供任意两点间距离:",egret.Point.distance(new egret.Point(100,100),new egret.Point(50,50)));
+        console.log("自己封装任意两点间距离:",lcp.LPoint.twodis(100,100,50,50));//与上面是一样的
 
+        ////1)判断奇数
+        //console.log(lcp.NumberUtil.isOdd(7)); // 输出 false
+        //console.log(lcp.NumberUtil.isOdd(12)); // 输出 true
+        ////2)判断偶数
+        //console.log(lcp.NumberUtil.isEven(7)); // 输出 false
+        //console.log(lcp.NumberUtil.isEven(12)); // 输出 true
+        ////3)判断数字
+        //console.log(lcp.NumberUtil.isNumber(7));// 输出 true
+        //console.log(lcp.NumberUtil.isNumber("a"));// 输出 false
 
+        console.log(lcp.NumberUtil.int(7.5));// 输出 7
 
+        //var o:Object = {b:2};
+        //o["a"]=1;
+        //if(o.hasOwnProperty("a")){
+        //    console.log(o.a,o.b);
+        //}
+
+        console.log(lcp.NumberUtil.convertNum("3.4556645445E7"));
+        console.log(lcp.NumberUtil.spell(0)); // 输出 Zero
+        console.log(lcp.NumberUtil.spell(23)); // 输出 Twenty-Three
+        console.log(lcp.NumberUtil.spell(2005678)); // 输出 Two Million, Five Thousand, Six Hundred Seventy-Eight
+
+        var colors:Array<any> = ["红", "绿", "蓝"];
+        console.log(colors[lcp.NumberUtil.loopIndex(2, colors.length)]); // 输出 蓝
+        console.log(colors[lcp.NumberUtil.loopIndex(4, colors.length)]); // 输出 绿
+        console.log(colors[lcp.NumberUtil.loopIndex(-6, colors.length)]); // 输出 红
 
     }
 

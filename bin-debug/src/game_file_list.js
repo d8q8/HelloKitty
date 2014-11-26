@@ -1,10 +1,12 @@
 var game_file_list = [
     "lcp/display/LSprite.js",
-    "lcp/utils/ArrayUtil.js",
     "lcp/display/LGraphics.js",
     "lcp/expansions/Array.js",
-    "lcp/data/LVars.js",
+    "lcp/math/Percent.js",
     "lcp/utils/LTrace.js",
+    "lcp/data/LVars.js",
+    "lcp/utils/LOrder.js",
+    "lcp/utils/NumberUtil.js",
     "lcp/display/LCircle.js",
     "lcp/display/LEllipse.js",
     "lcp/display/LHeart.js",
@@ -13,9 +15,8 @@ var game_file_list = [
     "lcp/display/LRose.js",
     "lcp/display/LRoundRect.js",
     "lcp/display/LStar.js",
-    "lcp/math/Percent.js",
+    "lcp/geom/LPoint.js",
+    "lcp/utils/ArrayUtil.js",
     "lcp/utils/LHelper.js",
-    "lcp/utils/LOrder.js",
-    "HelloKitty.js",
-    "lcp/utils/NumberUtil.js"
+    "HelloKitty.js"
 ];

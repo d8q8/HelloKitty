@@ -100,8 +100,8 @@ var lcp;
          * @returns {boolean}
          *
          *    <code>
-         *        console.log(lcp.NumberUtil.isEven(7)); // 输出 true
-         *        console.log(lcp.NumberUtil.isEven(12)); // 输出 false
+         *        console.log(lcp.NumberUtil.isOdd(7)); // 输出 true
+         *        console.log(lcp.NumberUtil.isOdd(12)); // 输出 false
          *    </code>
          */
         NumberUtil.isOdd = function (value) {
@@ -181,7 +181,7 @@ var lcp;
          * @returns {number}
          *
          *    <code>
-         *        var colors:Array = new Array("红", "绿", "蓝");
+         *        var colors:Array<ant> = ["红", "绿", "蓝"];
          *        console.log(colors[lcp.NumberUtil.loopIndex(2, colors.length)]); // 输出 蓝
          *        console.log(colors[lcp.NumberUtil.loopIndex(4, colors.length)]); // 输出 绿
          *        console.log(colors[lcp.NumberUtil.loopIndex(-6, colors.length)]); // 输出 红
@@ -418,51 +418,99 @@ var lcp;
          *    <code>
          *        console.log(lcp.NumberUtil.spell(0)); // 输出 Zero
          *        console.log(lcp.NumberUtil.spell(23)); // 输出 Twenty-Three
-         *        console.log(lcp.NumberUtil.spell(2005678)); // 输出 Two Million, Five Thousand, Six Hundred Seventy-Eight
+         *        console.log(lcp.NumberUtil.spell(2005678)); // 输出 Two Million,Five Thousand,Six Hundred And Seventy-Eight
          *    </code>
          *
          */
         NumberUtil.spell = function (value) {
             if (value === void 0) { value = 0; }
             if (value > 999999999)
-                throw new Error('Value too large for this method.');
-            var onesSpellings = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen'];
-            var tensSpellings = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
-            var spelling = '';
-            var millions = value / 1000000;
-            value %= 1000000;
-            var thousands = value / 1000;
-            value %= 1000;
-            var hundreds = value / 100;
-            value %= 100;
-            var tens = value / 10;
-            value %= 10;
-            var ones = value % 10;
-            if (millions != 0) {
-                spelling += (spelling.length == 0) ? '' : ', ';
-                spelling += NumberUtil.spell(millions) + ' Million';
-            }
-            if (thousands != 0) {
-                spelling += (spelling.length == 0) ? '' : ', ';
-                spelling += NumberUtil.spell(thousands) + ' Thousand';
-            }
-            if (hundreds != 0) {
-                spelling += (spelling.length == 0) ? '' : ', ';
-                spelling += NumberUtil.spell(hundreds) + ' Hundred';
-            }
-            if (tens != 0 || ones != 0) {
-                spelling += (spelling.length == 0) ? '' : ' ';
-                if (tens < 2)
-                    spelling += onesSpellings[tens * 10 + ones];
-                else {
-                    spelling += tensSpellings[tens];
-                    if (ones != 0)
-                        spelling += '-' + onesSpellings[ones];
+                throw new Error('值太大越界了.');
+            if (value == 0)
+                return "Zero";
+            var arr1 = ["", " Thousand", " Million", " Billion"];
+            var arr2 = ["Zero", "Ten", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"];
+            var arr3 = ["Zero", "One", "Two", "Three", "Four", "Five", "Six", "Sever", "Eight", "Nine"];
+            var arr4 = ["Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"];
+            var len = value.toString().length, i = 0, j = 0;
+            var cols = Math.ceil(len / 3);
+            var first = len - cols * 3;
+            var strRet = "";
+            var num3 = "";
+            //转英文
+            var English = function (num) {
+                var strRet = "";
+                if ((num.length == 3) && (num.substr(0, 3) != "000")) {
+                    if ((num.substr(0, 1) != "0")) {
+                        strRet += arr3[num.substr(0, 1)] + " Hundred";
+                        if (num.substr(1, 2) != "00")
+                            strRet += " And ";
+                    }
+                    num = num.substring(1);
+                }
+                if ((num.length == 2)) {
+                    if ((num.substr(0, 1) == "0")) {
+                        num = num.substring(1);
+                    }
+                    else if ((num.substr(0, 1) == "1")) {
+                        strRet += arr4[num.substr(1, 2)];
+                    }
+                    else {
+                        strRet += arr2[num.substr(0, 1)];
+                        if (num.substr(1, 1) != "0")
+                            strRet += "-";
+                        num = num.substring(1);
+                    }
+                }
+                if ((num.length == 1) && (num.substr(0, 1) != "0")) {
+                    strRet += arr3[num.substr(0, 1)];
+                }
+                return strRet;
+            };
+            for (i = first; i < len; i += 3) {
+                ++j;
+                if (i >= 0)
+                    num3 = value.toString().substring(i, i + 3);
+                else
+                    num3 = value.toString().substring(0, first + 3);
+                var strEng = English(num3);
+                if (strEng != "") {
+                    if (strRet != "")
+                        strRet += ",";
+                    strRet += English(num3) + arr1[cols - j];
                 }
             }
-            if (spelling.length == 0)
-                return 'Zero';
-            return spelling;
+            return strRet;
+        };
+        /**
+         * 科学计数转小数
+         * @param value
+         * @returns {number}
+         */
+        NumberUtil.convertNum = function (value) {
+            var tempValueStr = value.toString();
+            if ((tempValueStr.toLocaleUpperCase().indexOf('E') != -1)) {
+                //console.log(tempValueStr + '是科学计数法表示!');
+                var regExp = new RegExp('^((\\d+.?\\d+)[Ee]{1}(\\d+))$', 'ig');
+                var result = regExp.exec(tempValueStr);
+                var resultValue = 0;
+                var power = 0;
+                if (result != null) {
+                    resultValue = parseFloat(result[2]);
+                    power = parseFloat(result[3]);
+                }
+                if (resultValue != 0) {
+                    if (power != 0) {
+                        var powVer = Math.pow(10, power);
+                        //console.log("10的" + power + "次方[" + powVer + "]");
+                        resultValue = resultValue * powVer;
+                    }
+                }
+                return resultValue;
+            }
+            else {
+                return parseFloat(value);
+            }
         };
         /**
          * 类名

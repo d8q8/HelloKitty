@@ -30,8 +30,9 @@ module lcp {
             return egret.Point.distance(p1,p2);//官方方法
         }
 
+
     }
 }
 
 //扩展点类方法
-egret.Point.twodis = lcp.LPoint.twodis;
+//egret.Point.twodis = lcp.LPoint.twodis;

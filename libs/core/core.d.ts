@@ -3848,6 +3848,7 @@ declare module egret {
          * @param alpha {number} 填充的 Alpha 值
          */
         beginFill(color: number, alpha?: number): void;
+        beginLinearGradientFill(colors: any[], alphas: any[], ratios: any[], x0: number, y0: number, x1: number, y1: number): void;
         private _setStyle(colorStr);
         /**
          * 绘制一个矩形

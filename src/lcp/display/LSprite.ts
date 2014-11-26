@@ -6,7 +6,7 @@
  **/
 module lcp {
     /**
-     * 精灵辅助类(主要完善精灵拖拽方法)
+     * 精灵辅助类(主要完善精灵拖拽方法/增加简单拖拽方法)
      */
     export class LSprite extends egret.Sprite {
         public CLASS_NAME:string = 'LSprite';
@@ -17,6 +17,8 @@ module lcp {
         private _target:any;//当前元件
         private _moveFunc:Function;//移动回调
         private _isDrag:boolean;//判断是否拖拽
+
+        private static _instance:LSprite;
 
         /**
          * 更简化拖拽为一个属性判断
@@ -33,6 +35,16 @@ module lcp {
             super();
             this._isDrag=false;
             this.startDrag();
+        }
+
+        /**
+         * 统一入口
+         * @returns {LSprite}
+         */
+        public static getInstance():LSprite{
+            if(this._instance == null)
+                this._instance = new LSprite();
+            return this._instance;
         }
 
         /**
@@ -112,7 +124,7 @@ module lcp {
         }
 
         /**
-         * 两个元件碰撞检测(圆或方)
+         * 两个元件碰撞检测(待修正)
          * @param o1
          * @param o2
          * @returns {boolean}
@@ -121,9 +133,9 @@ module lcp {
             var dx:number = o1.x - o2.x;
             var dy:number = o1.y - o2.y;
             var dist:number = Math.sqrt(dx*dx+dy*dy);
-            if(dist < o1.width/2 + o2.width/2||dist < o1.height/2 + o2.height/2){
+            if(dist < (o1.width/2 + o2.width/2) || dist < (o1.height/2 + o2.height/2)){
                 return true;
-            }
+          }
         }
 
         /**
@@ -134,7 +146,9 @@ module lcp {
             return this.CLASS_NAME;
         }
 
-
-
     }
 }
+
+//扩展碰撞检测
+//egret.Sprite.hitTestObject = lcp.LSprite.hitTestObject;
+//egret.Sprite.hitTest = lcp.LSprite.hitTest;
