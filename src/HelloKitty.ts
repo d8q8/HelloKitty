@@ -115,7 +115,7 @@ class HelloKitty extends egret.DisplayObjectContainer {
         //多角星,如五角星
         //var sp = new lcp.LStar({name:"sp",x:100,y:200,width:200,height:200,corner:5,ratio:.4,fillcolor:0xff0000,thickness:5,linecolor:0x00ff00});
         //this.addChild(sp);
-        lcp.LHelper.addChildAndInit(this, sp, {x: 200, y: 400}, 20);
+        //lcp.LHelper.addChildAndInit(this, sp, {x: 200, y: 400}, 20);
         lcp.LTrace.trace("初始化元件", sp.name, sp.x, sp.y, sp.width, sp.height, sp.touchEnabled);
         var i:number = 1;
         //sp.addEventListener(egret.TouchEvent.TOUCH_TAP,(e)=>{
@@ -131,8 +131,8 @@ class HelloKitty extends egret.DisplayObjectContainer {
         //sp.addEventListener(egret.TouchEvent.TOUCH_TAP, this.sp_click, this);
 
         var sp2 = new lcp.LSprite();
-        this.addChild(sp2);
-        sp2.graphics.beginFill(0xff0000);
+        //this.addChild(sp2);
+        sp2.graphics.beginFill(0x00ff00);
         sp2.graphics.drawRect(0,0,100,50);
         sp2.graphics.endFill();
         sp2.name="sp2";
@@ -147,16 +147,46 @@ class HelloKitty extends egret.DisplayObjectContainer {
         },this);
 
 
-        this.addEventListener(egret.TouchEvent.TOUCH_BEGIN,(e)=>{
-            console.log(e.target.name);
-            this.setChildIndex(e.target,this.numChildren-1);
-            this.addEventListener(egret.TouchEvent.TOUCH_MOVE,(e)=>{
-                if(lcp.LSprite.hitTestObject(sp,sp2)){
-                    console.log("碰撞了哟西");
-                }
-            },this);
-        },this);
+        //this.addEventListener(egret.TouchEvent.TOUCH_BEGIN,(e)=>{
+        //    console.log(e.target.name);
+        //    this.setChildIndex(e.target,this.numChildren-1);
+        //    this.addEventListener(egret.TouchEvent.TOUCH_MOVE,(e)=>{
+        //        if(lcp.LSprite.hitTestObject(sp,sp2)){
+        //            console.log("碰撞了哟西");
+        //        }
+        //    },this);
+        //},this);
 
+        //创建100个精灵
+        for(var i=0;i<100;i++){
+            var sp = new lcp.LCircle({
+                name:"sp"+(i+1),
+                x:(this.stage.stageWidth-100)*Math.random(),
+                y:(this.stage.stageHeight-100)*Math.random(),
+                radius:50,
+                fillcolor:0xffffff*Math.random()
+            });
+            this.addChild(sp);
+
+            sp.isDrag=true;
+            sp.addEventListener(egret.TouchEvent.TOUCH_BEGIN,(e)=>{
+                this.setChildIndex(e.target,this.numChildren-1);
+                e.target.addEventListener(egret.TouchEvent.TOUCH_MOVE,(e)=>{
+                    for(var i=0;i<this.numChildren-1;i++){
+                        if(lcp.LSprite.hitTestObject(e.target,this.getChildAt(i))){
+                            console.log(e.target.name,"碰撞了",this.getChildAt(i).name);
+                        }
+                    }
+                },this);
+            },this);
+
+            var txt = new egret.TextField();
+            sp.addChild(txt);
+            txt.text = (i+1).toString();
+            txt.x=(sp.width-txt.width)/2;
+            txt.y=(sp.height-txt.height)/2;
+
+        }
 
         //TweenLite.to(sp,.5,{x:100,y:300});
 
@@ -218,7 +248,8 @@ class HelloKitty extends egret.DisplayObjectContainer {
 
         //数组的处理方法
         var numberArray:Array<any> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-        console.log(numberArray);
+        console.log(numberArray,"数组求和:");
+        console.log(numberArray.sum(),"数组求平均值:",numberArray.average());
         console.log(lcp.ArrayUtil.getHighestValue(numberArray));
         console.log("数组求和:",lcp.ArrayUtil.sum(numberArray),"数组求平均值:",lcp.ArrayUtil.average(numberArray));
         console.log("数组随机:",lcp.ArrayUtil.randomize(numberArray));
