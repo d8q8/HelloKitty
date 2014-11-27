@@ -53,14 +53,14 @@ class HelloKitty extends egret.DisplayObjectContainer {
          },this);*/
 
         //文本
-        /*var txt:egret.TextField = new egret.TextField();
-         this.addChild(txt);
+        var txt:egret.TextField = new egret.TextField();
+        this.addChild(txt);
 
-         txt.x=100;
-         txt.y=200;
-         txt.width=200;
-         txt.height=40;
-         txt.text="请输入文本";*/
+        txt.x = 100;
+        txt.y = 200;
+        txt.width = 200;
+        txt.height = 40;
+        txt.text = "请输入文本";
 
         //涂鸦板
         /*var sp:egret.Sprite = new egret.Sprite();
@@ -90,52 +90,8 @@ class HelloKitty extends egret.DisplayObjectContainer {
         console.log("舞台宽:", this.stage.stageWidth);
         console.log("舞台高:", this.stage.stageHeight);
 
-
-        // -----------------------------------------------------------
-        // 处理宽和高,侦听resize,给出一种解决方案
-        var resizeTimer = null;
-        var wid, hei;
-        var doc = new egret.ContentStrategy();
-        var egretCanvas = egret.Browser.getInstance().$("#egretCanvas");
-        var doResize = function () {
-            wid = doc._getClientWidth();//显示区域分辨率宽
-            hei = doc._getClientHeight();//显示区域分辨率高
-            //console.log("宽:",wid,"|高:",hei);
-            egret.StageDelegate.getInstance().setDesignSize(wid, hei);//这里只改变一次,奇怪???.
-            doc.setEgretSize(wid, hei, wid, hei);//这里只能自己处理了,分情况不同
-            egretCanvas.style.width = wid + "px";
-            egretCanvas.style.height = hei + "px";
-            egretCanvas.width = wid;
-            egretCanvas.height = hei;
-            resizeTimer = null;
-        };
-        window.onresize = function () {
-            //console.log("重置侦听");
-            if (resizeTimer == null) {
-                resizeTimer = setTimeout(doResize, 300);
-            }
-        };
-        doResize();
-        //-------------------------------------------------------------
-
-        /*var $ = egret.Browser.getInstance().$;
-         var gameDiv = $("#gameDiv");//外层
-         var egretCanvas = $("#egretCanvas");//里层
-         var wid = document.body.clientWidth || document.documentElement.clientWidth;
-         var hei = document.body.clientHeight || document.documentElement.clientHeight;
-
-         window.onresize = function(){
-         wid = document.body.clientWidth || document.documentElement.clientWidth;
-         hei = document.body.clientHeight || document.documentElement.clientHeight;
-         egretCanvas.style.width = wid + "px";
-         egretCanvas.style.height = hei + "px";
-         gameDiv.style.width = egretCanvas.style.width;
-         gameDiv.style.height = egretCanvas.style.height;
-         egretCanvas.width = wid;
-         egretCanvas.height = hei;
-
-         console.log("内部侦听",wid,hei,egretCanvas.width,egretCanvas.height,egretCanvas.style.width,egretCanvas.style.height);
-         };*/
+        //侦听画布
+        //this.myResize();
 
         //圆
         var sp = new lcp.LCircle({
@@ -206,8 +162,10 @@ class HelloKitty extends egret.DisplayObjectContainer {
 
         //TweenLite.to(sp,.5,{x:100,y:300});
 
-        this.createSprite(this.stage.stageWidth, this.stage.stageHeight);
+        //创建100个精灵
+        //this.createSprite(this.stage.stageWidth, this.stage.stageHeight);
 
+        //测试数组
         //this.arrTest();
 
 
@@ -232,6 +190,8 @@ class HelloKitty extends egret.DisplayObjectContainer {
         list.addItemAt(6, 2);
         console.log(list.toArray());
         console.log("列表数据:", list.size, list.contains(1));
+
+
 
 
     }
@@ -364,6 +324,38 @@ class HelloKitty extends egret.DisplayObjectContainer {
         console.log(colors[lcp.NumberUtil.loopIndex(2, colors.length)]); // 输出 蓝
         console.log(colors[lcp.NumberUtil.loopIndex(4, colors.length)]); // 输出 绿
         console.log(colors[lcp.NumberUtil.loopIndex(-6, colors.length)]); // 输出 红
+    }
+
+    /**
+     * 处理侦听改变画布宽高
+     */
+    private myResize() {
+        // -----------------------------------------------------------
+        // 处理宽和高,侦听resize,给出一种解决方案
+        var resizeTimer = null;
+        var wid, hei;
+        var doc = new egret.ContentStrategy();
+        var egretCanvas = egret.Browser.getInstance().$("#egretCanvas");
+        var doResize = function () {
+            wid = doc._getClientWidth();//显示区域分辨率宽
+            hei = doc._getClientHeight();//显示区域分辨率高
+            //console.log("宽:",wid,"|高:",hei);
+            egret.StageDelegate.getInstance().setDesignSize(wid, hei);//这里只改变一次,奇怪???.
+            doc.setEgretSize(wid, hei, wid, hei);//这里只能自己处理了,分情况不同
+            egretCanvas.style.width = wid + "px";
+            egretCanvas.style.height = hei + "px";
+            egretCanvas.width = wid;
+            egretCanvas.height = hei;
+            resizeTimer = null;
+        };
+        window.onresize = function () {
+            //console.log("重置侦听");
+            if (resizeTimer == null) {
+                resizeTimer = setTimeout(doResize, 300);
+            }
+        };
+        doResize();
+        //-------------------------------------------------------------
     }
 
 
