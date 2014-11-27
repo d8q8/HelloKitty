@@ -206,15 +206,15 @@ module lcp {
          *
          */
         public static iso8601ToDate(iso8601:string):Date {
-            var parts:Array<any>      = iso8601.toUpperCase().split('T');
-            var date:Array<any>       = parts[0].split('-');
-            var time:Array<any>       = (parts.length <= 1) ? new Array<any>() : parts[1].split(':');
-            var year:number        = ObjectUtil.isEmpty(date[0]) ? 0 : <number><any> (date[0]);
-            var month:number       = ObjectUtil.isEmpty(date[1]) ? 0 : <number><any> (date[1] - 1);
-            var day:number         = ObjectUtil.isEmpty(date[2]) ? 1 : <number><any> (date[2]);
-            var hour:number         = ObjectUtil.isEmpty(time[0]) ? 0 : <number><any> (time[0]);
-            var minute:number      = ObjectUtil.isEmpty(time[1]) ? 0 : <number><any> (time[1]);
-            var second:number      = 0;
+            var parts:Array<any> = <Array<any>>iso8601.toUpperCase().split('T');
+            var date:Array<any> = parts[0].split('-');
+            var time:Array<any> = (parts.length <= 1) ? [] : parts[1].split(':');
+            var year:number = ObjectUtil.isEmpty(date[0]) ? 0 : <number><any> (date[0]);
+            var month:number = ObjectUtil.isEmpty(date[1]) ? 0 : <number><any> (date[1] - 1);
+            var day:number = ObjectUtil.isEmpty(date[2]) ? 1 : <number><any> (date[2]);
+            var hour:number = ObjectUtil.isEmpty(time[0]) ? 0 : <number><any> (time[0]);
+            var minute:number = ObjectUtil.isEmpty(time[1]) ? 0 : <number><any> (time[1]);
+            var second:number = 0;
             var millisecond:number = 0;
 
             if (time[2] != undefined) {
@@ -228,13 +228,13 @@ module lcp {
                     index = time[2].indexOf('Z');
 
                 if (isNaN(index)) {
-                    temp        = <number><any> (time[2].slice(0, index));
-                    second      = Math.floor(temp);
+                    temp = <number><any> (time[2].slice(0, index));
+                    second = Math.floor(temp);
                     millisecond = 1000 * ((temp % 1) / 1);
                 }
 
                 if (index != time[2].length) {
-                    var offset:string     = time[2].slice(index);
+                    var offset:string = time[2].slice(index);
                     var userOffset:number = DateUtil.getDifferenceFromUTCInHours(new Date(year, month, day));
 
                     switch (offset.charAt(0)) {
@@ -366,10 +366,10 @@ module lcp {
          */
         public static getCountdownUntil(startDate:Date, endDate:Date):any {
             var daysUntil:number = ConversionUtil.millisecondsToDays(this.getTimeBetween(startDate, endDate));
-            var hoursUntil:number  = ConversionUtil.daysToHours(daysUntil % 1);
-            var minsUntil:number   = ConversionUtil.hoursToMinutes(hoursUntil % 1);
-            var secsUntil:number   = ConversionUtil.minutesToSeconds(minsUntil % 1);
-            var milliUntil:number  = ConversionUtil.secondsToMilliseconds(secsUntil % 1);
+            var hoursUntil:number = ConversionUtil.daysToHours(daysUntil % 1);
+            var minsUntil:number = ConversionUtil.hoursToMinutes(hoursUntil % 1);
+            var secsUntil:number = ConversionUtil.minutesToSeconds(minsUntil % 1);
+            var milliUntil:number = ConversionUtil.secondsToMilliseconds(secsUntil % 1);
 
             var result:Object = {
                 days: parseInt(daysUntil.toString()),
@@ -422,7 +422,7 @@ module lcp {
          */
         public static getTimezone(d:Date):string {
             var timeZones:Array<any> = new Array<any>('IDLW', 'NT', 'HST', 'AKST', 'PST', 'MST', 'CST', 'EST', 'AST', 'ADT', 'AT', 'WAT', 'GMT', 'CET', 'EET', 'MSK', 'ZP4', 'ZP5', 'ZP6', 'WAST', 'WST', 'JST', 'AEST', 'AEDT', 'NZST');
-            var hour:number       = Math.round(12 + -(d.getTimezoneOffset() / 60));
+            var hour:number = Math.round(12 + -(d.getTimezoneOffset() / 60));
 
             if (DateUtil.isDaylightSavings(d))
                 hour--;
@@ -490,11 +490,11 @@ module lcp {
          * @returns {number}
          */
         public static getWeekOfTheYear(d:Date):number {
-            var firstDay:Date    = new Date(d.getFullYear(), 0, 1);
-            var dayOffset:number   = 9 - firstDay.getDay();
+            var firstDay:Date = new Date(d.getFullYear(), 0, 1);
+            var dayOffset:number = 9 - firstDay.getDay();
             var firstMonday:Date = new Date(d.getFullYear(), 0, (dayOffset > 7) ? dayOffset - 7 : dayOffset);
-            var currentDay:Date  = new Date(d.getFullYear(), d.getMonth(), d.getDate());
-            var weekNumber:number  = (ConversionUtil.millisecondsToDays(currentDay.getTime() - firstMonday.getTime()) / 7) + 1;
+            var currentDay:Date = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+            var weekNumber:number = (ConversionUtil.millisecondsToDays(currentDay.getTime() - firstMonday.getTime()) / 7) + 1;
 
             return (weekNumber == 0) ? DateUtil.getWeekOfTheYear(new Date(d.getFullYear() - 1, 11, 31)) : weekNumber;
         }
