@@ -371,12 +371,14 @@ module lcp {
             var secsUntil:number   = ConversionUtil.minutesToSeconds(minsUntil % 1);
             var milliUntil:number  = ConversionUtil.secondsToMilliseconds(secsUntil % 1);
 
-            return {
-                days:         parseInt(daysUntil),
-                hours:        parseInt(hoursUntil),
-                minutes:      parseInt(minsUntil),
-                seconds:      parseInt(secsUntil),
-                milliseconds: parseInt(milliUntil)};
+            var result:Object = {
+                days: parseInt(daysUntil.toString()),
+                hours: parseInt(hoursUntil.toString()),
+                minutes: parseInt(minsUntil.toString()),
+                seconds: parseInt(secsUntil.toString()),
+                milliseconds: parseInt(milliUntil.toString())
+            };
+            return result;
         }
 
         /**
