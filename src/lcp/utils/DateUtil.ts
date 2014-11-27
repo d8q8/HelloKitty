@@ -28,23 +28,23 @@ module lcp {
                     returnString += formatString.substr(++i, 1);
                 else {
                     switch (char) {
-                        // Day of the month, 2 digits with leading zeros
+                        // 月天数
                         case 'd' :
                             returnString += NumberUtil.addLeadingZero(dateToFormat.getDate());
                             break;
-                        // A textual representation of a day, three letters
+                        // 天文本缩写,3个字符
                         case 'D' :
-                            returnString += DateUtil.getDayAbbrAsString(dateToFormat.getDay());
+                            returnString += this.getDayAbbrAsString(dateToFormat.getDay());
                             break;
-                        // Day of the month without leading zeros
+                        // 月天数,不包含前置0
                         case 'j' :
                             returnString += dateToFormat.getDate().toString();
                             break;
-                        // A full textual representation of the day of the week
+                        // 周天完整文本
                         case 'l' :
-                            returnString += DateUtil.getDayAsString(dateToFormat.getDay());
+                            returnString += this.getDayAsString(dateToFormat.getDay());
                             break;
-                        // ISO-8601 numeric representation of the day of the week
+                        // ISO-8601 周天数字表示
                         case 'N' :
                             t = dateToFormat.getDay();
 
@@ -53,68 +53,68 @@ module lcp {
 
                             returnString += t.toString();
                             break;
-                        // English ordinal suffix for the day of the month, 2 characters
+                        // 月天后缀,2个字节
                         case 'S' :
                             returnString += NumberUtil.getOrdinalSuffix(dateToFormat.getDate());
                             break;
-                        // Numeric representation of the day of the week
+                        // 周天数字表示
                         case 'w' :
                             returnString += dateToFormat.getDay().toString();
                             break;
-                        // The day of the year (starting from 0)
+                        // 年中的天数(从0开始)
                         case 'z' :
-                            returnString += NumberUtil.addLeadingZero(DateUtil.getDayOfTheYear(dateToFormat)).toString();
+                            returnString += NumberUtil.addLeadingZero(this.getDayOfTheYear(dateToFormat)).toString();
                             break;
-                        // ISO-8601 week number of year, weeks starting on Monday
+                        // ISO-8601 一年中周总数, 周一开始
                         case 'W' :
-                            returnString += NumberUtil.addLeadingZero(DateUtil.getWeekOfTheYear(dateToFormat)).toString();
+                            returnString += NumberUtil.addLeadingZero(this.getWeekOfTheYear(dateToFormat)).toString();
                             break;
-                        // A full textual representation of a month, such as January or March
+                        // 月中完整文本表示,例如 January 或 March
                         case 'F' :
-                            returnString += DateUtil.getMonthAsString(dateToFormat.getMonth());
+                            returnString += this.getMonthAsString(dateToFormat.getMonth());
                             break;
-                        // Numeric representation of a month, with leading zeros
+                        // 月中数字表示,包括前置0
                         case 'm' :
                             returnString += NumberUtil.addLeadingZero(dateToFormat.getMonth() + 1);
                             break;
-                        // A short textual representation of a month, three letters
+                        // 月中短文本表示,3个字符
                         case 'M' :
-                            returnString += DateUtil.getMonthAbbrAsString(dateToFormat.getMonth());
+                            returnString += this.getMonthAbbrAsString(dateToFormat.getMonth());
                             break;
-                        // Numeric representation of a month, without leading zeros
+                        // 月中数字表示,不包含前置0
                         case 'n' :
                             returnString += (dateToFormat.getMonth() + 1).toString();
                             break;
-                        // Number of days in the given month
+                        // 给定月中天数
                         case 't' :
-                            returnString += DateUtil.getDaysInMonth(dateToFormat.getMonth(), dateToFormat.getFullYear()).toString();
+                            returnString += this.getDaysInMonth(dateToFormat.getMonth(), dateToFormat.getFullYear()).toString();
                             break;
-                        // Whether it is a leap year
+                        // 是否为闰年
                         case 'L' :
-                            returnString += (DateUtil.isLeapYear(dateToFormat.getFullYear())) ? '1' : '0';
+                            returnString += (this.isLeapYear(dateToFormat.getFullYear())) ? '1' : '0';
                             break;
-                        // A full numeric representation of a year, 4 digits
+                        // 年的完整表示,4位
                         case 'o' :
                         case 'Y' :
                             returnString += dateToFormat.getFullYear().toString();
                             break;
-                        // A two digit representation of a year
+                        // 年的2位表示
                         case 'y' :
                             returnString += dateToFormat.getFullYear().toString().substr(-2);
                             break;
-                        // Lowercase Ante meridiem and Post meridiem
+                        // 上下午小写
                         case 'a' :
-                            returnString += DateUtil.getMeridiem(dateToFormat.getHours()).toLowerCase();
+                            returnString += this.getMeridiem(dateToFormat.getHours()).toLowerCase();
                             break;
-                        // Uppercase Ante meridiem and Post meridiem
+                        // 上下午大写
                         case 'A' :
-                            returnString += DateUtil.getMeridiem(dateToFormat.getHours());
+                            returnString += this.getMeridiem(dateToFormat.getHours());
                             break;
-                        // Swatch Internet time
+                        // 网络时间
                         case 'B' :
-                            returnString += NumberUtil.format(DateUtil.getInternetTime(dateToFormat), null, 3)
+                            returnString += NumberUtil.format(this.getInternetTime(dateToFormat), null, 3)
                             break;
-                        // 12-hour format of an hour without leading zeros
+                        // 12小时格式,不包含前置0
                         case 'g' :
                             t = dateToFormat.getHours();
 
@@ -125,11 +125,11 @@ module lcp {
 
                             returnString += t.toString();
                             break;
-                        // 24-hour format of an hour without leading zeros
+                        // 24小时格式,不包含前置0
                         case 'G' :
                             returnString += dateToFormat.getHours().toString();
                             break;
-                        // 12-hour format of an hour with leading zeros
+                        // 12小时格式,包含前置0
                         case 'h' :
                             t = dateToFormat.getHours();
 
@@ -140,47 +140,47 @@ module lcp {
 
                             returnString += NumberUtil.addLeadingZero(t);
                             break;
-                        // 24-hour format of an hour with leading zeros
+                        // 24小时格式,包含前置0
                         case 'H' :
                             returnString += NumberUtil.addLeadingZero(dateToFormat.getHours());
                             break;
-                        // Minutes with leading zeros
+                        // 分钟包含前置0
                         case 'i' :
                             returnString += NumberUtil.addLeadingZero(dateToFormat.getMinutes());
                             break;
-                        // Seconds, with leading zeros
+                        // 秒包含前置0
                         case 's' :
                             returnString += NumberUtil.addLeadingZero(dateToFormat.getSeconds());
                             break;
-                        // Whether or not the date is in daylights savings time
+                        // 是否是夏令时
                         case 'I' :
-                            returnString += (DateUtil.isDaylightSavings(dateToFormat)) ? '1' : '0';
+                            returnString += (this.isDaylightSavings(dateToFormat)) ? '1' : '0';
                             break;
-                        // Difference to Greenwich time (GMT/UTC) in hours
+                        // 格林尼治时间(GMT/UTC)
                         case 'O' :
-                            returnString += DateUtil.getFormattedDifferenceFromUTC(dateToFormat);
+                            returnString += this.getFormattedDifferenceFromUTC(dateToFormat);
                             break;
                         case 'P' :
-                            returnString += DateUtil.getFormattedDifferenceFromUTC(dateToFormat, ':');
+                            returnString += this.getFormattedDifferenceFromUTC(dateToFormat, ':');
                             break;
-                        // Timezone identifier
+                        // 时区标志
                         case 'e' :
                         case 'T' :
-                            returnString += DateUtil.getTimezone(dateToFormat);
+                            returnString += this.getTimezone(dateToFormat);
                             break;
-                        // Timezone offset (GMT/UTC) in seconds.
+                        // 时区偏移（格林威治时间/秒UTC）。
                         case 'Z' :
-                            returnString += Math.round(DateUtil.getDifferenceFromUTCInSeconds(dateToFormat)).toString();
+                            returnString += Math.round(this.getDifferenceFromUTCInSeconds(dateToFormat)).toString();
                             break;
-                        // ISO 8601 date
+                        // ISO 8601 日期
                         case 'c' :
-                            returnString += dateToFormat.getFullYear() + "-" + NumberUtil.addLeadingZero(dateToFormat.getMonth() + 1) + "-" + NumberUtil.addLeadingZero(dateToFormat.getDate()) + "T" + NumberUtil.addLeadingZero(dateToFormat.getHours()) + ":" + NumberUtil.addLeadingZero(dateToFormat.getMinutes()) + ":" + NumberUtil.addLeadingZero(dateToFormat.getSeconds()) + DateUtil.getFormattedDifferenceFromUTC(dateToFormat, ':');
+                            returnString += dateToFormat.getFullYear() + "-" + NumberUtil.addLeadingZero(dateToFormat.getMonth() + 1) + "-" + NumberUtil.addLeadingZero(dateToFormat.getDate()) + "T" + NumberUtil.addLeadingZero(dateToFormat.getHours()) + ":" + NumberUtil.addLeadingZero(dateToFormat.getMinutes()) + ":" + NumberUtil.addLeadingZero(dateToFormat.getSeconds()) + this.getFormattedDifferenceFromUTC(dateToFormat, ':');
                             break;
-                        // RFC 2822 formatted date
+                        // RFC 2822 日期格式
                         case 'r' :
-                            returnString += DateUtil.getDayAbbrAsString(dateToFormat.getDay()) + ', ' + dateToFormat.getDate() + ' ' + DateUtil.getMonthAbbrAsString(dateToFormat.getMonth()) + ' ' + dateToFormat.getFullYear() + ' ' + NumberUtil.addLeadingZero(dateToFormat.getHours()) + ':' + NumberUtil.addLeadingZero(dateToFormat.getMinutes()) + ':' + NumberUtil.addLeadingZero(dateToFormat.getSeconds()) + ' ' + DateUtil.getFormattedDifferenceFromUTC(dateToFormat);
+                            returnString += this.getDayAbbrAsString(dateToFormat.getDay()) + ', ' + dateToFormat.getDate() + ' ' + this.getMonthAbbrAsString(dateToFormat.getMonth()) + ' ' + dateToFormat.getFullYear() + ' ' + NumberUtil.addLeadingZero(dateToFormat.getHours()) + ':' + NumberUtil.addLeadingZero(dateToFormat.getMinutes()) + ':' + NumberUtil.addLeadingZero(dateToFormat.getSeconds()) + ' ' + this.getFormattedDifferenceFromUTC(dateToFormat);
                             break;
-                        // Seconds since the Unix Epoch (January 1 1970 00:00:00 GMT)
+                        // UNIX纪元秒 (January 1 1970 00:00:00 GMT)
                         case 'U' :
                             t = Math.round(dateToFormat.getTime() / 1000);
                             returnString += t.toString();
@@ -235,7 +235,7 @@ module lcp {
 
                 if (index != time[2].length) {
                     var offset:string = time[2].slice(index);
-                    var userOffset:number = DateUtil.getDifferenceFromUTCInHours(new Date(year, month, day));
+                    var userOffset:number = this.getDifferenceFromUTCInHours(new Date(year, month, day));
 
                     switch (offset.charAt(0)) {
                         case '+' :
@@ -279,7 +279,7 @@ module lcp {
          *  </code>
          */
         public static getMonthAbbrAsString(month:number):string {
-            return DateUtil.getMonthAsString(month).substr(0, 3);
+            return this.getMonthAsString(month).substr(0, 3);
         }
 
         /**
@@ -308,7 +308,7 @@ module lcp {
          *  </code>
          */
         public static getDayAbbrAsString(day:number):string {
-            return DateUtil.getDayAsString(day).substr(0, 3);
+            return this.getDayAsString(day).substr(0, 3);
         }
 
         /**
@@ -408,7 +408,7 @@ module lcp {
         public static getFormattedDifferenceFromUTC(d:Date, separator:string = ""):string {
             var pre:string = (-d.getTimezoneOffset() < 0) ? '-' : '+';
 
-            return pre + NumberUtil.addLeadingZero(Math.floor(DateUtil.getDifferenceFromUTCInHours(d))) + separator + NumberUtil.addLeadingZero(d.getTimezoneOffset() % 60);
+            return pre + NumberUtil.addLeadingZero(Math.floor(this.getDifferenceFromUTCInHours(d))) + separator + NumberUtil.addLeadingZero(d.getTimezoneOffset() % 60);
         }
 
         /**
@@ -421,10 +421,10 @@ module lcp {
          *  </code>
          */
         public static getTimezone(d:Date):string {
-            var timeZones:Array<any> = new Array<any>('IDLW', 'NT', 'HST', 'AKST', 'PST', 'MST', 'CST', 'EST', 'AST', 'ADT', 'AT', 'WAT', 'GMT', 'CET', 'EET', 'MSK', 'ZP4', 'ZP5', 'ZP6', 'WAST', 'WST', 'JST', 'AEST', 'AEDT', 'NZST');
+            var timeZones:Array<any> = ['IDLW', 'NT', 'HST', 'AKST', 'PST', 'MST', 'CST', 'EST', 'AST', 'ADT', 'AT', 'WAT', 'GMT', 'CET', 'EET', 'MSK', 'ZP4', 'ZP5', 'ZP6', 'WAST', 'WST', 'JST', 'AEST', 'AEDT', 'NZST'];
             var hour:number = Math.round(12 + -(d.getTimezoneOffset() / 60));
 
-            if (DateUtil.isDaylightSavings(d))
+            if (this.isDaylightSavings(d))
                 hour--;
 
             return timeZones[hour];
@@ -441,7 +441,7 @@ module lcp {
          *  </code>
          */
         public static isLeapYear(year:number):boolean {
-            return DateUtil.getDaysInMonth(year, 1) == 29;
+            return this.getDaysInMonth(year, 1) == 29;
         }
 
         /**
@@ -496,7 +496,7 @@ module lcp {
             var currentDay:Date = new Date(d.getFullYear(), d.getMonth(), d.getDate());
             var weekNumber:number = (ConversionUtil.millisecondsToDays(currentDay.getTime() - firstMonday.getTime()) / 7) + 1;
 
-            return (weekNumber == 0) ? DateUtil.getWeekOfTheYear(new Date(d.getFullYear() - 1, 11, 31)) : weekNumber;
+            return (weekNumber == 0) ? this.getWeekOfTheYear(new Date(d.getFullYear() - 1, 11, 31)) : weekNumber;
         }
 
         /**
