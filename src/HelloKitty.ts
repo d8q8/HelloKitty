@@ -90,6 +90,53 @@ class HelloKitty extends egret.DisplayObjectContainer {
         console.log("舞台宽:", this.stage.stageWidth);
         console.log("舞台高:", this.stage.stageHeight);
 
+
+        // -----------------------------------------------------------
+        // 处理宽和高,侦听resize,给出一种解决方案
+        var resizeTimer = null;
+        var wid, hei;
+        var doc = new egret.ContentStrategy();
+        var egretCanvas = egret.Browser.getInstance().$("#egretCanvas");
+        var doResize = function () {
+            wid = doc._getClientWidth();//显示区域分辨率宽
+            hei = doc._getClientHeight();//显示区域分辨率高
+            //console.log("宽:",wid,"|高:",hei);
+            egret.StageDelegate.getInstance().setDesignSize(wid, hei);//这里只改变一次,奇怪???.
+            doc.setEgretSize(wid, hei, wid, hei);//这里只能自己处理了,分情况不同
+            egretCanvas.style.width = wid + "px";
+            egretCanvas.style.height = hei + "px";
+            egretCanvas.width = wid;
+            egretCanvas.height = hei;
+            resizeTimer = null;
+        };
+        window.onresize = function () {
+            //console.log("重置侦听");
+            if (resizeTimer == null) {
+                resizeTimer = setTimeout(doResize, 300);
+            }
+        };
+        doResize();
+        //-------------------------------------------------------------
+
+        /*var $ = egret.Browser.getInstance().$;
+         var gameDiv = $("#gameDiv");//外层
+         var egretCanvas = $("#egretCanvas");//里层
+         var wid = document.body.clientWidth || document.documentElement.clientWidth;
+         var hei = document.body.clientHeight || document.documentElement.clientHeight;
+
+         window.onresize = function(){
+         wid = document.body.clientWidth || document.documentElement.clientWidth;
+         hei = document.body.clientHeight || document.documentElement.clientHeight;
+         egretCanvas.style.width = wid + "px";
+         egretCanvas.style.height = hei + "px";
+         gameDiv.style.width = egretCanvas.style.width;
+         gameDiv.style.height = egretCanvas.style.height;
+         egretCanvas.width = wid;
+         egretCanvas.height = hei;
+
+         console.log("内部侦听",wid,hei,egretCanvas.width,egretCanvas.height,egretCanvas.style.width,egretCanvas.style.height);
+         };*/
+
         //圆
         var sp = new lcp.LCircle({
             name: "sp",
@@ -127,24 +174,24 @@ class HelloKitty extends egret.DisplayObjectContainer {
         //},this);
         this._i = i;
         this._sp = sp;
-        sp.isDrag=true;
+        sp.isDrag = true;
         //sp.addEventListener(egret.TouchEvent.TOUCH_TAP, this.sp_click, this);
 
         var sp2 = new lcp.LSprite();
         //this.addChild(sp2);
         sp2.graphics.beginFill(0x00ff00);
-        sp2.graphics.drawRect(0,0,100,50);
+        sp2.graphics.drawRect(0, 0, 100, 50);
         sp2.graphics.endFill();
-        sp2.name="sp2";
-        sp2.x=300;
-        sp2.y=300;
-        sp2.width=100;
-        sp2.height=50;
-        sp2.touchEnabled=true;
-        sp2.isDrag=true;
-        sp2.addEventListener(egret.TouchEvent.TOUCH_BEGIN,(e)=>{
+        sp2.name = "sp2";
+        sp2.x = 300;
+        sp2.y = 300;
+        sp2.width = 100;
+        sp2.height = 50;
+        sp2.touchEnabled = true;
+        sp2.isDrag = true;
+        sp2.addEventListener(egret.TouchEvent.TOUCH_BEGIN, (e)=> {
             console.log("我点击试试");
-        },this);
+        }, this);
 
 
         //this.addEventListener(egret.TouchEvent.TOUCH_BEGIN,(e)=>{
@@ -157,39 +204,84 @@ class HelloKitty extends egret.DisplayObjectContainer {
         //    },this);
         //},this);
 
-        //创建100个精灵
-        for(var i=0;i<100;i++){
+        //TweenLite.to(sp,.5,{x:100,y:300});
+
+        this.createSprite(this.stage.stageWidth, this.stage.stageHeight);
+
+        //this.arrTest();
+
+
+        //测试画弧
+        //var shp = new egret.Shape();
+        //this.addChild(shp);
+        //shp.graphics.beginFill(0xff0000);
+        //shp.graphics.lineStyle(5,0x00ff00);
+        //shp.graphics.drawArc(50,50,50,0,Math.PI/3,true);
+        //shp.graphics.endFill();
+        //shp.width = 100;
+        //shp.height = 100;
+        //shp.x = shp.y = 100;
+        //shp.touchEnabled=true;
+        //
+        //shp.addEventListener(egret.TouchEvent.TOUCH_TAP,(e)=>{
+        //    console.log("点击",shp.x,shp.y,shp.width,shp.height);
+        //},this);
+        //console.log(shp.x,shp.y,shp.width,shp.height);
+
+        var list = new lcp.List([1, 2, 3, 4, 5]);
+        list.addItemAt(6, 2);
+        console.log(list.toArray());
+        console.log("列表数据:", list.size, list.contains(1));
+
+
+    }
+
+    private _sp:lcp.LCircle;
+    public _i:number;
+
+    public sp_click(e:egret.TouchEvent):void {
+        lcp.LTrace.trace(this, "我单击了元件" + (this._i++) + "次", this._sp.name, this._sp.x, this._sp.y, this._sp.width, this._sp.height, this._sp.touchEnabled);
+    }
+
+    /**
+     * 创建100个精灵
+     */
+    private createSprite(wid:number, hei:number) {
+        for (var i = 0; i < 100; i++) {
             var sp = new lcp.LCircle({
-                name:"sp"+(i+1),
-                x:(this.stage.stageWidth-100)*Math.random(),
-                y:(this.stage.stageHeight-100)*Math.random(),
-                radius:50,
-                fillcolor:0xffffff*Math.random()
+                name: "sp" + (i + 1),
+                x: (wid - 100) * Math.random(),
+                y: (hei - 100) * Math.random(),
+                radius: 50,
+                fillcolor: 0xffffff * Math.random()
             });
             this.addChild(sp);
 
-            sp.isDrag=true;
-            sp.addEventListener(egret.TouchEvent.TOUCH_BEGIN,(e)=>{
-                this.setChildIndex(e.target,this.numChildren-1);
-                e.target.addEventListener(egret.TouchEvent.TOUCH_MOVE,(e)=>{
-                    for(var i=0;i<this.numChildren-1;i++){
-                        if(lcp.LSprite.hitTestObject(e.target,this.getChildAt(i))){
-                            console.log(e.target.name,"碰撞了",this.getChildAt(i).name);
+            sp.isDrag = true;
+            sp.addEventListener(egret.TouchEvent.TOUCH_BEGIN, (e)=> {
+                this.setChildIndex(e.target, this.numChildren - 1);
+                e.target.addEventListener(egret.TouchEvent.TOUCH_MOVE, (e)=> {
+                    for (var i = 0; i < this.numChildren - 1; i++) {
+                        if (lcp.LSprite.hitTestObject(e.target, this.getChildAt(i))) {
+                            console.log(e.target.name, "碰撞了", this.getChildAt(i).name);
                         }
                     }
-                },this);
-            },this);
+                }, this);
+            }, this);
 
             var txt = new egret.TextField();
             sp.addChild(txt);
-            txt.text = (i+1).toString();
-            txt.x=(sp.width-txt.width)/2;
-            txt.y=(sp.height-txt.height)/2;
+            txt.text = (i + 1).toString();
+            txt.x = (sp.width - txt.width) / 2;
+            txt.y = (sp.height - txt.height) / 2;
 
         }
+    }
 
-        //TweenLite.to(sp,.5,{x:100,y:300});
-
+    /**
+     * 数组和数字的测试
+     */
+    private arrTest() {
         //数字数组排序
         var num_Arr = [1, 22, 14, 2, 54, 21, 6, 8, 3, 9];
         lcp.LOrder.sort(num_Arr);//默认升序
@@ -213,23 +305,6 @@ class HelloKitty extends egret.DisplayObjectContainer {
         //lcp.LOrder.sortOn(key_Arr,"age",lcp.OrderByType.DESCENDING);//降序
         console.log(key_Arr);
 
-        //测试画弧
-        //var shp = new egret.Shape();
-        //this.addChild(shp);
-        //shp.graphics.beginFill(0xff0000);
-        //shp.graphics.lineStyle(5,0x00ff00);
-        //shp.graphics.drawArc(50,50,50,0,Math.PI/3,true);
-        //shp.graphics.endFill();
-        //shp.width = 100;
-        //shp.height = 100;
-        //shp.x = shp.y = 100;
-        //shp.touchEnabled=true;
-        //
-        //shp.addEventListener(egret.TouchEvent.TOUCH_TAP,(e)=>{
-        //    console.log("点击",shp.x,shp.y,shp.width,shp.height);
-        //},this);
-        //console.log(shp.x,shp.y,shp.width,shp.height);
-
         //数组扩展处理工具类使用
         var people:Array<any> = [
             {name: "Aaron", sex: "Male", hair: "Brown"},
@@ -243,24 +318,24 @@ class HelloKitty extends egret.DisplayObjectContainer {
         //    console.log(person[p].name);
         //}
         //指定位置插入
-        console.log(lcp.ArrayUtil.addItemsAt(people,[{name:"白菜",sex:"保密",hair:"黑色"}],1));
+        console.log(lcp.ArrayUtil.addItemsAt(people, [{name: "白菜", sex: "保密", hair: "黑色"}], 1));
         console.log(people);
 
         //数组的处理方法
         var numberArray:Array<any> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-        console.log(numberArray,"数组求和:");
-        console.log(numberArray.sum(),"数组求平均值:",numberArray.average());
+        console.log(numberArray, "数组求和:");
+        console.log(numberArray.sum(), "数组求平均值:", numberArray.average());
         console.log(lcp.ArrayUtil.getHighestValue(numberArray));
-        console.log("数组求和:",lcp.ArrayUtil.sum(numberArray),"数组求平均值:",lcp.ArrayUtil.average(numberArray));
-        console.log("数组随机:",lcp.ArrayUtil.randomize(numberArray));
+        console.log("数组求和:", lcp.ArrayUtil.sum(numberArray), "数组求平均值:", lcp.ArrayUtil.average(numberArray));
+        console.log("数组随机:", lcp.ArrayUtil.randomize(numberArray));
 
-        var color:Array<any>     = ["Red", "Blue", "Green", "Indigo", "Violet"];
+        var color:Array<any> = ["Red", "Blue", "Green", "Indigo", "Violet"];
         var colorsAlt:Array<any> = ["Red", "Blue", "Green", "Violet"];
         console.log(lcp.ArrayUtil.getIndexOfDifference(color, colorsAlt));
 
         //扩展点方法与原官方点方法
-        console.log("官方提供任意两点间距离:",egret.Point.distance(new egret.Point(100,100),new egret.Point(50,50)));
-        console.log("自己封装任意两点间距离:",lcp.LPoint.twodis(100,100,50,50));//与上面是一样的
+        console.log("官方提供任意两点间距离:", egret.Point.distance(new egret.Point(100, 100), new egret.Point(50, 50)));
+        console.log("自己封装任意两点间距离:", lcp.LPoint.twodis(100, 100, 50, 50));//与上面是一样的
 
         ////1)判断奇数
         //console.log(lcp.NumberUtil.isOdd(7)); // 输出 false
@@ -289,14 +364,7 @@ class HelloKitty extends egret.DisplayObjectContainer {
         console.log(colors[lcp.NumberUtil.loopIndex(2, colors.length)]); // 输出 蓝
         console.log(colors[lcp.NumberUtil.loopIndex(4, colors.length)]); // 输出 绿
         console.log(colors[lcp.NumberUtil.loopIndex(-6, colors.length)]); // 输出 红
-
     }
 
-    private _sp:lcp.LCircle;
-    public _i:number;
-
-    public sp_click(e:egret.TouchEvent):void {
-        lcp.LTrace.trace(this, "我单击了元件" + (this._i++) + "次", this._sp.name, this._sp.x, this._sp.y, this._sp.width, this._sp.height, this._sp.touchEnabled);
-    }
 
 }

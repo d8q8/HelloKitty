@@ -15,8 +15,8 @@ module lcp {
 		 * 创建一个新的List表
 		 * @param collection
 		 */
-		public constructor(collection:Array<any> = null) {
-			this._collection = (collection == null) ? new Array<any>() : collection.concat();
+		public constructor(collection?:Array<any>) {
+			this._collection = (collection == null) ? [] : collection.concat();
 		}
 
 		/**
@@ -26,7 +26,6 @@ module lcp {
 		 */
 		public addItem(item:any):boolean {
 			this._collection.push(item);
-			
 			return true;
 		}
 
@@ -38,7 +37,6 @@ module lcp {
 		 */
 		public addItemAt(item:any, index:number = 0):boolean {
 			this._collection.splice(index, 0, item);
-			
 			return true;
 		}
 
@@ -49,7 +47,6 @@ module lcp {
 		 */
 		public addItems(items:IList):boolean {
 			this._collection = this._collection.concat(items.toArray());
-			
 			return true;
 		}
 
@@ -168,12 +165,9 @@ module lcp {
 		 */
 		public removeItem(item:any):boolean {
 			var i:number = this._collection.indexOf(item);
-			
 			if (i == -1)
 				return false;
-			
 			this._collection.splice(i, 1);
-			
 			return true;
 		}
 

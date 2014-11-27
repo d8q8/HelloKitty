@@ -32,6 +32,31 @@ egret_h5.startGame = function () {
     context.netContext = new egret.HTML5NetContext();
 
     egret.StageDelegate.getInstance().setDesignSize(480, 800);
+
+    // -----------------------------------------------------------
+    // 处理宽和高,侦听resize,给出一种解决方案这只能改变外层,不能改变里层,
+    // 里层处理要在画布生成之后处理
+    /*var resizeTimer = null;
+    var wid,hei;
+    var doc = new egret.ContentStrategy();
+    var doResize = function(){
+        wid = doc._getClientWidth();//显示区域分辨率宽
+        hei = doc._getClientHeight();//显示区域分辨率高
+        //console.log("宽:",wid,"|高:",hei);
+        egret.StageDelegate.getInstance().setDesignSize(wid, hei);//这里只改变一次,奇怪.
+        doc.setEgretSize(wid,hei,wid,hei);//这里只能自己处理了,分情况不同
+        resizeTimer=null;
+    };
+    window.onresize = function(){
+        console.log("重置侦听");
+        if(resizeTimer==null){
+            resizeTimer = setTimeout(doResize,50);
+        }
+    };
+    doResize();*/
+    //-------------------------------------------------------------
+
+
     context.stage = new egret.Stage();
     var scaleMode =  egret.MainContext.deviceType == egret.MainContext.DEVICE_MOBILE ? egret.StageScaleMode.NO_BORDER : egret.StageScaleMode.NO_SCALE;
     context.stage.scaleMode = scaleMode;
