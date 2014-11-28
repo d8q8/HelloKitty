@@ -51,14 +51,14 @@ var HelloKitty = (function (_super) {
          },this);*/
         //文本
         /*var txt:egret.TextField = new egret.TextField();
-        this.addChild(txt);
+         this.addChild(txt);
 
-        txt.x = 100;
-        txt.y = 200;
-        txt.width = 200;
-        txt.height = 40;
-        txt.text = "请输入文本";
-*/
+         txt.x = 100;
+         txt.y = 200;
+         txt.width = 200;
+         txt.height = 40;
+         txt.text = "请输入文本";
+         */
         //涂鸦板
         /*var sp:egret.Sprite = new egret.Sprite();
          this.addChild(sp);
@@ -80,11 +80,11 @@ var HelloKitty = (function (_super) {
          this.stage.removeEventListener(egret.TouchEvent.TOUCH_MOVE,arguments.callee,this);
          },this);*/
         /*console.log("主体1宽:", document.body.clientWidth);
-        console.log("主体1高:", document.body.clientHeight);
-        console.log("主体2宽:", document.documentElement.clientWidth);
-        console.log("主体2高:", document.documentElement.clientHeight);
-        console.log("舞台宽:", this.stage.stageWidth);
-        console.log("舞台高:", this.stage.stageHeight);*/
+         console.log("主体1高:", document.body.clientHeight);
+         console.log("主体2宽:", document.documentElement.clientWidth);
+         console.log("主体2高:", document.documentElement.clientHeight);
+         console.log("舞台宽:", this.stage.stageWidth);
+         console.log("舞台高:", this.stage.stageHeight);*/
         //侦听画布
         //this.myResize();
         //圆
@@ -155,6 +155,8 @@ var HelloKitty = (function (_super) {
         this.createSprite(this.stage.stageWidth, this.stage.stageHeight);
         //测试数组
         //this.arrTest();
+        //测试传感器
+        //this.testDeviceOrientation();
         //测试画弧
         //var shp = new egret.Shape();
         //this.addChild(shp);
@@ -176,12 +178,16 @@ var HelloKitty = (function (_super) {
         console.log(list.toArray());
         console.log("列表数据:", list.size, list.contains(1));
         //测试对象工具类
-        var a = {};
-        console.log(lcp.ObjectUtil.isEmpty(a));
+        var a = '{ "name": "cxh", "sex": "man" }';
+        console.log(lcp.ObjectUtil.isEmpty(a), JSON.parse(a), eval('(' + a + ')'));
         //测试日期工具类
         var date = new Date();
         console.log(date);
         console.log(lcp.DateUtil.formatDate(date, 'S'));
+        var o = { "a": 1, "b": 2, "c": 3 };
+        for (var p in o) {
+            console.log(p, o[p]);
+        }
     };
     HelloKitty.prototype.sp_click = function (e) {
         lcp.LTrace.trace(this, "我单击了元件" + (this._i++) + "次", this._sp.name, this._sp.x, this._sp.y, this._sp.width, this._sp.height, this._sp.touchEnabled);
@@ -324,6 +330,42 @@ var HelloKitty = (function (_super) {
         };
         doResize();
         //-------------------------------------------------------------
+    };
+    /**
+     * 获取手机传感器事件,可以写摇一摇功能,哟西
+     */
+    HelloKitty.prototype.testDeviceOrientation = function () {
+        //---------------------------------------------------------------------------------------------------
+        //获取手机传感器事件,可以写摇一摇功能,哟西
+        if (window && window["DeviceMotionEvent"]) {
+            var second = 3000; //秒
+            var starttime = egret.getTimer(); //开始时间
+            var startX, startY, startZ, endX, endY, endZ; //开始坐标和结束坐标
+            startX = startY = startZ = endX = endY = endZ = 0;
+            window.addEventListener('devicemotion', function (e) {
+                var acceleration = e.accelerationIncludingGravity; //
+                var endtime = egret.getTimer(); //结束时间
+                if ((endtime - starttime) > 100) {
+                    var diffTime = endtime - starttime; //时间差
+                    startX = acceleration.x;
+                    startY = acceleration.y;
+                    startZ = acceleration.z;
+                    var speed = Math.abs(startX + startY + startZ - endX - endY - endZ) / diffTime * 10000;
+                    if (speed > second) {
+                        alert("摇一摇,自己在这里写处理吧");
+                    }
+                    starttime = endtime;
+                    endX = startX;
+                    endY = startY;
+                    endZ = startZ;
+                }
+            }, false);
+            alert("支持传感器事件");
+        }
+        else {
+            alert('不支持传感器事件');
+        }
+        //----------------------------------------------------------------------------------------------------
     };
     return HelloKitty;
 })(egret.DisplayObjectContainer);
