@@ -15,10 +15,11 @@ module lcp {
          * @returns {boolean}
          */
         public static contains(obj:any, member:any):boolean {
-            for (var prop in obj)
-                if (obj[prop] == member)
+            for (var prop in obj){
+                if (obj.hasOwnProperty(prop) && obj[prop] == member){
                     return true;
-
+                }
+            }
             return false;
         }
 
@@ -27,13 +28,12 @@ module lcp {
          * @param obj
          * @returns {any}
          */
-        //public static clone(obj:any):any {
-        //    var byteArray = new egret.ByteArray();
-        //    byteArray.writeObject(obj);
-        //    byteArray.position = 0;
-        //
-        //    return byteArray.readObject();
-        //}
+        /*public static clone(obj:any):any {
+            var byteArray = new egret.ByteArray();
+            byteArray.writeByte(obj);
+            byteArray.position = 0;
+            return byteArray.readByte();
+        }*/
 
         /**
          * 获取对象所有键存成数组
@@ -42,10 +42,9 @@ module lcp {
          */
         public static getKeys(obj:any):Array<any> {
             var keys:Array<any> = [];
-
             for (var i in obj)
-                keys.push(i);
-
+                if(obj.hasOwnProperty(i))
+                    keys.push(i);
             return keys;
         }
 
@@ -58,7 +57,6 @@ module lcp {
         public static isMethod(obj:any, methodName:string):boolean {
             if (obj.hasOwnProperty(methodName))
                 return obj[methodName] instanceof Function;
-
             return false;
         }
 
@@ -68,7 +66,7 @@ module lcp {
          * @returns {boolean}
          */
         public static isUndefined(obj:any):boolean {
-            return obj instanceof undefined;
+            return this.isNull(obj) || obj === undefined || typeof obj === 'undefined';
         }
 
         /**
@@ -77,7 +75,7 @@ module lcp {
          * @returns {boolean}
          */
         public static isNull(obj:any):boolean {
-            return obj === null;
+            return obj === null || typeof obj === 'null' || obj == 0;
         }
 
         /**
@@ -90,10 +88,10 @@ module lcp {
          *      var testArray:Array<any>   = [];
          *      var testString:string = "";
          *      var testObject:Object = {};
-         *      console.log(ObjectUtil.isEmpty(testNumber)); // 输出 "true"
-         *      console.log(ObjectUtil.isEmpty(testArray));  // 输出 "true"
-         *      console.log(ObjectUtil.isEmpty(testString)); // 输出 "true"
-         *      console.log(ObjectUtil.isEmpty(testObject)); // 输出 "true"
+         *      console.log(lcp.ObjectUtil.isEmpty(testNumber)); // 输出 "true"
+         *      console.log(lcp.ObjectUtil.isEmpty(testArray));  // 输出 "true"
+         *      console.log(lcp.ObjectUtil.isEmpty(testString)); // 输出 "true"
+         *      console.log(lcp.ObjectUtil.isEmpty(testObject)); // 输出 "true"
          *  </code>
          *
          */
@@ -102,14 +100,15 @@ module lcp {
                 return true;
 
             if (typeof(obj) == "number")
-                return isNaN(obj);
+                return isNaN(obj) || obj == 0;
 
-            if (obj instanceof Array<any> || typeof(obj) == "string")
+            if (obj instanceof Array || typeof(obj) == "string")
                 return obj.length == 0;
 
             if (obj instanceof Object) {
                 for (var prop in obj)
-                    return false;
+                    if(obj.hasOwnProperty(prop))
+                        return false;
                 return true;
             }
 

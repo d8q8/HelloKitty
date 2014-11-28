@@ -50,13 +50,15 @@ var HelloKitty = (function (_super) {
          console.log("单击了椭圆,哟西",e.currentTarget,e.stageX,e.stageY);
          },this);*/
         //文本
-        var txt = new egret.TextField();
+        /*var txt:egret.TextField = new egret.TextField();
         this.addChild(txt);
+
         txt.x = 100;
         txt.y = 200;
         txt.width = 200;
         txt.height = 40;
         txt.text = "请输入文本";
+*/
         //涂鸦板
         /*var sp:egret.Sprite = new egret.Sprite();
          this.addChild(sp);
@@ -77,12 +79,12 @@ var HelloKitty = (function (_super) {
          this.stage.removeEventListener(egret.TouchEvent.TOUCH_END,arguments.callee,this);
          this.stage.removeEventListener(egret.TouchEvent.TOUCH_MOVE,arguments.callee,this);
          },this);*/
-        console.log("主体1宽:", document.body.clientWidth);
+        /*console.log("主体1宽:", document.body.clientWidth);
         console.log("主体1高:", document.body.clientHeight);
         console.log("主体2宽:", document.documentElement.clientWidth);
         console.log("主体2高:", document.documentElement.clientHeight);
         console.log("舞台宽:", this.stage.stageWidth);
-        console.log("舞台高:", this.stage.stageHeight);
+        console.log("舞台高:", this.stage.stageHeight);*/
         //侦听画布
         //this.myResize();
         //圆
@@ -150,7 +152,7 @@ var HelloKitty = (function (_super) {
         //},this);
         //TweenLite.to(sp,.5,{x:100,y:300});
         //创建100个精灵
-        //this.createSprite(this.stage.stageWidth, this.stage.stageHeight);
+        this.createSprite(this.stage.stageWidth, this.stage.stageHeight);
         //测试数组
         //this.arrTest();
         //测试画弧
@@ -173,6 +175,13 @@ var HelloKitty = (function (_super) {
         list.addItemAt(6, 2);
         console.log(list.toArray());
         console.log("列表数据:", list.size, list.contains(1));
+        //测试对象工具类
+        var a = {};
+        console.log(lcp.ObjectUtil.isEmpty(a));
+        //测试日期工具类
+        var date = new Date();
+        console.log(date);
+        console.log(lcp.DateUtil.formatDate(date, 'S'));
     };
     HelloKitty.prototype.sp_click = function (e) {
         lcp.LTrace.trace(this, "我单击了元件" + (this._i++) + "次", this._sp.name, this._sp.x, this._sp.y, this._sp.width, this._sp.height, this._sp.touchEnabled);

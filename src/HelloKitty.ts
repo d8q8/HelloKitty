@@ -53,7 +53,7 @@ class HelloKitty extends egret.DisplayObjectContainer {
          },this);*/
 
         //文本
-        var txt:egret.TextField = new egret.TextField();
+        /*var txt:egret.TextField = new egret.TextField();
         this.addChild(txt);
 
         txt.x = 100;
@@ -61,7 +61,7 @@ class HelloKitty extends egret.DisplayObjectContainer {
         txt.width = 200;
         txt.height = 40;
         txt.text = "请输入文本";
-
+*/
         //涂鸦板
         /*var sp:egret.Sprite = new egret.Sprite();
          this.addChild(sp);
@@ -83,12 +83,12 @@ class HelloKitty extends egret.DisplayObjectContainer {
          this.stage.removeEventListener(egret.TouchEvent.TOUCH_MOVE,arguments.callee,this);
          },this);*/
 
-        console.log("主体1宽:", document.body.clientWidth);
+        /*console.log("主体1宽:", document.body.clientWidth);
         console.log("主体1高:", document.body.clientHeight);
         console.log("主体2宽:", document.documentElement.clientWidth);
         console.log("主体2高:", document.documentElement.clientHeight);
         console.log("舞台宽:", this.stage.stageWidth);
-        console.log("舞台高:", this.stage.stageHeight);
+        console.log("舞台高:", this.stage.stageHeight);*/
 
         //侦听画布
         //this.myResize();
@@ -163,7 +163,7 @@ class HelloKitty extends egret.DisplayObjectContainer {
         //TweenLite.to(sp,.5,{x:100,y:300});
 
         //创建100个精灵
-        //this.createSprite(this.stage.stageWidth, this.stage.stageHeight);
+        this.createSprite(this.stage.stageWidth, this.stage.stageHeight);
 
         //测试数组
         //this.arrTest();
@@ -191,8 +191,14 @@ class HelloKitty extends egret.DisplayObjectContainer {
         console.log(list.toArray());
         console.log("列表数据:", list.size, list.contains(1));
 
+        //测试对象工具类
+        var a={};
+        console.log(lcp.ObjectUtil.isEmpty(a));
 
-
+        //测试日期工具类
+        var date = new Date();
+        console.log(date);
+        console.log(lcp.DateUtil.formatDate(date,'S'));
 
     }
 

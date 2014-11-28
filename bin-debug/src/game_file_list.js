@@ -8,6 +8,8 @@ var game_file_list = [
     "lcp/utils/NumberUtil.js",
     "lcp/data/LVars.js",
     "lcp/utils/ArrayUtil.js",
+    "lcp/utils/ConversionUtil.js",
+    "lcp/utils/ObjectUtil.js",
     "lcp/collection/List.js",
     "lcp/display/LCircle.js",
     "lcp/display/LEllipse.js",
@@ -18,6 +20,7 @@ var game_file_list = [
     "lcp/display/LRoundRect.js",
     "lcp/display/LStar.js",
     "lcp/geom/LPoint.js",
+    "lcp/utils/DateUtil.js",
     "lcp/utils/LHelper.js",
     "HelloKitty.js"
 ];
