@@ -31,9 +31,42 @@ egret_h5.startGame = function () {
     context.deviceContext = new egret.HTML5DeviceContext();
     context.netContext = new egret.HTML5NetContext();
 
-    egret.StageDelegate.getInstance().setDesignSize(480, 800);
+// 手机浏览器解决方案,处理宽和高,如果是生成APP,请另一个原生JS文件,可以参照这种方式.
+    var aspectRatio = {portrait: "竖屏", landscape: "横屏"};//横竖屏的处理
+    var resolution = {width: 480, height: 800};//默认宽高
+    var doResize = function (aspect) {
+        var wid, hei, radio;//宽,高,像素比
+        //获取窗口宽度
+        if (window && window.innerWidth)
+            wid = window.innerWidth;
+        else if ((document.body) && (document.body.clientWidth))
+            wid = document.body.clientWidth;
+        //获取窗口高度
+        if (window && window.innerHeight)
+            hei = window.innerHeight;
+        else if ((document.body) && (document.body.clientHeight))
+            hei = document.body.clientHeight;
+        //通过深入Document内部对body进行检测，获取窗口大小
+        if (document.documentElement && document.documentElement.clientHeight && document.documentElement.clientWidth) {
+            wid = document.documentElement.clientWidth;
+            hei = document.documentElement.clientHeight;
+        }
+        //设备像素比,这里如果获取不到就自动默认为1,如果有特殊需求可以自行修改
+        radio = window.devicePixelRatio || 1;
+        //处理横竖屏
+        if (aspect == null) {
+            aspect = aspectRatio.portrait;//横竖屏自己给吧
+        }
+        resolution = (aspect == aspectRatio.portrait) ? {width: wid, height: hei} : {width: hei, height: wid};
+        console.log(aspect, "屏幕宽:", resolution.width, "|", "屏幕高:", resolution.height, "|", "设备像素比:", radio);
+        //下面赋值给宽高适配手机浏览器
+        egret.StageDelegate.getInstance().setDesignSize(resolution.width * radio, resolution.height * radio);
+    };
+    doResize();
+
+    //egret.StageDelegate.getInstance().setDesignSize(480, 800);
     context.stage = new egret.Stage();
-    var scaleMode =  egret.MainContext.deviceType == egret.MainContext.DEVICE_MOBILE ? egret.StageScaleMode.SHOW_ALL : egret.StageScaleMode.NO_SCALE;
+    var scaleMode =  egret.MainContext.deviceType == egret.MainContext.DEVICE_MOBILE ? egret.StageScaleMode.NO_BORDER : egret.StageScaleMode.NO_SCALE;
     context.stage.scaleMode = scaleMode;
 
     //WebGL是egret的Beta特性，默认关闭
@@ -55,6 +88,9 @@ egret_h5.startGame = function () {
     if(rootClass) {
         var rootContainer = new rootClass();
         if(rootContainer instanceof egret.DisplayObjectContainer){
+            //rootContainer.rotation = 90;
+            //rootContainer.x = 480;
+
             context.stage.addChild(rootContainer);
         }
         else{

@@ -83,6 +83,7 @@ class GameApp extends egret.DisplayObjectContainer{
 
         var sky:egret.Bitmap = this.createBitmapByName("bgImage");
         this.addChild(sky);
+        console.log(sky.width,sky.height);
         var stageW:number = this.stage.stageWidth;
         var stageH:number = this.stage.stageHeight;
         sky.width = stageW;

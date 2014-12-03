@@ -1,0 +1,24 @@
+{
+  "name": "lcp",
+  "dependence": ["core"],
+  "source":"src/lcp/",
+  "file_list": [
+    "data/LVars.js",
+    "display/LCircle.js",
+    "display/LEllipse.js",
+    "display/LGraphics.js",
+    "display/LHeart.js",
+    "display/LPolygon.js",
+    "display/LRect.js",
+    "display/LRose.js",
+    "display/LRoundRect.js",
+    "display/LStar.js",
+    "events/LEvent.js",
+    "events/LListener.js",
+    "interfaces/IGraphics.js",
+    "utils/LGlobal.js",
+    "utils/LString.js",
+    "utils/LTrace.js",
+    "lcp.d.ts"
+  ]
+}

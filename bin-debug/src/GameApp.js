@@ -79,6 +79,7 @@ var GameApp = (function (_super) {
     GameApp.prototype.createGameScene = function () {
         var sky = this.createBitmapByName("bgImage");
         this.addChild(sky);
+        console.log(sky.width, sky.height);
         var stageW = this.stage.stageWidth;
         var stageH = this.stage.stageHeight;
         sky.width = stageW;
@@ -171,3 +172,4 @@ var GameApp = (function (_super) {
     };
     return GameApp;
 })(egret.DisplayObjectContainer);
+GameApp.prototype.__class__ = "GameApp";

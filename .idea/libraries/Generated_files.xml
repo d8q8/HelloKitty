@@ -1,0 +1,27 @@
+<component name="libraryTable">
+  <library name="Generated files" type="javaScript">
+    <properties>
+      <sourceFilesUrls>
+        <item url="file://$PROJECT_DIR$/greensock.d.js" />
+        <item url="file://$PROJECT_DIR$/core.d.js" />
+        <item url="file://$PROJECT_DIR$/html5.d.js" />
+        <item url="file://$PROJECT_DIR$/lcp.d.js" />
+        <item url="file://$PROJECT_DIR$/gui.d.js" />
+        <item url="file://$PROJECT_DIR$/dragonbones.d.js" />
+      </sourceFilesUrls>
+    </properties>
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/LGraphics.js" />
+      <root url="file://$PROJECT_DIR$/LTrace.js" />
+      <root url="file://$PROJECT_DIR$/LEllipse.js" />
+      <root url="file://$PROJECT_DIR$/lcp.js" />
+      <root url="file://$PROJECT_DIR$/greensock.d.js" />
+      <root url="file://$PROJECT_DIR$/core.d.js" />
+      <root url="file://$PROJECT_DIR$/html5.d.js" />
+      <root url="file://$PROJECT_DIR$/lcp.d.js" />
+      <root url="file://$PROJECT_DIR$/gui.d.js" />
+      <root url="file://$PROJECT_DIR$/dragonbones.d.js" />
+    </CLASSES>
+    <SOURCES />
+  </library>
+</component>

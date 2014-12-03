@@ -1,5 +1,5 @@
 {
-	"document_class": "HelloKitty",
+	"document_class": "GameApp",
 	"native": {
 		"path_ignore": [],
 		"support_path": [
@@ -17,13 +17,13 @@
 			"name": "dragonbones"
 		},
 		{
-		  "name": "greensock",
-		  "path": "."
+			"name": "greensock",
+			"path": "."
 		},
 		{
-		  "name": "lcp",
-		  "path": "."
+			"name": "lcp",
+			"path": "."
 		}
 	],
-	"egret_version": "1.1.2"
+	"egret_version": "1.1.4"
 }
