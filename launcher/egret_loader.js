@@ -28,7 +28,7 @@
 egret_h5.startGame = function () {
     var context = egret.MainContext.instance;
     context.touchContext = new egret.HTML5TouchContext();
-    context.deviceContext = new egret.HTML5DeviceContext();
+    context.deviceContext = new egret.HTML5DeviceContext();//改帧频30
     context.netContext = new egret.HTML5NetContext();
 
     // -----------------------------------------------------------------------
@@ -91,7 +91,6 @@ egret_h5.startGame = function () {
     };
     doResize();
     //----------------------------------------------------------------------------------------------------------------
-
 
     context.stage = new egret.Stage();
     var scaleMode = egret.MainContext.deviceType == egret.MainContext.DEVICE_MOBILE ? egret.StageScaleMode.SHOW_ALL : egret.StageScaleMode.NO_SCALE;

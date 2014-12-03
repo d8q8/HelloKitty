@@ -48,23 +48,26 @@ var egret;
             function ViewportScroller(content) {
                 _super.call(this, content);
                 this.content = content;
+                this._width = 0;
+                this._height = 0;
                 this._content = content;
             }
             ViewportScroller.prototype._updateContentPosition = function () {
                 var content = this.content;
                 content.horizontalScrollPosition = this._scrollLeft;
                 content.verticalScrollPosition = this._scrollTop;
-                content.width = this.width;
-                content.height = this.height;
+                content.setLayoutBoundsSize(this._width, this._height);
                 this.dispatchEvent(new egret.Event(egret.Event.CHANGE));
             };
             ViewportScroller.prototype.getMaxScrollLeft = function () {
                 var content = this.content;
-                return content.contentWidth - content.width;
+                var max = content.contentWidth - content.width;
+                return Math.max(max, 0);
             };
             ViewportScroller.prototype.getMaxScrollTop = function () {
                 var content = this.content;
-                return content.contentHeight - content.height;
+                var max = content.contentHeight - content.height;
+                return Math.max(max, 0);
             };
             ViewportScroller.prototype._getContentWidth = function () {
                 return this._content.contentWidth;
@@ -72,8 +75,47 @@ var egret;
             ViewportScroller.prototype._getContentHeight = function () {
                 return this._content.contentHeight;
             };
+            ViewportScroller.prototype._setHeight = function (value) {
+                this._height = value;
+                var content = this.content;
+                content.setLayoutBoundsSize(this._width, this._height);
+            };
+            ViewportScroller.prototype._setWidth = function (value) {
+                this._width = value;
+                var content = this.content;
+                content.setLayoutBoundsSize(this._width, this._height);
+            };
+            Object.defineProperty(ViewportScroller.prototype, "height", {
+                get: function () {
+                    return this._height;
+                },
+                set: function (value) {
+                    this._setHeight(value);
+                },
+                enumerable: true,
+                configurable: true
+            });
+            Object.defineProperty(ViewportScroller.prototype, "width", {
+                get: function () {
+                    return this._width;
+                },
+                set: function (value) {
+                    this._setWidth(value);
+                },
+                enumerable: true,
+                configurable: true
+            });
+            ViewportScroller.prototype.invalidateSize = function () {
+                var p = this.parent;
+                p && p.invalidateSize();
+            };
+            ViewportScroller.prototype.invalidateDisplayList = function () {
+                var p = this.parent;
+                p && p.invalidateDisplayList();
+            };
             return ViewportScroller;
         })(egret.ScrollView);
+        ViewportScroller.prototype.__class__ = "ViewportScroller";
         /**
          * @class egret.gui.Scroller
          * @classdesc

@@ -52,8 +52,6 @@ var egret;
         Graphics.prototype.beginFill = function (color, alpha) {
             if (alpha === void 0) { alpha = 1; }
         };
-        Graphics.prototype.beginLinearGradientFill = function (colors, alphas, ratios, x0, y0, x1, y1) {
-        };
         Graphics.prototype._setStyle = function (colorStr) {
         };
         /**
@@ -200,4 +198,5 @@ var egret;
         }
         return Command;
     })();
+    Command.prototype.__class__ = "Command";
 })(egret || (egret = {}));

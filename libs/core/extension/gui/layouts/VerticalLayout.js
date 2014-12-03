@@ -800,5 +800,6 @@ var egret;
             }
             return ChildInfo;
         })();
+        ChildInfo.prototype.__class__ = "ChildInfo";
     })(gui = egret.gui || (egret.gui = {}));
 })(egret || (egret = {}));

@@ -78,14 +78,14 @@ var egret;
                  * @inheritDoc
                  */
                 get: function () {
-                    if (this.enabled)
+                    if (this._enabled)
                         return this._editable;
                     return this.pendingEditable;
                 },
                 set: function (value) {
                     if (this._editable == value)
                         return;
-                    if (this.enabled) {
+                    if (this._enabled) {
                         this._editable = value;
                         this.editableChanged = true;
                         this.invalidateProperties();
@@ -98,6 +98,9 @@ var egret;
                 configurable: true
             });
             Object.defineProperty(EditableText.prototype, "enabled", {
+                get: function () {
+                    return this._editable;
+                },
                 /**
                  * @inheritDoc
                  */
@@ -105,7 +108,7 @@ var egret;
                     if (value == this._enabled)
                         return;
                     this._enabled = value;
-                    if (this.enabled) {
+                    if (this._enabled) {
                         if (this._editable != this.pendingEditable)
                             this.editableChanged = true;
                         this._editable = this.pendingEditable;

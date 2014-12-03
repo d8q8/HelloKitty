@@ -53,35 +53,15 @@ class HelloKitty extends egret.DisplayObjectContainer {
          },this);*/
 
         //文本
-        /*var txt:egret.TextField = new egret.TextField();
-         this.addChild(txt);
+        var txt:egret.TextField = new egret.TextField();
+        this.addChild(txt);
+        txt.type=egret.TextFieldType.INPUT;
+        txt.x = 100;
+        txt.y = 200;
+        txt.width = 200;
+        txt.height = 40;
+        txt.text = "请输入文本";
 
-         txt.x = 100;
-         txt.y = 200;
-         txt.width = 200;
-         txt.height = 40;
-         txt.text = "请输入文本";
-         */
-        //涂鸦板
-        /*var sp:egret.Sprite = new egret.Sprite();
-         this.addChild(sp);
-         this.stage.addEventListener(egret.TouchEvent.TOUCH_BEGIN,(e)=>{
-         sp.graphics.lineStyle(3,0xff0000);
-         sp.graphics.moveTo(e.stageX,e.stageY);
-         this.stage.addEventListener(egret.TouchEvent.TOUCH_MOVE,arguments.callee,this);
-         },this);
-
-         this.stage.addEventListener(egret.TouchEvent.TOUCH_MOVE,(e)=>{
-         //console.log(e.stageX,e.stageY);
-         sp.graphics.lineTo(e.stageX,e.stageY);
-         this.stage.addEventListener(egret.TouchEvent.TOUCH_END,arguments.callee,this);
-         },this);
-
-         this.stage.addEventListener(egret.TouchEvent.TOUCH_END,(e)=>{
-         this.stage.removeEventListener(egret.TouchEvent.TOUCH_BEGIN,arguments.callee,this);
-         this.stage.removeEventListener(egret.TouchEvent.TOUCH_END,arguments.callee,this);
-         this.stage.removeEventListener(egret.TouchEvent.TOUCH_MOVE,arguments.callee,this);
-         },this);*/
 
         /*console.log("主体1宽:", document.body.clientWidth);
          console.log("主体1高:", document.body.clientHeight);
@@ -93,6 +73,90 @@ class HelloKitty extends egret.DisplayObjectContainer {
         //侦听画布
         //this.myResize();
 
+
+        //创建100个精灵
+        //this.createSprite(this.stage.stageWidth, this.stage.stageHeight);
+
+        //测试数组
+        //this.arrTest();
+
+        //测试传感器
+        //this.testDeviceOrientation();
+
+        //测试画弧
+        //var shp = new egret.Shape();
+        //this.addChild(shp);
+        //shp.graphics.beginFill(0xff0000);
+        //shp.graphics.lineStyle(5,0x00ff00);
+        //shp.graphics.drawArc(50,50,50,0,Math.PI/3,true);
+        //shp.graphics.endFill();
+        //shp.width = 100;
+        //shp.height = 100;
+        //shp.x = shp.y = 100;
+        //shp.touchEnabled=true;
+        //
+        //shp.addEventListener(egret.TouchEvent.TOUCH_TAP,(e)=>{
+        //    console.log("点击",shp.x,shp.y,shp.width,shp.height);
+        //},this);
+        //console.log(shp.x,shp.y,shp.width,shp.height);
+
+        var list = new lcp.List([1, 2, 3, 4, 5]);
+        list.addItemAt(6, 2);
+        console.log(list.toArray());
+        console.log("列表数据:", list.size, list.contains(1));
+
+        //测试对象工具类
+        var a = '{ "name": "cxh", "sex": "man" }';
+        console.log(lcp.ObjectUtil.isEmpty(a), JSON.parse(a), eval('(' + a + ')'));
+
+        //测试日期工具类
+        var date = new Date();
+        console.log(date);
+        console.log(lcp.DateUtil.formatDate(date, 'S'));
+
+        var o = {"a": 1, "b": 2, "c": 3};
+        for (var p in o) {
+            console.log(p, o[p]);
+        }
+
+
+    }
+
+    private _sp:lcp.LCircle;
+    public _i:number;
+
+    public sp_click(e:egret.TouchEvent):void {
+        lcp.LTrace.trace(this, "我单击了元件" + (this._i++) + "次", this._sp.name, this._sp.x, this._sp.y, this._sp.width, this._sp.height, this._sp.touchEnabled);
+    }
+
+    /**
+     * 涂鸦板
+     */
+    private testBoard() {
+        var sp:egret.Sprite = new egret.Sprite();
+        this.addChild(sp);
+        this.stage.addEventListener(egret.TouchEvent.TOUCH_BEGIN, (e)=> {
+            sp.graphics.lineStyle(3, 0xff0000);
+            sp.graphics.moveTo(e.stageX, e.stageY);
+            this.stage.addEventListener(egret.TouchEvent.TOUCH_MOVE, arguments.callee, this);
+        }, this);
+
+        this.stage.addEventListener(egret.TouchEvent.TOUCH_MOVE, (e)=> {
+            //console.log(e.stageX,e.stageY);
+            sp.graphics.lineTo(e.stageX, e.stageY);
+        }, this);
+
+        this.stage.addEventListener(egret.TouchEvent.TOUCH_END, (e)=> {
+            this.stage.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, arguments.callee, this);
+            this.stage.removeEventListener(egret.TouchEvent.TOUCH_END, arguments.callee, this);
+            this.stage.removeEventListener(egret.TouchEvent.TOUCH_MOVE, arguments.callee, this);
+        }, this);
+    }
+
+    /**
+     * 测试碰撞
+     */
+    private testHittest() {
         //圆
         var sp = new lcp.LCircle({
             name: "sp",
@@ -161,60 +225,6 @@ class HelloKitty extends egret.DisplayObjectContainer {
         //},this);
 
         //TweenLite.to(sp,.5,{x:100,y:300});
-
-        //创建100个精灵
-        this.createSprite(this.stage.stageWidth, this.stage.stageHeight);
-
-        //测试数组
-        //this.arrTest();
-
-        //测试传感器
-        //this.testDeviceOrientation();
-
-        //测试画弧
-        //var shp = new egret.Shape();
-        //this.addChild(shp);
-        //shp.graphics.beginFill(0xff0000);
-        //shp.graphics.lineStyle(5,0x00ff00);
-        //shp.graphics.drawArc(50,50,50,0,Math.PI/3,true);
-        //shp.graphics.endFill();
-        //shp.width = 100;
-        //shp.height = 100;
-        //shp.x = shp.y = 100;
-        //shp.touchEnabled=true;
-        //
-        //shp.addEventListener(egret.TouchEvent.TOUCH_TAP,(e)=>{
-        //    console.log("点击",shp.x,shp.y,shp.width,shp.height);
-        //},this);
-        //console.log(shp.x,shp.y,shp.width,shp.height);
-
-        var list = new lcp.List([1, 2, 3, 4, 5]);
-        list.addItemAt(6, 2);
-        console.log(list.toArray());
-        console.log("列表数据:", list.size, list.contains(1));
-
-        //测试对象工具类
-        var a = '{ "name": "cxh", "sex": "man" }';
-        console.log(lcp.ObjectUtil.isEmpty(a),JSON.parse(a),eval('('+a+')'));
-
-        //测试日期工具类
-        var date = new Date();
-        console.log(date);
-        console.log(lcp.DateUtil.formatDate(date, 'S'));
-
-        var o = {"a": 1, "b": 2, "c": 3};
-        for (var p in o) {
-            console.log(p, o[p]);
-        }
-
-
-    }
-
-    private _sp:lcp.LCircle;
-    public _i:number;
-
-    public sp_click(e:egret.TouchEvent):void {
-        lcp.LTrace.trace(this, "我单击了元件" + (this._i++) + "次", this._sp.name, this._sp.x, this._sp.y, this._sp.width, this._sp.height, this._sp.touchEnabled);
     }
 
     /**

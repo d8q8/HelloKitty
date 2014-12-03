@@ -281,5 +281,6 @@ var egret;
             }
             return PopUpData;
         })();
+        PopUpData.prototype.__class__ = "PopUpData";
     })(gui = egret.gui || (egret.gui = {}));
 })(egret || (egret = {}));

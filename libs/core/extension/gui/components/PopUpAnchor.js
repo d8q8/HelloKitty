@@ -261,6 +261,7 @@ var egret;
                 else {
                     (this.popUp)._scrollRect = new egret.Rectangle(x, y, this.popUp.width, this.popUp.height);
                 }
+                (this.popUp)._setScrollRect(rect);
             };
             /**
              * 动画播放完成触发的函数
