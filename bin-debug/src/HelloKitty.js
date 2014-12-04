@@ -23,16 +23,28 @@ var HelloKitty = (function (_super) {
         this.init();
     };
     HelloKitty.prototype.init = function () {
+        console.log("前:", lcp.LGlobal.root, this);
+        lcp.LGlobal.root = this;
+        console.log("后:", lcp.LGlobal.root, this);
         //元件
-        /*var rect:lcp.LRose = new lcp.LRose({x:100,y:150,radius:100,petal:4,thickness:5,linecolor:0xff0000,fillcolor:0x00ff00});
-         this.addChild(rect);
-         rect.touchEnabled=true;
-         rect.addEventListener(egret.TouchEvent.TOUCH_TAP,(e)=>{
-         console.log("单击了玫瑰,哟西",rect.x,rect.y,e.stageX,e.stageY);
-
-         },this);
-
-         TweenLite.to(rect,1,{x:300,y:200,rotation:360});*/
+        var rect = new lcp.LRose({
+            x: 100,
+            y: 150,
+            radius: 100,
+            petal: 4,
+            thickness: 5,
+            linecolor: 0xff0000,
+            fillcolor: 0x00ff00
+        });
+        //this.addChild(rect);
+        rect.addEventListener(egret.TouchEvent.TOUCH_TAP, function (e) {
+            console.log("单击了玫瑰,哟西", rect.x, rect.y, e.stageX, e.stageY, this);
+        }, this);
+        console.log(this);
+        /*rect.addEventListener(egret.TouchEvent.TOUCH_TAP, (e)=> {
+         console.log("单击了玫瑰,哟西", rect.x, rect.y, e.stageX, e.stageY, this);
+         }, this);*/
+        //TweenLite.to(rect, 1, {x: 100, y: 200, rotation: 360});
         /*rect.addEventListener(egret.TouchEvent.TOUCH_BEGIN,(e)=>{
          lcp.LTrace.trace("按下",rect.x,rect.y);
          e.currentTarget.startDrag(true);
@@ -50,24 +62,39 @@ var HelloKitty = (function (_super) {
          console.log("单击了椭圆,哟西",e.currentTarget,e.stageX,e.stageY);
          },this);*/
         //文本
+        var txt_shadow = new egret.TextField();
+        this.addChild(txt_shadow);
         var txt = new egret.TextField();
         this.addChild(txt);
         txt.type = egret.TextFieldType.INPUT;
+        txt.multiline = true;
         txt.x = 100;
         txt.y = 200;
         txt.width = 200;
         txt.height = 40;
         txt.text = "请输入文本";
-        /*console.log("主体1宽:", document.body.clientWidth);
-         console.log("主体1高:", document.body.clientHeight);
-         console.log("主体2宽:", document.documentElement.clientWidth);
-         console.log("主体2高:", document.documentElement.clientHeight);
-         console.log("舞台宽:", this.stage.stageWidth);
-         console.log("舞台高:", this.stage.stageHeight);*/
+        txt.textColor = 0xff0000;
+        txt.addEventListener(egret.Event.CHANGE, function (e) {
+            txt_shadow.text = txt.text;
+        }, this);
+        txt_shadow.multiline = true;
+        txt_shadow.text = txt.text;
+        txt_shadow.width = txt.width;
+        txt_shadow.height = txt.height;
+        txt_shadow.x = txt.x + 1;
+        txt_shadow.y = txt.y + 1;
+        txt_shadow.textColor = 0xffffff;
+        txt_shadow.alpha = .5;
+        console.log("主体1宽:", document.body.clientWidth);
+        console.log("主体1高:", document.body.clientHeight);
+        console.log("主体2宽:", document.documentElement.clientWidth);
+        console.log("主体2高:", document.documentElement.clientHeight);
+        console.log("舞台宽:", this.stage.stageWidth);
+        console.log("舞台高:", this.stage.stageHeight);
         //侦听画布
         //this.myResize();
         //创建100个精灵
-        //this.createSprite(this.stage.stageWidth, this.stage.stageHeight);
+        this.createSprite(this.stage.stageWidth, this.stage.stageHeight);
         //测试数组
         //this.arrTest();
         //测试传感器
@@ -99,10 +126,26 @@ var HelloKitty = (function (_super) {
         var date = new Date();
         console.log(date);
         console.log(lcp.DateUtil.formatDate(date, 'S'));
-        var o = { "a": 1, "b": 2, "c": 3 };
-        for (var p in o) {
-            console.log(p, o[p]);
-        }
+        /*var o = {"a": 1, "b": 2, "c": 3};
+         for (var p in o) {
+         console.log(p, o[p]);
+         }*/
+        var arr_sort = [1, 4, 23, 124, 3, 8, 2, 44];
+        //var asc = function (a, b) {
+        //    return a > b ? 1 : -1;
+        //};
+        var asc = function (a, b) {
+            return a > b ? 1 : -1;
+        };
+        console.log("原生排序->升序:", arr_sort.sort(asc));
+        //console.log("原生排序->升序:", arr_sort.sort((a, b):number=> {
+        //    return a > b ? 1 : -1;
+        //}));
+        console.log("原生排序->降序:", arr_sort.sort(function (a, b) {
+            return a < b ? 1 : -1;
+        }));
+        console.log("我的内裤排序->升序:", lcp.LOrder.sort(arr_sort));
+        console.log("我的内裤排序->降序:", lcp.LOrder.sort(arr_sort, 2 /* DESCENDING */));
     };
     HelloKitty.prototype.sp_click = function (e) {
         lcp.LTrace.trace(this, "我单击了元件" + (this._i++) + "次", this._sp.name, this._sp.x, this._sp.y, this._sp.width, this._sp.height, this._sp.touchEnabled);

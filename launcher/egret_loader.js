@@ -87,13 +87,14 @@ egret_h5.startGame = function () {
         resolution = (aspect == aspectRatio.portrait) ? {width: wid, height: hei} : {width: hei, height: wid};
         console.log(wid > hei ? aspectRatio.landscape : aspectRatio.portrait, "屏幕宽:", resolution.width, "|", "屏幕高:", resolution.height, "|", "设备像素比:", radio);
         //下面赋值给宽高适配手机浏览器
-        egret.StageDelegate.getInstance().setDesignSize(resolution.width * radio, resolution.height * radio);
+        //egret.StageDelegate.getInstance().setDesignSize(resolution.width * radio, resolution.height * radio);
+        egret.StageDelegate.getInstance().setDesignSize(480, 800);
     };
     doResize();
     //----------------------------------------------------------------------------------------------------------------
 
     context.stage = new egret.Stage();
-    var scaleMode = egret.MainContext.deviceType == egret.MainContext.DEVICE_MOBILE ? egret.StageScaleMode.SHOW_ALL : egret.StageScaleMode.NO_SCALE;
+    var scaleMode = egret.MainContext.deviceType == egret.MainContext.DEVICE_MOBILE ? egret.StageScaleMode.NO_BORDER : egret.StageScaleMode.NO_SCALE;
     context.stage.scaleMode = scaleMode;
 
     //WebGL是egret的Beta特性，默认关闭

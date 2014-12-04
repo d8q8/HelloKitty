@@ -21,6 +21,7 @@ var game_file_list = [
     "lcp/display/LStar.js",
     "lcp/geom/LPoint.js",
     "lcp/utils/DateUtil.js",
+    "lcp/utils/LGlobal.js",
     "lcp/utils/LHelper.js",
     "HelloKitty.js"
 ];
