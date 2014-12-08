@@ -64,7 +64,7 @@ var lcp;
             this.vars.fillalpha = 1;
             this.vars.radius = 5;
             this.vars.ellipseWidth = 20;
-            this.vars.ellipseHeight = this.vars.ellipseWidth;
+            this.vars.ellipseHeight = this.vars.ellipseHeight ? this.vars.ellipseHeight : this.vars.ellipseWidth;
             this.vars.corner = 3;
             this.vars.ratio = .5;
             this.vars.petal = 4;

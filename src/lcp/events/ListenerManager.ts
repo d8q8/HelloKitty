@@ -5,7 +5,8 @@
  * @constructor
  **/
 module lcp {
-    export class ListenerManager extends Disposable implements IRemovableEventDispatcher {
+    export class ListenerManager extends Destroyable implements IRemovableEventDispatcher {
+
         public CLASS_NAME:string = "ListenerManager";
 
         public hashCode:number;
@@ -18,7 +19,7 @@ module lcp {
             super();
 
             this._eventDispatcher = dispatcher;
-            this._events          = [];
+            this._events = [];
         }
 
         /**
@@ -27,12 +28,10 @@ module lcp {
          * @returns {ListenerManager}
          */
         public static getManager(dispatcher:egret.IEventDispatcher):ListenerManager {
-            if (ListenerManager._proxyMap == null)
+            if (!ListenerManager._proxyMap)
                 ListenerManager._proxyMap = {};
-
             if (!(<any>dispatcher in ListenerManager._proxyMap))
-                ListenerManager._proxyMap[<any>dispatcher] = new ListenerManager(new EventInfo(null, null, null, false), dispatcher);
-
+                ListenerManager._proxyMap[<any>dispatcher] = new ListenerManager(new EventInfo(null, null, dispatcher, false), dispatcher);
             return ListenerManager._proxyMap[<any>dispatcher];
         }
 
@@ -45,13 +44,11 @@ module lcp {
          * @param priority
          */
         public addEventListener(type:string, listener:Function, thisObject:any, useCapture:boolean = false, priority:number = 0):void {
-            var info:EventInfo = new EventInfo(type, listener, thisObject, useCapture);
-
+            var info:EventInfo = new EventInfo(type, listener, thisObject ? thisObject : this._eventDispatcher, useCapture);
             var l:number = this._events.length;
             while (l--)
                 if (this._events[l].equals(info))
                     return;
-
             this._events.push(info);
         }
 
@@ -92,9 +89,7 @@ module lcp {
         public removeEventListener(type:string, listener:Function, thisObject:any, useCapture:boolean = false):void {
             if (this._blockRequest)
                 return;
-
-            var info:EventInfo = new EventInfo(type, listener, thisObject, useCapture);
-
+            var info:EventInfo = new EventInfo(type, listener, thisObject ? thisObject : this._eventDispatcher, useCapture);
             var l:number = this._events.length;
             while (l--)
                 if (this._events[l].equals(info))
@@ -102,29 +97,25 @@ module lcp {
         }
 
         /**
-         * 移除指定类型的所有事件
+         * 移除指定类型的事件
          * @param type
          */
         public removeEventsForType(type:string):void {
             this._blockRequest = true;
-
             var l:number = this._events.length;
             var eventInfo:EventInfo;
             while (l--) {
                 eventInfo = this._events[l];
-
                 if (eventInfo.type == type) {
                     this._events.splice(l, 1);
-
                     this._eventDispatcher.removeEventListener(eventInfo.type, eventInfo.listener, eventInfo.thisObject, eventInfo.useCapture);
                 }
             }
-
             this._blockRequest = false;
         }
 
         /**
-         * 移除指定侦听器报告的所有事件
+         * 移除指定侦听器报告的事件
          * @param listener
          */
         public removeEventsForListener(listener:Function):void {
@@ -134,14 +125,11 @@ module lcp {
             var eventInfo:EventInfo;
             while (l--) {
                 eventInfo = this._events[l];
-
                 if (eventInfo.listener == listener) {
                     this._events.splice(l, 1);
-
                     this._eventDispatcher.removeEventListener(eventInfo.type, eventInfo.listener, eventInfo.thisObject, eventInfo.useCapture);
                 }
             }
-
             this._blockRequest = false;
         }
 
@@ -150,15 +138,12 @@ module lcp {
          */
         public removeEventListeners():void {
             this._blockRequest = true;
-
             var l:number = this._events.length;
             var eventInfo:EventInfo;
             while (l--) {
                 eventInfo = this._events.splice(l, 1)[0];
-
                 this._eventDispatcher.removeEventListener(eventInfo.type, eventInfo.listener, eventInfo.thisObject, eventInfo.useCapture);
             }
-
             this._blockRequest = false;
         }
 
@@ -174,12 +159,13 @@ module lcp {
         /**
          * 释放
          */
-        public dispose():void {
+        public destroy():void {
             this.removeEventListeners();
             delete ListenerManager._proxyMap[<any>this._eventDispatcher];
             this._eventDispatcher = null;
-            super.dispose();
+            super.destroy();
         }
+
         /**
          * 类名
          * @returns {string}
@@ -193,15 +179,15 @@ module lcp {
     /**
      * 事件信息类
      */
-    export class EventInfo {
+    class EventInfo {
         public type:string;
         public listener:Function;
         public thisObject:any;
         public useCapture:boolean;
 
         public constructor(type:string, listener:Function, thisObject:any, useCapture:boolean) {
-            this.type       = type;
-            this.listener   = listener;
+            this.type = type;
+            this.listener = listener;
             this.thisObject = thisObject;
             this.useCapture = useCapture;
         }

@@ -24,6 +24,9 @@ module lcp {
             return new LEvent(this.type, obj ? obj : this.obj, this.bubbles, this.cancelable);
         }
 
+        /**
+         * 类输出
+         */
         public toString():void {
             console.log(this.CLASS_NAME, "type", "bubbles", "cancelable");
         }

@@ -5,6 +5,9 @@
  * @constructor
  **/
 module lcp {
+    /**
+     * 显示对象工具类
+     */
     export class DisplayObjectUtil {
         public CLASS_NAME:string = "DisplayObjectUtil";
 
@@ -14,9 +17,9 @@ module lcp {
 
         /**
          * 移除所有子元件
-         * @param parent
-         * @param destroyChildren
-         * @param recursive
+         * @param parent 父元件
+         * @param destroyChildren 是否销毁子元件
+         * @param recursive 是否递归移除
          */
         public static removeAllChildren(parent:egret.DisplayObject, destroyChildren:boolean = false, recursive:boolean = false):void {
             var container = <egret.DisplayObjectContainer>parent;
@@ -79,10 +82,10 @@ module lcp {
 
 
         public static _checkChild(child:egret.DisplayObject, destroy:boolean, recursive:boolean):void {
-            if (destroy && child instanceof IDisposable) {
-                var dest = <IDisposable>child;
-                if (!dest.isDisposed)
-                    dest.dispose();
+            if (destroy && child instanceof CSprite) {
+                var dest = <CSprite>child;
+                if (!dest.isDestroyed)
+                    dest.destroy();
             }
             if (recursive)
                 DisplayObjectUtil.removeAllChildren(child, destroy, recursive);
@@ -97,4 +100,6 @@ module lcp {
             return this.CLASS_NAME;
         }
     }
+
+
 }

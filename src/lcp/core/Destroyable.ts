@@ -8,16 +8,16 @@ module lcp {
     /**
      * 销毁类
      */
-    export class Disposable implements IDisposable {
-        public CLASS_NAME:string = "Disposable";
-        public isDisposed: boolean;
+    export class Destroyable implements IDestroyable {
+        public CLASS_NAME:string = "Destroyable";
+        public isDestroyed: boolean;
 
         public constructor() {
 
         }
 
-        public dispose():void {
-            this.isDisposed = true;
+        public destroy():void {
+            this.isDestroyed = true;
         }
 
         /**

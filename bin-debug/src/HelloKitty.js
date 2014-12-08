@@ -23,9 +23,12 @@ var HelloKitty = (function (_super) {
         this.init();
     };
     HelloKitty.prototype.init = function () {
-        console.log("前:", lcp.LGlobal.root, this);
+        /*console.log("前:", lcp.LGlobal.root, this);
         lcp.LGlobal.root = this;
-        console.log("后:", lcp.LGlobal.root, this);
+        console.log("后:", lcp.LGlobal.root, this);*/
+        var _this = this;
+        var sp = new lcp.LSprite();
+        this.addChild(sp);
         //元件
         var rect = new lcp.LRose({
             x: 100,
@@ -36,24 +39,29 @@ var HelloKitty = (function (_super) {
             linecolor: 0xff0000,
             fillcolor: 0x00ff00
         });
-        //this.addChild(rect);
-        rect.addEventListener(egret.TouchEvent.TOUCH_TAP, function (e) {
-            console.log("单击了玫瑰,哟西", rect.x, rect.y, e.stageX, e.stageY, this);
+        sp.addChild(rect);
+        console.log(sp.width, sp.height, sp.getChildAt(0));
+        this._listener = lcp.ListenerManager.getManager(rect);
+        console.log("注册侦听", this._listener);
+        var touchBegin = function (e) {
+            console.log("开始:单击了玫瑰,哟西", rect.x, rect.y, e.stageX, e.stageY);
+            var comEvent = new lcp.LEvent("aaa", { a: 3, b: 4 });
+            lcp.LListener.getInstance().dispatchEvent(comEvent);
+        };
+        var touchEnd = function (e) {
+            console.log("结束:单击了玫瑰,哟西", rect.x, rect.y, e.stageX, e.stageY);
+        };
+        this._listener.addEventListener(egret.TouchEvent.TOUCH_BEGIN, touchBegin, this);
+        this._listener.addEventListener(egret.TouchEvent.TOUCH_END, touchEnd, this);
+        rect.addEventListener(egret.TouchEvent.TOUCH_BEGIN, touchBegin, this);
+        rect.addEventListener(egret.TouchEvent.TOUCH_END, touchEnd, this);
+        lcp.LListener.getInstance().addEventListener("aaa", function (e) {
+            console.log(e.param, _this._listener.getTotalEventListeners());
+            _this._listener.removeEventListeners();
+            console.log(sp.children());
+            sp.removeAllChildren();
         }, this);
-        console.log(this);
-        /*rect.addEventListener(egret.TouchEvent.TOUCH_TAP, (e)=> {
-         console.log("单击了玫瑰,哟西", rect.x, rect.y, e.stageX, e.stageY, this);
-         }, this);*/
         //TweenLite.to(rect, 1, {x: 100, y: 200, rotation: 360});
-        /*rect.addEventListener(egret.TouchEvent.TOUCH_BEGIN,(e)=>{
-         lcp.LTrace.trace("按下",rect.x,rect.y);
-         e.currentTarget.startDrag(true);
-         },this);
-
-         rect.addEventListener(egret.TouchEvent.TOUCH_END,(e)=>{
-         lcp.LTrace.trace("抬起",rect.x,rect.y);
-         e.currentTarget.stopDrag();
-         },this);*/
         //椭圆
         /*var ellipse:lcp.LEllipse = new lcp.LEllipse({x:200,y:500,width:200,height:100,thickness:5,linecolor:0x00ff00,fillcolor:0xff0000});
          this.addChild(ellipse);
@@ -62,29 +70,29 @@ var HelloKitty = (function (_super) {
          console.log("单击了椭圆,哟西",e.currentTarget,e.stageX,e.stageY);
          },this);*/
         //文本
-        var txt_shadow = new egret.TextField();
-        this.addChild(txt_shadow);
-        var txt = new egret.TextField();
-        this.addChild(txt);
-        txt.type = egret.TextFieldType.INPUT;
-        txt.multiline = true;
-        txt.x = 100;
-        txt.y = 200;
-        txt.width = 200;
-        txt.height = 40;
-        txt.text = "请输入文本";
-        txt.textColor = 0xff0000;
-        txt.addEventListener(egret.Event.CHANGE, function (e) {
-            txt_shadow.text = txt.text;
-        }, this);
-        txt_shadow.multiline = true;
-        txt_shadow.text = txt.text;
-        txt_shadow.width = txt.width;
-        txt_shadow.height = txt.height;
-        txt_shadow.x = txt.x + 1;
-        txt_shadow.y = txt.y + 1;
-        txt_shadow.textColor = 0xffffff;
-        txt_shadow.alpha = .5;
+        /*var txt_shadow = new egret.TextField();
+         this.addChild(txt_shadow);
+         var txt = new egret.TextField();
+         this.addChild(txt);
+         txt.type = egret.TextFieldType.INPUT;
+         txt.multiline = true;
+         txt.x = 100;
+         txt.y = 200;
+         txt.width = 200;
+         txt.height = 40;
+         txt.text = "请输入文本";
+         txt.textColor = 0xff0000;
+         txt.addEventListener(egret.Event.CHANGE, (e)=> {
+         txt_shadow.text = txt.text;
+         }, this);
+         txt_shadow.multiline = true;
+         txt_shadow.text = txt.text;
+         txt_shadow.width = txt.width;
+         txt_shadow.height = txt.height;
+         txt_shadow.x = txt.x + 1;
+         txt_shadow.y = txt.y + 1;
+         txt_shadow.textColor = 0xffffff;
+         txt_shadow.alpha = .5;*/
         console.log("主体1宽:", document.body.clientWidth);
         console.log("主体1高:", document.body.clientHeight);
         console.log("主体2宽:", document.documentElement.clientWidth);
@@ -94,7 +102,7 @@ var HelloKitty = (function (_super) {
         //侦听画布
         //this.myResize();
         //创建100个精灵
-        this.createSprite(this.stage.stageWidth, this.stage.stageHeight);
+        //this.createSprite(this.stage.stageWidth, this.stage.stageHeight);
         //测试数组
         //this.arrTest();
         //测试传感器

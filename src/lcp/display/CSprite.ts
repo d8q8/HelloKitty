@@ -1,27 +1,20 @@
 /**
- * Created by d8q8 on 2014/12/7.
+ * Created by d8q8 on 2014/12/8.
  * @module lcp
- * @class RemovableEventDispatcher
+ * @class CSprite
  * @constructor
  **/
 module lcp {
-    /**
-     * 移除事件派发器类
-     */
-    export class RemovableEventDispatcher extends egret.EventDispatcher implements IRemovableEventDispatcher, IDestroyable {
-        public CLASS_NAME:string = "RemovableEventDispatcher";
-        public _listenerManager:ListenerManager;
-        public isDestroyed:boolean;
+    export class CSprite extends egret.Sprite implements IRemovableEventDispatcher,IDestroyable{
+        public CLASS_NAME:string = "CSprite";
 
-        /**
-         * 移除事件消息类构造函数
-         * @param target
-         */
-        public constructor(target?:egret.IEventDispatcher) {
-            super(target);
+        public isDestroyed:boolean;
+        public _listenerManager:ListenerManager;
+
+        public constructor() {
+            super();
             this._listenerManager = ListenerManager.getManager(this);
         }
-
         /**
          * 派发事件
          * @param event
@@ -91,13 +84,41 @@ module lcp {
         }
 
         /**
+         * 获取当前子元件
+         * @returns {Array<any>}
+         */
+        public children():Array<any> {
+            return DisplayObjectUtil.getChildren(this);
+        }
+
+        /**
+         * 移除所有子元件
+         * @param destroyChildren
+         * @param recursive
+         */
+        public removeAllChildren(destroyChildren:boolean = false, recursive:boolean = false):void {
+            DisplayObjectUtil.removeAllChildren(this, destroyChildren, recursive);
+        }
+
+        /**
+         * 移除所有子元件并销毁
+         * @param destroyChildren
+         * @param recursive
+         */
+        public removeAllChildrenAndDestroy(destroyChildren:boolean = false, recursive:boolean = false):void {
+            this.removeAllChildren(destroyChildren, recursive);
+            this.destroy();
+        }
+
+        /**
          * 释放
          */
         public destroy():void {
             this._listenerManager.destroy();
             this.isDestroyed = true;
+            if (this.parent != null)
+                this.parent.removeChild(this);
         }
-
         /**
          * 类名
          * @returns {string}
