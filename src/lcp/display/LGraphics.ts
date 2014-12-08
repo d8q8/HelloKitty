@@ -95,4 +95,18 @@ module lcp {
 
     }
 
+    /**
+     * 图形类型
+     */
+    export enum GraphicsType{
+        Circle,
+        Rect,
+        Ellipse,
+        Polygon,
+        Rose,
+        RoundRect,
+        Star,
+        Heart
+    }
+
 }

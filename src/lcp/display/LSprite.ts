@@ -8,8 +8,11 @@ module lcp {
     /**
      * 精灵辅助类(主要完善精灵拖拽方法/增加简单拖拽方法)
      */
-    export class LSprite extends egret.Sprite {
+    export class LSprite extends egret.Sprite implements IRemovableEventDispatcher,IDisposable{
         public CLASS_NAME:string = 'LSprite';
+
+        public isDisposed:boolean;
+        public _listenerManager:ListenerManager;
 
         private clickOffset:egret.Point;//拖拽起始坐标
         private _mouseX:number;//舞台x坐标
@@ -35,6 +38,7 @@ module lcp {
             super();
             this._isDrag=false;
             this.startDrag();
+            this._listenerManager = ListenerManager.getManager(this);
         }
 
         /**
@@ -136,6 +140,116 @@ module lcp {
             if(dist < (o1.width/2 + o2.width/2) || dist < (o1.height/2 + o2.height/2)){
                 return true;
           }
+        }
+
+
+        /**
+         * 派发事件
+         * @param event
+         * @returns {boolean}
+         */
+        public dispatchEvent(event:egret.Event):boolean {
+            if (this.willTrigger(event.type))
+                return super.dispatchEvent(event);
+
+            return true;
+        }
+
+        /**
+         * 注册侦听
+         * @param type
+         * @param listener
+         * @param thisObject
+         * @param useCapture
+         * @param priority
+         */
+        public addEventListener(type:string, listener:Function, thisObject:any, useCapture:boolean = false, priority:number = 0):void {
+            super.addEventListener(type, listener, thisObject, useCapture, priority);
+            this._listenerManager.addEventListener(type, listener, thisObject, useCapture, priority);
+        }
+
+        /**
+         * 移除侦听
+         * @param type
+         * @param listener
+         * @param thisObject
+         * @param useCapture
+         */
+        public removeEventListener(type:string, listener:Function, thisObject:any, useCapture:boolean = false):void {
+            super.removeEventListener(type, listener, thisObject, useCapture);
+            this._listenerManager.removeEventListener(type, listener, thisObject, useCapture);
+        }
+
+        /**
+         * 移除指定类型的所有事件
+         * @param type
+         */
+        public removeEventsForType(type:string):void {
+            this._listenerManager.removeEventsForType(type);
+        }
+
+        /**
+         * 移除指定侦听器报告的所有事件
+         * @param listener
+         */
+        public removeEventsForListener(listener:Function):void {
+            this._listenerManager.removeEventsForListener(listener);
+        }
+
+        /**
+         * 移除所有侦听
+         */
+        public removeEventListeners():void {
+            this._listenerManager.removeEventListeners();
+        }
+
+        /**
+         * 获取指定事件或所有事件的总侦听数
+         * @param type
+         * @returns {number}
+         */
+        public getTotalEventListeners(type:string = null):number {
+            return this._listenerManager.getTotalEventListeners(type);
+        }
+
+        /**
+         Returns the current children of the <code>CasaSprite</code> as an <code>Array</code>.
+
+         @usageNote The <code>Array</code> is created dynamically when requested. It is best practice to store the result until no longer needed.
+         */
+        public get children():Array<any> {
+            return DisplayObjectUtil.getChildren(this);
+        }
+
+        /**
+         Removes and optionally destroys children of the <code>CasaSprite</code>.
+
+         @param destroyChildren: If a child implements {@link IDestroyable} call its {@link IDestroyable#destroy destroy} method <code>true</code>, or don't destroy <code>false</code>; defaults to <code>false</code>.
+         @param recursive: Call this method with the same arguments on all of the children's children (all the way down the display list) <code>true</code>, or leave the children's children <code>false</code>; defaults to <code>false</code>.
+         */
+        public removeAllChildren(destroyChildren:boolean = false, recursive:boolean = false):void {
+            DisplayObjectUtil.removeAllChildren(this, destroyChildren, recursive);
+        }
+
+        /**
+         Removes and optionally destroys children of the <code>CasaSprite</code> then destroys itself.
+
+         @param destroyChildren: If a child implements {@link IDestroyable} call its {@link IDestroyable#destroy destroy} method <code>true</code>, or don't destroy <code>false</code>; defaults to <code>false</code>.
+         @param recursive: Call this method with the same arguments on all of the children's children (all the way down the display list) <code>true</code>, or leave the children's children <code>false</code>; defaults to <code>false</code>.
+         */
+        public removeAllChildrenAndDestroy(destroyChildren:boolean = false, recursive:boolean = false):void {
+            this.removeAllChildren(destroyChildren, recursive);
+            this.dispose();
+        }
+
+        /**
+         * 释放
+         */
+        public dispose():void {
+            this._listenerManager.dispose();
+            this.isDisposed = true;
+            if (this.parent != null)
+                this.parent.removeChild(this);
         }
 
         /**

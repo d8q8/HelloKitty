@@ -95,4 +95,18 @@ var lcp;
     })(lcp.LSprite);
     lcp.LGraphics = LGraphics;
     LGraphics.prototype.__class__ = "lcp.LGraphics";
+    /**
+     * 图形类型
+     */
+    (function (GraphicsType) {
+        GraphicsType[GraphicsType["Circle"] = 0] = "Circle";
+        GraphicsType[GraphicsType["Rect"] = 1] = "Rect";
+        GraphicsType[GraphicsType["Ellipse"] = 2] = "Ellipse";
+        GraphicsType[GraphicsType["Polygon"] = 3] = "Polygon";
+        GraphicsType[GraphicsType["Rose"] = 4] = "Rose";
+        GraphicsType[GraphicsType["RoundRect"] = 5] = "RoundRect";
+        GraphicsType[GraphicsType["Star"] = 6] = "Star";
+        GraphicsType[GraphicsType["Heart"] = 7] = "Heart";
+    })(lcp.GraphicsType || (lcp.GraphicsType = {}));
+    var GraphicsType = lcp.GraphicsType;
 })(lcp || (lcp = {}));

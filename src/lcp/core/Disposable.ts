@@ -5,10 +5,6 @@
  * @constructor
  **/
 module lcp {
-    interface IDisposable{
-        isDisposed:boolean;
-        dispose():void;
-    }
     /**
      * 销毁类
      */
@@ -17,7 +13,7 @@ module lcp {
         public isDisposed: boolean;
 
         public constructor() {
-            super();
+
         }
 
         public dispose():void {
