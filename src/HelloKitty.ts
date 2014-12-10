@@ -42,6 +42,7 @@ class HelloKitty extends egret.DisplayObjectContainer {
             linecolor: 0xff0000,
             fillcolor: 0x00ff00
         });
+        //sp.isDrag=true;
         sp.addChild(rect);
         console.log(sp.width,sp.height,sp.getChildAt(0));
         this._listener = lcp.ListenerManager.getManager(rect);
@@ -64,11 +65,17 @@ class HelloKitty extends egret.DisplayObjectContainer {
             console.log(e.param,this._listener.getTotalEventListeners());
             this._listener.removeEventListeners();
             console.log(sp.children());
-            sp.removeAllChildren();
+            //sp.removeAllChildren();
         },this);
 
+        var sp1 = new lcp.LSprite();
+        this.addChild(sp1);
+        var rect1 = lcp.ObjectUtil.objectPrototypeClone(rect);
+        sp1.addChild(rect1);
+        sp1.isDrag=true;
+        console.log("克隆属性",rect1);
 
-        //TweenLite.to(rect, 1, {x: 100, y: 200, rotation: 360});
+        TweenLite.to(rect, 1, {x: 100, y: 200, rotation: 360});
 
 
         //椭圆

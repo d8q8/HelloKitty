@@ -25,7 +25,7 @@ module lcp {
          *
          * 使用方法如下
          * <code>
-         *     var hexColor : string = ColorUtil.getHexStringFromARGB(128, 255, 0, 255);
+         *     var hexColor : string = lcp.ColorUtil.getHexStringFromARGB(128, 255, 0, 255);
          *     console.log(hexColor); // 输出 80FF00FF
          * </code>
          *
@@ -41,7 +41,7 @@ module lcp {
          *
          * 使用方法如下
          * <code>
-         *     var myRGB:Object = ColorUtil.getARGB(0xCCFF00FF);
+         *     var myRGB:Object = lcp.ColorUtil.getARGB(0xCCFF00FF);
          *     console.log("透明度 = " + myRGB.a);
          *     console.log("红色 = " + myRGB.r);
          *     console.log("绿色 = " + myRGB.g);
@@ -49,7 +49,7 @@ module lcp {
          * </code>
          */
         public static getARGB(color : number) : Object {
-            var c : Object = {};
+            var c : any = {};
             c.a = color >> 24 & 0xFF;
             c.r = color >> 16 & 0xFF;
             c.g = color >> 8 & 0xFF;
@@ -64,14 +64,14 @@ module lcp {
          *
          * 使用方法如下
          * <code>
-         var myRGB:Object = ColorUtil.getRGB(0xFF00FF);
-         trace("Red = " + myRGB.r);
-         trace("Green = " + myRGB.g);
-         trace("Blue = " + myRGB.b);
-         </code>
+         *     var myRGB:Object = lcp.ColorUtil.getRGB(0xFF00FF);
+         *     trace("Red = " + myRGB.r);
+         *     trace("Green = " + myRGB.g);0
+         *     trace("Blue = " + myRGB.b);
+         * </code>
          */
         public static getRGB(color : number) : Object {
-            var c : Object = {};
+            var c : any = {};
             c.r = color >> 16 & 0xFF;
             c.g = color >> 8 & 0xFF;
             c.b = color & 0xFF;
@@ -79,18 +79,17 @@ module lcp {
         }
 
         /**
-         Converts a 32-bit ARGB color value into a hexidecimal String representation.
-
-         @param a: A uint from 0 to 255 representing the alpha value.
-         @param r: A uint from 0 to 255 representing the red color value.
-         @param g: A uint from 0 to 255 representing the green color value.
-         @param b: A uint from 0 to 255 representing the blue color value.
-         @return Returns a hexidecimal color as a String.
-         @example
-         <code>
-         var hexColor : String = ColorUtil.getHexStringFromARGB(128, 255, 0, 255);
-         trace(hexColor); // Traces 80FF00FF
-         </code>
+         * 将一个32位ARGB颜色值转换成一个十六进制字符形式
+         * @param a 一个从0到255表示透明度的值。
+         * @param r 一个从0到255表示红色的颜色值。
+         * @param g 一个从0到255表示绿色的颜色值。
+         * @param b 一个从0到255表示蓝色的颜色值。
+         * @returns {string}
+         *
+         * <code>
+         *     var hexColor : string = lcp.ColorUtil.getHexStringFromARGB(128, 255, 0, 255);
+         *     console.log(hexColor); // 输出 80FF00FF
+         * </code>
          */
         public static getHexStringFromARGB(a : number, r : number, g : number, b : number) : string {
             var aa : string = a.toString(16);
@@ -105,17 +104,16 @@ module lcp {
         }
 
         /**
-         Converts an RGB color value into a hexidecimal String representation.
-
-         @param r: A uint from 0 to 255 representing the red color value.
-         @param g: A uint from 0 to 255 representing the green color value.
-         @param b: A uint from 0 to 255 representing the blue color value.
-         @return Returns a hexidecimal color as a String.
-         @example
-         <code>
-         var hexColor : String = ColorUtil.getHexStringFromRGB(255, 0, 255);
-         trace(hexColor); // Traces FF00FF
-         </code>
+         * 将一个RBG颜色值转换成一个十六进制字符表示形式
+         * @param r 一个从0到255表示红色的颜色值。
+         * @param g 一个从0到255表示绿色的颜色值。
+         * @param b 一个从0到255表示蓝色的颜色值。
+         * @returns {string}
+         * @example
+         * <code>
+         *     var hexColor : string = lcp.ColorUtil.getHexStringFromRGB(255, 0, 255);
+         *     console.log(hexColor); // 输出 FF00FF
+         * </code>
          */
         public static getHexStringFromRGB(r : number, g : number, b : number) : string {
             var rr : string = r.toString(16);
