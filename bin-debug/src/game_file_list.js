@@ -1,6 +1,7 @@
 var game_file_list = [
     "lcp/display/CSprite.js",
     "lcp/display/LSprite.js",
+    "lcp/geom/Ellipse.js",
     "lcp/core/Destroyable.js",
     "lcp/display/LGraphics.js",
     "lcp/extensions/Array.js",
@@ -26,9 +27,9 @@ var game_file_list = [
     "lcp/events/ListenerManager.js",
     "lcp/geom/LPoint.js",
     "lcp/utils/DateUtil.js",
+    "lcp/utils/DisplayObjectUtil.js",
     "lcp/utils/LGlobal.js",
     "lcp/utils/LHelper.js",
     "lcp/utils/StageReference.js",
-    "HelloKitty.js",
-    "lcp/utils/DisplayObjectUtil.js"
+    "HelloKitty.js"
 ];
