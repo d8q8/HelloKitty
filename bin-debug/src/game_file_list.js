@@ -28,6 +28,7 @@ var game_file_list = [
     "lcp/utils/DateUtil.js",
     "lcp/utils/LGlobal.js",
     "lcp/utils/LHelper.js",
+    "lcp/utils/StageReference.js",
     "HelloKitty.js",
     "lcp/utils/DisplayObjectUtil.js"
 ];

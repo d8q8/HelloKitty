@@ -23,10 +23,12 @@ var HelloKitty = (function (_super) {
         this.init();
     };
     HelloKitty.prototype.init = function () {
+        var _this = this;
         /*console.log("前:", lcp.LGlobal.root, this);
         lcp.LGlobal.root = this;
         console.log("后:", lcp.LGlobal.root, this);*/
-        var _this = this;
+        lcp.StageReference.setStage(this.stage);
+        console.log(lcp.StageReference.getStage().stageWidth);
         var sp = new lcp.LSprite();
         this.addChild(sp);
         //元件

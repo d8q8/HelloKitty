@@ -26,6 +26,9 @@ class HelloKitty extends egret.DisplayObjectContainer {
         /*console.log("前:", lcp.LGlobal.root, this);
         lcp.LGlobal.root = this;
         console.log("后:", lcp.LGlobal.root, this);*/
+        lcp.StageReference.setStage(this.stage);
+
+        console.log(lcp.StageReference.getStage().stageWidth);
 
         var sp = new lcp.LSprite();
         this.addChild(sp);
