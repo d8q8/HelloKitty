@@ -163,6 +163,16 @@ var HelloKitty = (function (_super) {
         }));
         console.log("我的内裤排序->升序:", lcp.LOrder.sort(arr_sort));
         console.log("我的内裤排序->降序:", lcp.LOrder.sort(arr_sort, 2 /* DESCENDING */));
+        var mark = 0;
+        var timer = new egret.Timer(1000, 5);
+        timer.start();
+        timer.addEventListener(egret.TimerEvent.TIMER, function (e) {
+            mark++;
+            console.log("计时测试", mark, "次", e.target.delay, e.target.repeatCount);
+        }, this);
+        timer.addEventListener(egret.TimerEvent.TIMER_COMPLETE, function (e) {
+            console.log("计时完成", mark, "次", e.target.delay, e.target.repeatCount);
+        }, this);
     };
     HelloKitty.prototype.sp_click = function (e) {
         lcp.LTrace.trace(this, "我单击了元件" + (this._i++) + "次", this._sp.name, this._sp.x, this._sp.y, this._sp.width, this._sp.height, this._sp.touchEnabled);

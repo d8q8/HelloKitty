@@ -186,6 +186,18 @@ class HelloKitty extends egret.DisplayObjectContainer {
         console.log("我的内裤排序->降序:", lcp.LOrder.sort(arr_sort, lcp.OrderByType.DESCENDING));
 
 
+        var mark:number=0;
+        var timer = new egret.Timer(1000,5);
+        timer.start();
+        timer.addEventListener(egret.TimerEvent.TIMER,(e)=>{
+            mark++;
+            console.log("计时测试",mark,"次",e.target.delay,e.target.repeatCount);
+        },this);
+        timer.addEventListener(egret.TimerEvent.TIMER_COMPLETE,(e)=>{
+            console.log("计时完成",mark,"次",e.target.delay,e.target.repeatCount);
+        },this);
+
+
     }
 
     private _sp:lcp.LCircle;
