@@ -5,6 +5,7 @@
  * @constructor
  **/
 module lcp {
+
     export class SingletonUtil {
         public CLASS_NAME:string = "SingletonUtil";
 
@@ -31,7 +32,7 @@ module lcp {
          */
         public static multiton(type:any, id:string):any {
             if (this._multitonMap == null)
-                this._multitonMap = new {};
+                this._multitonMap = {};
 
             if ( ! (type in this._multitonMap))
                 this._multitonMap[type] = {};

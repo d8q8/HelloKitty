@@ -5,6 +5,9 @@
  * @constructor
  **/
 module lcp {
+    /**
+     * 侦听管理器类
+     */
     export class ListenerManager extends Destroyable implements IRemovableEventDispatcher {
 
         public CLASS_NAME:string = "ListenerManager";
@@ -179,7 +182,7 @@ module lcp {
     /**
      * 事件信息类
      */
-    class EventInfo {
+    export class EventInfo {
         public type:string;
         public listener:Function;
         public thisObject:any;
