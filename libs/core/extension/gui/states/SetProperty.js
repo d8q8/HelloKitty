@@ -96,6 +96,6 @@ var egret;
             return SetProperty;
         })(gui.OverrideBase);
         gui.SetProperty = SetProperty;
-        SetProperty.prototype.__class__ = "gui.SetProperty";
+        SetProperty.prototype.__class__ = "egret.gui.SetProperty";
     })(gui = egret.gui || (egret.gui = {}));
 })(egret || (egret = {}));

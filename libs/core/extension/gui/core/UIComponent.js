@@ -77,13 +77,7 @@ var egret;
                  * @member egret.gui.UIComponent#_invalidateSizeFlag
                  */
                 this._invalidateSizeFlag = false;
-                /**
-                 * @member egret.gui.UIComponent#_invalidateDisplayListFlag
-                 */
                 this._invalidateDisplayListFlag = false;
-                /**
-                 * @member egret.gui.UIComponent#_validateNowFlag
-                 */
                 this._validateNowFlag = false;
                 this._includeInLayout = true;
                 /**
@@ -328,8 +322,6 @@ var egret;
             };
             /**
              * 即将添加一个子项
-             * @method egret.gui.UIComponent#_addingChild
-             * @param child {DisplayObject}
              */
             UIComponent.prototype._addingChild = function (child) {
                 if (child && "nestLevel" in child) {
@@ -831,15 +823,12 @@ var egret;
             };
             /**
              * 是否可以跳过测量尺寸阶段,返回true则不执行measure()方法
-             * @method egret.gui.UIComponent#canSkipMeasurement
-             * @returns {boolean}
              */
             UIComponent.prototype.canSkipMeasurement = function () {
                 return !isNaN(this._explicitWidth) && !isNaN(this._explicitHeight);
             };
             /**
              * 提交属性，子类在调用完invalidateProperties()方法后，应覆盖此方法以应用属性
-             * @method egret.gui.UIComponent#commitProperties
              */
             UIComponent.prototype.commitProperties = function () {
                 if (this.oldWidth != this._width || this.oldHeight != this._height) {
@@ -1213,6 +1202,6 @@ var egret;
             return UIComponent;
         })(egret.DisplayObjectContainer);
         gui.UIComponent = UIComponent;
-        UIComponent.prototype.__class__ = "gui.UIComponent";
+        UIComponent.prototype.__class__ = "egret.gui.UIComponent";
     })(gui = egret.gui || (egret.gui = {}));
 })(egret || (egret = {}));

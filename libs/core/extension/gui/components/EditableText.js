@@ -608,6 +608,6 @@ var egret;
             return EditableText;
         })(gui.TextBase);
         gui.EditableText = EditableText;
-        EditableText.prototype.__class__ = "gui.EditableText";
+        EditableText.prototype.__class__ = "egret.gui.EditableText";
     })(gui = egret.gui || (egret.gui = {}));
 })(egret || (egret = {}));

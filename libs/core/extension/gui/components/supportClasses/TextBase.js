@@ -270,18 +270,12 @@ var egret;
                 enumerable: true,
                 configurable: true
             });
-            /**
-             * @method egret.gui.TextBase#createChildren
-             */
             TextBase.prototype.createChildren = function () {
                 _super.prototype.createChildren.call(this);
                 if (!this._textField) {
                     this.checkTextField();
                 }
             };
-            /**
-             * @method egret.gui.TextBase#commitProperties
-             */
             TextBase.prototype.commitProperties = function () {
                 _super.prototype.commitProperties.call(this);
                 if (!this._textField) {
@@ -346,9 +340,6 @@ var egret;
                 this._textField.multiline = true;
                 this._addToDisplayList(this._textField);
             };
-            /**
-             * @method egret.gui.TextBase#measure
-             */
             TextBase.prototype.measure = function () {
                 _super.prototype.measure.call(this);
                 this.measuredWidth = TextBase.DEFAULT_MEASURED_WIDTH;
@@ -356,7 +347,6 @@ var egret;
             };
             /**
              * 更新显示列表
-             * @method egret.gui.TextBase#$updateDisplayList
              * @param unscaledWidth {number}
              * @param unscaledHeight {number}
              */
@@ -364,7 +354,6 @@ var egret;
                 _super.prototype.updateDisplayList.call(this, unscaledWidth, unscaledHeight);
             };
             /**
-             * @method egret.gui.TextBase#updateDisplayList
              * @param unscaledWidth {number}
              * @param unscaledHeight {number}
              */
@@ -390,6 +379,6 @@ var egret;
             return TextBase;
         })(gui.UIComponent);
         gui.TextBase = TextBase;
-        TextBase.prototype.__class__ = "gui.TextBase";
+        TextBase.prototype.__class__ = "egret.gui.TextBase";
     })(gui = egret.gui || (egret.gui = {}));
 })(egret || (egret = {}));
