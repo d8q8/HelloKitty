@@ -70,7 +70,12 @@ var HelloKitty = (function (_super) {
         sp1.addChild(rect1);
         sp1.isDrag = true;
         console.log("克隆属性", rect1);
-        TweenLite.to(rect, 1, { x: 100, y: 200, rotation: 360 });
+        TweenLite.to(rect, 1, { x: 100, y: 200, rotation: 360, onComplete: function (arr) {
+            console.log("动画完成:", arr[0], arr[1], arr[2], arr[3]);
+        }, onCompleteParams: [[rect, 1, 2, 3]] });
+        //egret.Tween.get(rect).to({x:100,y:200,rotation:360},1000).call((arr)=>{
+        //    console.log("动画完成:",arr[0],arr[1],arr[2]);
+        //},this,[[1,2,3]]);
         //椭圆
         /*var ellipse:lcp.LEllipse = new lcp.LEllipse({x:200,y:500,width:200,height:100,thickness:5,linecolor:0x00ff00,fillcolor:0xff0000});
          this.addChild(ellipse);
@@ -163,16 +168,17 @@ var HelloKitty = (function (_super) {
         }));
         console.log("我的内裤排序->升序:", lcp.LOrder.sort(arr_sort));
         console.log("我的内裤排序->降序:", lcp.LOrder.sort(arr_sort, 2 /* DESCENDING */));
-        var mark = 0;
-        var timer = new egret.Timer(1000, 5);
+        //测试Timer
+        /*var mark:number=0;
+        var timer = new egret.Timer(1000,5);
         timer.start();
-        timer.addEventListener(egret.TimerEvent.TIMER, function (e) {
+        timer.addEventListener(egret.TimerEvent.TIMER,(e)=>{
             mark++;
-            console.log("计时测试", mark, "次", e.target.delay, e.target.repeatCount);
-        }, this);
-        timer.addEventListener(egret.TimerEvent.TIMER_COMPLETE, function (e) {
-            console.log("计时完成", mark, "次", e.target.delay, e.target.repeatCount);
-        }, this);
+            console.log("计时测试",mark,"次",e.target.delay,e.target.repeatCount);
+        },this);
+        timer.addEventListener(egret.TimerEvent.TIMER_COMPLETE,(e)=>{
+            console.log("计时完成",mark,"次",e.target.delay,e.target.repeatCount);
+        },this);*/
     };
     HelloKitty.prototype.sp_click = function (e) {
         lcp.LTrace.trace(this, "我单击了元件" + (this._i++) + "次", this._sp.name, this._sp.x, this._sp.y, this._sp.width, this._sp.height, this._sp.touchEnabled);

@@ -75,8 +75,13 @@ class HelloKitty extends egret.DisplayObjectContainer {
         sp1.isDrag=true;
         console.log("克隆属性",rect1);
 
-        TweenLite.to(rect, 1, {x: 100, y: 200, rotation: 360});
+        TweenLite.to(rect, 1, {x: 100, y: 200, rotation: 360,onComplete:(arr)=>{
+              console.log("动画完成:",arr[0],arr[1],arr[2],arr[3]);
+        },onCompleteParams:[[rect,1,2,3]]});
 
+        //egret.Tween.get(rect).to({x:100,y:200,rotation:360},1000).call((arr)=>{
+        //    console.log("动画完成:",arr[0],arr[1],arr[2]);
+        //},this,[[1,2,3]]);
 
         //椭圆
         /*var ellipse:lcp.LEllipse = new lcp.LEllipse({x:200,y:500,width:200,height:100,thickness:5,linecolor:0x00ff00,fillcolor:0xff0000});
@@ -186,7 +191,8 @@ class HelloKitty extends egret.DisplayObjectContainer {
         console.log("我的内裤排序->降序:", lcp.LOrder.sort(arr_sort, lcp.OrderByType.DESCENDING));
 
 
-        var mark:number=0;
+        //测试Timer
+        /*var mark:number=0;
         var timer = new egret.Timer(1000,5);
         timer.start();
         timer.addEventListener(egret.TimerEvent.TIMER,(e)=>{
@@ -195,7 +201,7 @@ class HelloKitty extends egret.DisplayObjectContainer {
         },this);
         timer.addEventListener(egret.TimerEvent.TIMER_COMPLETE,(e)=>{
             console.log("计时完成",mark,"次",e.target.delay,e.target.repeatCount);
-        },this);
+        },this);*/
 
 
     }
