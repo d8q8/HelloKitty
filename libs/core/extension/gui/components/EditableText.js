@@ -177,17 +177,12 @@ var egret;
                 enumerable: true,
                 configurable: true
             });
-            /**
-             * @inheritDoc
-             */
-            EditableText.prototype._setFontSize = function (value) {
-                if (value === undefined)
-                    value = 0;
-                if (this._size == value)
-                    return;
-                _super.prototype._setFontSize.call(this, value);
-                this.heightInLinesChanged = true;
-                this.widthInCharsChanged = true;
+            EditableText.prototype.styleChanged = function (styleProp) {
+                _super.prototype.styleChanged.call(this, styleProp);
+                if (!styleProp || styleProp == "size") {
+                    this.heightInLinesChanged = true;
+                    this.widthInCharsChanged = true;
+                }
             };
             EditableText.prototype._setLineSpacing = function (value) {
                 if (this._lineSpacing == value)

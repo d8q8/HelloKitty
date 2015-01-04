@@ -687,6 +687,9 @@ var egret;
                 else {
                     matrix.prependTransform(o._x, o._y, o._scaleX, o._scaleY, o._rotation, o._skewX, o._skewY, o._anchorOffsetX, o._anchorOffsetY);
                 }
+                if (o._scrollRect) {
+                    matrix.prepend(1, 0, 0, 1, -o._scrollRect.x, -o._scrollRect.y);
+                }
                 o = o._parent;
             }
             return matrix;

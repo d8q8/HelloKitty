@@ -274,6 +274,9 @@ var egret;
                 if (this._textChanged) {
                     this._textField.text = this._text;
                 }
+                if (this._textFlowChanged) {
+                    this._textField.textFlow = this._textFlow;
+                }
                 var padding = isNaN(this._padding) ? 0 : this._padding;
                 var paddingL = isNaN(this._paddingLeft) ? padding : this._paddingLeft;
                 var paddingR = isNaN(this._paddingRight) ? padding : this._paddingRight;

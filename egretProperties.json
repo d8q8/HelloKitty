@@ -1,5 +1,5 @@
 {
-	"document_class": "HelloKitty",
+	"document_class": "GameApp",
 	"native": {
 		"path_ignore": [],
 		"android_path": "E:\\Egret\\HelloAndroid"
@@ -16,5 +16,5 @@
 			"path": "."
 		}
 	],
-	"egret_version": "1.5.0"
+	"egret_version": "1.5.1"
 }
