@@ -70,16 +70,25 @@ var egret;
          * @param content {egret.DisplayObject} 需要滚动的对象
          */
         ScrollView.prototype.setContent = function (content) {
+            if (this._content === content)
+                return;
+            this.removeContent();
+            if (content) {
+                this._content = content;
+                _super.prototype.addChild.call(this, content);
+                this._addEvents();
+            }
+        };
+        /**
+         * 移除滚动的对象
+         * @method egret.ScrollView#removeContent
+         */
+        ScrollView.prototype.removeContent = function () {
             if (this._content) {
                 this._removeEvents();
                 _super.prototype.removeChildAt.call(this, 0);
             }
-            this._content = content;
-            _super.prototype.addChild.call(this, content);
-            this._addEvents();
-            var w = this._explicitWidth || this._getContentWidth();
-            var h = this._explicitHeight || this._getContentHeight();
-            //this.scrollRect = new Rectangle(0, 0, w, h);
+            this._content = null;
         };
         Object.defineProperty(ScrollView.prototype, "verticalScrollPolicy", {
             /**
@@ -255,6 +264,10 @@ var egret;
         ScrollView.prototype._onTouchBegin = function (e) {
             if (e._isDefaultPrevented)
                 return;
+            var canScroll = this._checkScrollPolicy();
+            if (!canScroll) {
+                return;
+            }
             egret.Tween.removeTweens(this);
             this.stage.addEventListener(egret.TouchEvent.TOUCH_MOVE, this._onTouchMove, this);
             this.stage.addEventListener(egret.TouchEvent.TOUCH_END, this._onTouchEnd, this);
@@ -562,6 +575,13 @@ var egret;
          */
         ScrollView.prototype.swapChildrenAt = function (index1, index2) {
             this.throwNotSupportedError();
+        };
+        ScrollView.prototype.hitTest = function (x, y, ignoreTouchEnabled) {
+            if (ignoreTouchEnabled === void 0) { ignoreTouchEnabled = false; }
+            var childTouched = _super.prototype.hitTest.call(this, x, y, ignoreTouchEnabled);
+            if (childTouched)
+                return childTouched;
+            return egret.DisplayObject.prototype.hitTest.call(this, x, y, ignoreTouchEnabled);
         };
         ScrollView.weight = [1, 1.33, 1.66, 2, 2.33];
         return ScrollView;

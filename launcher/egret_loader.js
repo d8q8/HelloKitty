@@ -85,10 +85,10 @@ egret_h5.startGame = function () {
             aspect = aspectRatio.portrait;//横竖屏自己给吧
         }
         resolution = (aspect == aspectRatio.portrait) ? {width: wid, height: hei} : {width: hei, height: wid};
-        console.log(wid > hei ? aspectRatio.landscape : aspectRatio.portrait, "屏幕宽:", resolution.width, "|", "屏幕高:", resolution.height, "|", "设备像素比:", radio);
+        console.log(wid > hei ? aspectRatio.landscape : aspectRatio.portrait, "设备屏幕宽:", resolution.width, "|", "设备屏幕高:", resolution.height, "|", "设备像素比:", radio);
         //下面赋值给宽高适配手机浏览器
-        //egret.StageDelegate.getInstance().setDesignSize(resolution.width * radio, resolution.height * radio);
-        egret.StageDelegate.getInstance().setDesignSize(480, 800);
+        egret.StageDelegate.getInstance().setDesignSize(resolution.width * radio, resolution.height * radio);
+        //egret.StageDelegate.getInstance().setDesignSize(480, 800);
     };
     doResize();
     //----------------------------------------------------------------------------------------------------------------

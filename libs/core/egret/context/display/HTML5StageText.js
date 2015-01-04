@@ -136,6 +136,7 @@ var egret;
             else {
                 inputElement = document.createElement("input");
             }
+            this._styleInfoes = {};
             inputElement.type = "text";
             this.inputElement = inputElement;
             this.inputElement.value = "";

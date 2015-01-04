@@ -76,8 +76,18 @@ class HelloKitty extends egret.DisplayObjectContainer {
         console.log("克隆属性",rect1);
 
         TweenLite.to(rect, 1, {x: 100, y: 200, rotation: 360,onComplete:(arr)=>{
-              console.log("动画完成:",arr[0],arr[1],arr[2],arr[3]);
+            //console.log("这里取this",this);
+            //console.log("动画完成:",arr[0],arr[1],arr[2],arr[3]);
         },onCompleteParams:[[rect,1,2,3]]});
+
+
+        var shp = new egret.Shape();
+        shp.graphics.beginFill(0xff0000);
+        shp.graphics.drawRect(0,0,100,100);
+        shp.graphics.endFill();
+        this.addChild(shp);
+
+        egret.Tween.get(shp).to({x:200,y:500},500);
 
         //egret.Tween.get(rect).to({x:100,y:200,rotation:360},1000).call((arr)=>{
         //    console.log("动画完成:",arr[0],arr[1],arr[2]);
@@ -203,6 +213,13 @@ class HelloKitty extends egret.DisplayObjectContainer {
             console.log("计时完成",mark,"次",e.target.delay,e.target.repeatCount);
         },this);*/
 
+
+        var arr_Num:Array<any> = [1,2,3,3,3,3,5,4,4,1,1,4,4,5,5,5,7,9,3,2,5,7,8,0,11,14,56,34,75,90];
+        var arr_Dup:Array<any> = lcp.ArrayUtil.removeDuplicates(arr_Num);
+        console.log("先用白菜内裤去重:",arr_Dup);
+        console.log("白菜内裤另一种去重:",arr_Dup);
+        console.log("再用白菜内裤去随机:",lcp.ArrayUtil.randomize(arr_Dup));
+        //console.log("用白菜内裤随机N个数:",lcp.ArrayUtil.randomNum(arr_Num,10));
 
     }
 

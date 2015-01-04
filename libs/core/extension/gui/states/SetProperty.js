@@ -80,6 +80,8 @@ var egret;
             SetProperty.prototype.setPropertyValue = function (obj, name, value, valueForType) {
                 if (value === undefined || value === null)
                     obj[name] = value;
+                else if (typeof (valueForType) == "number")
+                    obj[name] = parseFloat(value);
                 else if (typeof (valueForType) == "boolean")
                     obj[name] = this.toBoolean(value);
                 else

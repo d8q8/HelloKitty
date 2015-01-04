@@ -548,12 +548,17 @@ var egret;
             return this.measureText();
         };
         Object.defineProperty(TextField.prototype, "textFlow", {
+            get: function () {
+                return this._textArr;
+            },
             /**
              *
              */
             set: function (textArr) {
                 this._isFlow = true;
                 var text = "";
+                if (textArr == null)
+                    textArr = [];
                 for (var i = 0; i < textArr.length; i++) {
                     var element = textArr[i];
                     text += element.text;
@@ -623,6 +628,12 @@ var egret;
             this._linesArr = [];
             this._textMaxHeight = 0;
             this._textMaxWidth = 0;
+            //宽度被设置为0
+            if (this._hasWidthSet && this._explicitWidth == 0) {
+                console.warn("文本宽度被设置为0");
+                this._numLines = 0;
+                return [{ width: 0, height: 0, elements: [] }];
+            }
             var linesArr = this._linesArr;
             var lineW = 0;
             var lineH = 0;
