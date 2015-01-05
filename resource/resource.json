@@ -5,12 +5,12 @@
 	{"name":"start_button","type":"image","url":"assets/start_button.png"},
 	{"name":"stop_button","type":"image","url":"assets/stop_button.png"},
 
-	{"name":"images_png","type":"image","url":"assets/images.png"},
-	{"name":"images_json","type":"json","url":"config/images.json"}
+	{"name":"animation_png","type":"image","url":"sheets/animation.png"},
+	{"name":"animation_json","type":"json","url":"sheets/animation.json"}
   ],
 
   "groups":
   [
-	{"name":"preload","keys":"bgImage,start_button,stop_button,images_png,images_json"}
+	{"name":"preload","keys":"bgImage,start_button,stop_button,animation_png,animation_json"}
   ]
 }

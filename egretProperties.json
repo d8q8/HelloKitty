@@ -1,5 +1,5 @@
 {
-	"document_class": "HelloKitty",
+	"document_class": "GameApp",
 	"native": {
 		"path_ignore": [],
 		"android_path": "E:\\Egret\\HelloAndroid"
