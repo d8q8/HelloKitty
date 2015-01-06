@@ -187,11 +187,10 @@ var HelloKitty = (function (_super) {
             console.log("计时完成",mark,"次",e.target.delay,e.target.repeatCount);
         },this);*/
         var arr_Num = [1, 2, 3, 3, 3, 3, 5, 4, 4, 1, 1, 4, 4, 5, 5, 5, 7, 9, 3, 2, 5, 7, 8, 0, 11, 14, 56, 34, 75, 90];
-        var arr_Dup = lcp.ArrayUtil.removeDuplicates(arr_Num);
-        console.log("先用白菜内裤去重:", arr_Dup);
-        console.log("白菜内裤另一种去重:", arr_Dup);
-        console.log("再用白菜内裤去随机:", lcp.ArrayUtil.randomize(arr_Dup));
-        //console.log("用白菜内裤随机N个数:",lcp.ArrayUtil.randomNum(arr_Num,10));
+        console.log("先用白菜内裤去重:", lcp.ArrayUtil.removeDuplicates(arr_Num));
+        console.log("白菜内裤另一种去重:", lcp.ArrayUtil.reDupliction(arr_Num));
+        console.log("再用白菜内裤去随机:", lcp.ArrayUtil.randomize(lcp.ArrayUtil.removeDuplicates(arr_Num)));
+        console.log("用白菜内裤随机N个数:", lcp.ArrayUtil.randomNum(arr_Num, 20));
     };
     HelloKitty.prototype.sp_click = function (e) {
         lcp.LTrace.trace(this, "我单击了元件" + (this._i++) + "次", this._sp.name, this._sp.x, this._sp.y, this._sp.width, this._sp.height, this._sp.touchEnabled);

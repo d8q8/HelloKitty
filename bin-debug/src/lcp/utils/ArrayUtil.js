@@ -290,6 +290,20 @@ var lcp;
             return (i == 0) ? true : inArray.lastIndexOf(e, i - 1) == -1;
         };
         /**
+         * 去重数组(换一种方式实现)
+         * @param inArray
+         * @returns {Array<any>}
+         */
+        ArrayUtil.reDupliction = function (inArray) {
+            var t = inArray.sort();
+            var re = [t[0]];
+            for (var i = 1; i < t.length; i++) {
+                if (t[i] != re[re.length - 1])
+                    re.push(t[i]);
+            }
+            return re;
+        };
+        /**
          * 删除数组中某一项
          * @param tarArray
          * @param item
@@ -478,6 +492,31 @@ var lcp;
         };
         ArrayUtil._sortRandom = function (a, b) {
             return lcp.NumberUtil.randomIntegerWithinRange(0, 1) ? 1 : -1;
+        };
+        /**
+         * 随机数组中的n个不重复的数
+         * @param inArray
+         * @param n
+         * @returns {Array<any>}
+         */
+        ArrayUtil.randomNum = function (inArray, n) {
+            var t = [];
+            var generateRandom = function (n) {
+                var random = (Math.random() * n) >> 0;
+                for (var i = 0; i < t.length; i++) {
+                    if (t[i] == random) {
+                        return;
+                    }
+                }
+                t.push(random);
+            };
+            for (var i = 0; i < 3000; i++) {
+                //只生成n个随机数
+                if (t.length > n)
+                    break;
+                generateRandom(n);
+            }
+            return t;
         };
         /**
          * 数组求和

@@ -131,7 +131,7 @@ class GameApp extends egret.DisplayObjectContainer{
         var mc = new egret.MovieClip(data,texture);//创建MovieClip
         this.addChild(mc);//添加到显示列表，显示影片剪辑
         mc.frameRate = 24;//设置动画的帧频
-        mc.gotoAndPlay("start");//跳转到指定帧并开始播放
+        mc.gotoAndPlay("start");//跳转到指定帧标签并开始播放
 
     }
     /**

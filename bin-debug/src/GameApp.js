@@ -125,7 +125,7 @@ var GameApp = (function (_super) {
         var mc = new egret.MovieClip(data, texture); //创建MovieClip
         this.addChild(mc); //添加到显示列表，显示影片剪辑
         mc.frameRate = 24; //设置动画的帧频
-        mc.gotoAndPlay("start"); //跳转到指定帧并开始播放
+        mc.gotoAndPlay("start"); //跳转到指定帧标签并开始播放
     };
     /**
      * 根据name关键字创建一个Bitmap对象。name属性请参考resources/resource.json配置文件的内容。

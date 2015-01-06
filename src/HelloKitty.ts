@@ -215,11 +215,12 @@ class HelloKitty extends egret.DisplayObjectContainer {
 
 
         var arr_Num:Array<any> = [1,2,3,3,3,3,5,4,4,1,1,4,4,5,5,5,7,9,3,2,5,7,8,0,11,14,56,34,75,90];
-        var arr_Dup:Array<any> = lcp.ArrayUtil.removeDuplicates(arr_Num);
-        console.log("先用白菜内裤去重:",arr_Dup);
-        console.log("白菜内裤另一种去重:",arr_Dup);
-        console.log("再用白菜内裤去随机:",lcp.ArrayUtil.randomize(arr_Dup));
-        //console.log("用白菜内裤随机N个数:",lcp.ArrayUtil.randomNum(arr_Num,10));
+        console.log("先用白菜内裤去重:",lcp.ArrayUtil.removeDuplicates(arr_Num));
+        console.log("白菜内裤另一种去重:",lcp.ArrayUtil.reDupliction(arr_Num));
+        console.log("再用白菜内裤去随机:",lcp.ArrayUtil.randomize(lcp.ArrayUtil.removeDuplicates(arr_Num)));
+        console.log("用白菜内裤随机N个数:",lcp.ArrayUtil.randomNum(arr_Num,20));
+
+
 
     }
 
