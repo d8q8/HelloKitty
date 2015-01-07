@@ -87,7 +87,7 @@ class HelloKitty extends egret.DisplayObjectContainer {
         shp.graphics.endFill();
         this.addChild(shp);
 
-        egret.Tween.get(shp).to({x:200,y:500},500);
+        egret.Tween.get(shp,{loop:true}).to({x:200,y:500,scaleX:.5,scaleY:.5},500).wait(500).to({x:400,y:200,scaleX:1,scaleY:1},500);
 
         //egret.Tween.get(rect).to({x:100,y:200,rotation:360},1000).call((arr)=>{
         //    console.log("动画完成:",arr[0],arr[1],arr[2]);
@@ -218,7 +218,7 @@ class HelloKitty extends egret.DisplayObjectContainer {
         console.log("先用白菜内裤去重:",lcp.ArrayUtil.removeDuplicates(arr_Num));
         console.log("白菜内裤另一种去重:",lcp.ArrayUtil.reDupliction(arr_Num));
         console.log("再用白菜内裤去随机:",lcp.ArrayUtil.randomize(lcp.ArrayUtil.removeDuplicates(arr_Num)));
-        console.log("用白菜内裤随机N个数:",lcp.ArrayUtil.randomNum(arr_Num,20));
+        console.log("用白菜内裤随机N个数:",lcp.ArrayUtil.randomNum(arr_Num,10));
 
 
 

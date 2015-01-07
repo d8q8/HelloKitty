@@ -570,7 +570,7 @@ module lcp {
                 t.push(random);
             }
             //循环生成随机数
-            for (var i = 0; i<3000 ; i++) {
+            for (var i = 0; i<inArray.length ; i++) {
                 //只生成n个随机数
                 if (t.length > n)
                     break;
