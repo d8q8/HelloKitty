@@ -126,7 +126,6 @@ class HelloKitty extends egret.DisplayObjectContainer {
          txt_shadow.textColor = 0xffffff;
          txt_shadow.alpha = .5;*/
 
-
         console.log("主体1宽:", document.body.clientWidth);
         console.log("主体1高:", document.body.clientHeight);
         console.log("主体2宽:", document.documentElement.clientWidth);
