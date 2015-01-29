@@ -220,6 +220,16 @@ class HelloKitty extends egret.DisplayObjectContainer {
         console.log("用白菜内裤随机N个数:",lcp.ArrayUtil.randomNum(arr_Num,10));
 
 
+        var urlloader = new egret.URLLoader();
+        urlloader.load(new egret.URLRequest("http://ht2015.fx678.com/api/?c=api&a=gettop10"));
+        urlloader.addEventListener(egret.Event.COMPLETE,(e)=>{
+            console.log("获取接口数据:",e.target.data);
+            var o = JSON.parse(e.target.data);
+            console.log(o.result,o.toplist);
+        },this);
+
+
+
 
     }
 

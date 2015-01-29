@@ -191,6 +191,13 @@ var HelloKitty = (function (_super) {
         console.log("白菜内裤另一种去重:", lcp.ArrayUtil.reDupliction(arr_Num));
         console.log("再用白菜内裤去随机:", lcp.ArrayUtil.randomize(lcp.ArrayUtil.removeDuplicates(arr_Num)));
         console.log("用白菜内裤随机N个数:", lcp.ArrayUtil.randomNum(arr_Num, 10));
+        var urlloader = new egret.URLLoader();
+        urlloader.load(new egret.URLRequest("http://ht2015.fx678.com/api/?c=api&a=gettop10"));
+        urlloader.addEventListener(egret.Event.COMPLETE, function (e) {
+            console.log("获取接口数据:", e.target.data);
+            var o = JSON.parse(e.target.data);
+            console.log(o.result, o.toplist);
+        }, this);
     };
     HelloKitty.prototype.sp_click = function (e) {
         lcp.LTrace.trace(this, "我单击了元件" + (this._i++) + "次", this._sp.name, this._sp.x, this._sp.y, this._sp.width, this._sp.height, this._sp.touchEnabled);
