@@ -50,6 +50,7 @@ var egret;
                  * 是否捕获ItemRenderer以便在MouseUp时抛出ItemClick事件
                  */
                 this._captureItemRenderer = true;
+                this.mouseDownItemRenderer = null;
                 this.useVirtualLayout = true;
             }
             List.prototype.createChildren = function () {

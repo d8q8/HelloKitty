@@ -46,6 +46,8 @@ var egret;
             function TabBarButton() {
                 _super.call(this);
                 this._allowDeselection = true;
+                this._data = null;
+                this._itemIndex = NaN;
             }
             Object.defineProperty(TabBarButton.prototype, "allowDeselection", {
                 /**

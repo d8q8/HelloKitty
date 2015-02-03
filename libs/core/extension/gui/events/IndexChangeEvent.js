@@ -56,6 +56,16 @@ var egret;
                 if (oldIndex === void 0) { oldIndex = -1; }
                 if (newIndex === void 0) { newIndex = -1; }
                 _super.call(this, type, bubbles, cancelable);
+                /**
+                 * 进行更改之后的从零开始的索引。
+                 * @member egret.gui.IndexChangeEvent#newIndex
+                 */
+                this.newIndex = NaN;
+                /**
+                 * 进行更改之前的从零开始的索引。
+                 * @member egret.gui.IndexChangeEvent#oldIndex
+                 */
+                this.oldIndex = NaN;
                 this.oldIndex = oldIndex;
                 this.newIndex = newIndex;
             }

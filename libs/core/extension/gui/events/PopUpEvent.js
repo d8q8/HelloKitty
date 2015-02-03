@@ -57,6 +57,16 @@ var egret;
                 if (popUp === void 0) { popUp = null; }
                 if (modal === void 0) { modal = false; }
                 _super.call(this, type, bubbles, cancelable);
+                /**
+                 * 弹出框对象
+                 * @member egret.gui.PopUpEvent#popUp
+                 */
+                this.popUp = null;
+                /**
+                 * 弹出窗口是否为模态，此属性仅在事件类型为ADD_POPUP时有效。
+                 * @member egret.gui.PopUpEvent#modal
+                 */
+                this.modal = false;
                 this.popUp = popUp;
                 this.modal = modal;
             }

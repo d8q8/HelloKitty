@@ -52,6 +52,11 @@ var egret;
                  * 已经初始化标志
                  */
                 this.initialized = false;
+                /**
+                 * 视图状态的名称。给定组件的状态名称必须唯一。必须设置此属性。
+                 * @member egret.gui.State#name
+                 */
+                this.name = null;
                 this.name = name;
                 this.overrides = overrides;
             }

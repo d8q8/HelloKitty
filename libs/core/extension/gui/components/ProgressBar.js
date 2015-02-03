@@ -47,8 +47,32 @@ var egret;
              */
             function ProgressBar() {
                 _super.call(this);
+                /**
+                 * [SkinPart]进度高亮显示对象。
+                 * @member egret.gui.ProgressBar#thumb
+                 */
+                this.thumb = null;
+                /**
+                 * [SkinPart]轨道显示对象，用于确定thumb要覆盖的区域。
+                 * @member egret.gui.ProgressBar#track
+                 */
+                this.track = null;
+                /**
+                 * [SkinPart]进度条文本
+                 * @member egret.gui.ProgressBar#labelDisplay
+                 */
+                this.labelDisplay = null;
+                this._labelFunction = null;
                 this._slideDuration = 500;
                 this._direction = gui.ProgressBarDirection.LEFT_TO_RIGHT;
+                /**
+                 * 动画实例
+                 */
+                this.animator = null;
+                /**
+                 * 动画播放结束时要到达的value。
+                 */
+                this.slideToValue = NaN;
                 this.animationValue = 0;
                 this.trackResizedOrMoved = false;
             }

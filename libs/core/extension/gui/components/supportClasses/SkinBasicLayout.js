@@ -47,6 +47,7 @@ var egret;
              */
             function SkinBasicLayout() {
                 _super.call(this);
+                this._target = null;
             }
             Object.defineProperty(SkinBasicLayout.prototype, "target", {
                 /**

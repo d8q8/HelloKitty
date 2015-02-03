@@ -49,9 +49,20 @@ var egret;
             function DropDownListBase() {
                 _super.call(this);
                 /**
+                 * [SkinPart]下拉区域显示对象
+                 * @member egret.gui.DropDownListBase#dropDown
+                 */
+                this.dropDown = null;
+                /**
+                 * [SkinPart]下拉触发按钮
+                 * @member egret.gui.DropDownListBase#openButton
+                 */
+                this.openButton = null;
+                /**
                  * 文本改变标志
                  */
                 this._labelChanged = false;
+                this._dropDownController = null;
                 this._userProposedSelectedIndex = gui.ListBase.NO_SELECTION;
                 this._captureItemRenderer = false;
                 this.dropDownController = new gui.DropDownController();

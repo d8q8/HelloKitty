@@ -86,9 +86,20 @@ var egret;
                  */
                 this.measuredHeight = 0;
                 this._initialized = false;
+                this._hostComponent = null;
                 this._elementsContent = [];
+                this.skinLayout = null;
                 //========================state相关函数===============start=========================
                 this._states = [];
+                /**
+                 * 当前视图状态发生改变的标志
+                 */
+                this.currentStateChanged = false;
+                this._currentState = null;
+                /**
+                 * 存储还未验证的视图状态
+                 */
+                this.requestedCurrentState = null;
                 this.initialized = false;
                 this.skinLayout = new gui.SkinBasicLayout();
                 this.skinLayout.target = this;

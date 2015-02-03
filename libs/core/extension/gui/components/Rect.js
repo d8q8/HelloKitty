@@ -48,6 +48,7 @@ var egret;
              */
             function Rect() {
                 _super.call(this);
+                this._graphics = null;
                 this._fillColor = 0xFFFFFF;
                 this._fillAlpha = 1;
                 this._strokeColor = 0x444444;

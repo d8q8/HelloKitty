@@ -58,6 +58,16 @@ var egret;
                  * @member egret.gui.AddItems#position
                  */
                 this.position = AddItems.LAST;
+                /**
+                 * 相对的显示元素的实例名
+                 * @member egret.gui.AddItems#relativeTo
+                 */
+                this.relativeTo = null;
+                /**
+                 * 目标实例名
+                 * @member egret.gui.AddItems#target
+                 */
+                this.target = null;
                 this.target = target;
                 this.propertyName = propertyName;
                 this.position = position;

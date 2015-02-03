@@ -48,6 +48,25 @@ var egret;
              */
             function SetProperty(target, name, value) {
                 _super.call(this);
+                /**
+                 * 要修改的属性名
+                 * @member egret.gui.SetProperty#name
+                 */
+                this.name = null;
+                /**
+                 * 目标实例名
+                 * @member egret.gui.SetProperty#target
+                 */
+                this.target = null;
+                /**
+                 * 属性值
+                 * @member egret.gui.SetProperty#value
+                 */
+                this.value = null;
+                /**
+                 * 旧的属性值
+                 */
+                this.oldValue = null;
                 this.target = target;
                 this.name = name;
                 this.value = value;

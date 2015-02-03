@@ -56,8 +56,10 @@ var egret;
                  * 所属的RadioButtonGroup
                  */
                 this._radioButtonGroup = null;
+                this._group = null;
                 this.groupChanged = false;
                 this._groupName = "radioGroup";
+                this._value = null;
                 this.groupName = "radioGroup";
             }
             Object.defineProperty(RadioButton.prototype, "enabled", {
@@ -205,6 +207,10 @@ var egret;
                     g._addInstance(this);
                 return g;
             };
+            /**
+             * 存储根据groupName自动创建的RadioButtonGroup列表
+             */
+            RadioButton.automaticRadioButtonGroups = null;
             return RadioButton;
         })(gui.ToggleButtonBase);
         gui.RadioButton = RadioButton;

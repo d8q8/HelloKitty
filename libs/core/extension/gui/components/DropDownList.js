@@ -38,7 +38,6 @@ var egret;
          * @class egret.gui.DropDownList
          * @classdesc
          * 不可输入的下拉列表控件。带输入功能的下拉列表控件，请使用ComboBox。
-         * @see org.flexlite.domUI.components.ComboBox
          * @extends egret.gui.DropDownListBase
          */
         var DropDownList = (function (_super) {
@@ -49,6 +48,11 @@ var egret;
              */
             function DropDownList() {
                 _super.call(this);
+                /**
+                 * [SkinPart]选中项文本
+                 * @member egret.gui.DropDownList#labelDisplay
+                 */
+                this.labelDisplay = null;
                 this._prompt = "";
             }
             Object.defineProperty(DropDownList.prototype, "prompt", {

@@ -50,6 +50,7 @@ var egret;
                 _super.call(this);
                 this._contentWidth = 0;
                 this._contentHeight = 0;
+                this._layout = null;
                 this._clipAndEnableScrolling = false;
                 this._horizontalScrollPosition = 0;
                 this._verticalScrollPosition = 0;

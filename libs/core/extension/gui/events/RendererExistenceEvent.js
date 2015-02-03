@@ -58,6 +58,21 @@ var egret;
                 if (index === void 0) { index = -1; }
                 if (data === void 0) { data = null; }
                 _super.call(this, type, bubbles, cancelable);
+                /**
+                 * 呈示器的数据项目。
+                 * @member egret.gui.RendererExistenceEvent#data
+                 */
+                this.data = null;
+                /**
+                 * 指向已添加或删除项呈示器的位置的索引。
+                 * @member egret.gui.RendererExistenceEvent#index
+                 */
+                this.index = NaN;
+                /**
+                 * 对已添加或删除的项呈示器的引用。
+                 * @member egret.gui.RendererExistenceEvent#renderer
+                 */
+                this.renderer = null;
                 this.renderer = renderer;
                 this.index = index;
                 this.data = data;

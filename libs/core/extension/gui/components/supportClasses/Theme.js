@@ -34,6 +34,7 @@ var egret;
              * @method egret.gui.PopUpManager#constructor
              */
             function Theme(configURL) {
+                this.skinMap = {};
                 this.delyList = [];
                 this.loadConfig(configURL);
             }

@@ -56,6 +56,16 @@ var egret;
                 if (bubbles === void 0) { bubbles = false; }
                 if (cancelable === void 0) { cancelable = false; }
                 _super.call(this, type, bubbles, cancelable);
+                /**
+                 * 旧的组件X
+                 * @member egret.gui.MoveEvent#oldX
+                 */
+                this.oldX = NaN;
+                /**
+                 * 旧的组件Y
+                 * @member egret.gui.MoveEvent#oldY
+                 */
+                this.oldY = NaN;
                 this.oldX = oldX;
                 this.oldY = oldY;
             }

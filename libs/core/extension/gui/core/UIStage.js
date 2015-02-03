@@ -52,6 +52,9 @@ var egret;
             function UIStage() {
                 _super.call(this);
                 this._autoResize = true;
+                this._popUpContainer = null;
+                this._toolTipContainer = null;
+                this._cursorContainer = null;
                 this._noTopMostIndex = 0;
                 this._topMostIndex = 0;
                 this._toolTipIndex = 0;

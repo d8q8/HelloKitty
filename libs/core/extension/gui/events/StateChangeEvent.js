@@ -56,6 +56,16 @@ var egret;
                 if (oldState === void 0) { oldState = null; }
                 if (newState === void 0) { newState = null; }
                 _super.call(this, type, bubbles, cancelable);
+                /**
+                 * 组件正在进入的视图状态的名称。
+                 * @member egret.gui.StateChangeEvent#newState
+                 */
+                this.newState = null;
+                /**
+                 * 组件正在退出的视图状态的名称。
+                 * @member egret.gui.StateChangeEvent#oldState
+                 */
+                this.oldState = null;
                 this.oldState = oldState;
                 this.newState = newState;
             }

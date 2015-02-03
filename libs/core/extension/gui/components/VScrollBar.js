@@ -38,74 +38,79 @@ var egret;
             __extends(VScrollBar, _super);
             function VScrollBar() {
                 _super.call(this);
-                this._autoHideTimer = NaN;
-                this._autoHideDelay = 3000;
-                this.trackAlpha = 0.4;
-                this.thumbAlpha = 0.8;
-                this._autoHideShowAnimat = null;
-                this._animatTargetIsShow = false;
+                this._thumbLengthRatio = 1;
             }
             VScrollBar.prototype._setViewportMetric = function (height, contentHeight) {
-                this._setMaximun(contentHeight - height);
+                var max = Math.max(0, contentHeight - height);
+                this._thumbLengthRatio = contentHeight <= height ? 1 : height / contentHeight;
+                this._setMaximun(max);
                 this._setMinimun(0);
-                this._setValue(contentHeight - height);
-                this._setVisible(height < contentHeight);
-                var thumbLength = height * height / contentHeight;
-                this.thumb._setHeight(thumbLength);
             };
+            Object.defineProperty(VScrollBar.prototype, "trackAlpha", {
+                get: function () {
+                    return 1;
+                },
+                set: function (value) {
+                    egret.Logger.warning("VScrollBar.trackAlpha已经废弃");
+                },
+                enumerable: true,
+                configurable: true
+            });
+            Object.defineProperty(VScrollBar.prototype, "thumbAlpha", {
+                get: function () {
+                    return 1;
+                },
+                set: function (value) {
+                    egret.Logger.warning("VScrollBar.thumbAlpha已经废弃");
+                },
+                enumerable: true,
+                configurable: true
+            });
             VScrollBar.prototype.setPosition = function (value) {
-                this._setValue(this._maximum - value);
+                this._setValue(value);
             };
             VScrollBar.prototype.getPosition = function () {
-                return this._maximum - this._getValue();
+                return this._getValue();
             };
             VScrollBar.prototype._setValue = function (value) {
                 value = Math.max(0, value);
                 _super.prototype._setValue.call(this, value);
-                //被赋值时自动显示
-                this.hideOrShow(true);
-                this.autoHide();
             };
             VScrollBar.prototype.setValue = function (value) {
                 _super.prototype.setValue.call(this, value);
-                //被赋值时自动显示
-                this.hideOrShow(true);
-                this.autoHide();
-            };
-            VScrollBar.prototype.autoHide = function () {
-                if (this._autoHideDelay != NaN) {
-                    egret.clearTimeout(this._autoHideDelay);
-                }
-                this._autoHideTimer = egret.setTimeout(this.hideOrShow.bind(this, false), this, this._autoHideDelay);
-            };
-            VScrollBar.prototype.hideOrShow = function (show) {
-                var _this = this;
-                if (this._autoHideShowAnimat == null) {
-                    this._autoHideShowAnimat = new gui.Animation(function (b) {
-                        var a = b.currentValue["alpha"];
-                        _this.thumb.alpha = _this.thumbAlpha * a;
-                        _this.track.alpha = _this.trackAlpha * a;
-                    }, this);
-                }
-                else {
-                    if (this._animatTargetIsShow == show)
-                        return;
-                    this._autoHideShowAnimat.isPlaying && this._autoHideShowAnimat.stop();
-                }
-                this._animatTargetIsShow = show;
-                var animat = this._autoHideShowAnimat;
-                animat.motionPaths = [{
-                    prop: "alpha",
-                    from: this.thumb.alpha / this.thumbAlpha,
-                    to: show ? 1 : 0
-                }];
-                animat.duration = show ? 100 : 500;
-                animat.play();
             };
             VScrollBar.prototype._animationUpdateHandler = function (animation) {
                 this.pendingValue = animation.currentValue["value"];
                 this.value = animation.currentValue["value"];
                 this.dispatchEventWith(egret.Event.CHANGE);
+            };
+            /**
+             * @param x {number}
+             * @param y {number}
+             * @returns {number}
+             */
+            VScrollBar.prototype.pointToValue = function (x, y) {
+                if (!this.thumb || !this.track)
+                    return 0;
+                var range = this.maximum - this.minimum;
+                var thumbRange = this.track.layoutBoundsHeight - this.thumb.layoutBoundsHeight;
+                return this.minimum + ((thumbRange != 0) ? (y / thumbRange) * range : 0);
+            };
+            VScrollBar.prototype.updateSkinDisplayList = function () {
+                if (!this.thumb || !this.track)
+                    return;
+                var thumbHeight = this.track.layoutBoundsHeight * this._thumbLengthRatio;
+                var oldThumbHeight = this.thumb.layoutBoundsHeight;
+                var thumbRange = this.track.layoutBoundsHeight - thumbHeight;
+                var range = this.maximum - this.minimum;
+                var thumbPosTrackY = (range > 0) ? ((this.pendingValue - this.minimum) / range) * thumbRange : 0;
+                var thumbPos = this.track.localToGlobal(0, thumbPosTrackY);
+                var thumbPosX = thumbPos.x;
+                var thumbPosY = thumbPos.y;
+                var thumbPosParentY = this.thumb.parent.globalToLocal(thumbPosX, thumbPosY, egret.Point.identity).y;
+                this.thumb.setLayoutBoundsPosition(this.thumb.layoutBoundsX, Math.round(thumbPosParentY));
+                if (thumbHeight != oldThumbHeight)
+                    this.thumb.setLayoutBoundsSize(this.thumb.layoutBoundsWidth, thumbHeight);
             };
             return VScrollBar;
         })(gui.VSlider);

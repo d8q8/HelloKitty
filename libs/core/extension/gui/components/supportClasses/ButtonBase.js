@@ -52,6 +52,15 @@ var egret;
                  * 已经开始过不断抛出buttonDown事件的标志
                  */
                 this._downEventFired = false;
+                /**
+                 * 重发buttonDown事件计时器
+                 */
+                this.autoRepeatTimer = null;
+                /**
+                 * [SkinPart]按钮上的文本标签
+                 * @member egret.gui.ButtonBase#labelDisplay
+                 */
+                this.labelDisplay = null;
                 this._autoRepeat = false;
                 this._repeatDelay = 35;
                 this._repeatInterval = 35;

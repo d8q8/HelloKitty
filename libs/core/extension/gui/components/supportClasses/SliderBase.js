@@ -48,8 +48,21 @@ var egret;
              */
             function SliderBase() {
                 _super.call(this);
+                /**
+                 * [SkinPart]轨道高亮显示对象
+                 * @member egret.gui.SliderBase#trackHighlight
+                 */
+                this.trackHighlight = null;
                 this._showTrackHighlight = true;
+                /**
+                 * 动画实例
+                 */
+                this.animator = null;
                 this._pendingValue = 0;
+                /**
+                 * 动画播放结束时要到达的value。
+                 */
+                this.slideToValue = NaN;
                 this._liveDragging = true;
                 this.maximum = 10;
             }

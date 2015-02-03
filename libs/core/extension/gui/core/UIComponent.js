@@ -53,6 +53,9 @@ var egret;
              */
             function UIComponent() {
                 _super.call(this);
+                this._id = null;
+                this._isPopUp = false;
+                this._owner = null;
                 this._updateCompletePendingFlag = false;
                 this._initialized = false;
                 /**
@@ -73,7 +76,15 @@ var egret;
                  */
                 this._hasNoStyleChild = false;
                 this._enabled = true;
+                /**
+                 * 属性提交前组件旧的宽度
+                 */
+                this.oldWidth = NaN;
                 this._width = 0;
+                /**
+                 * 属性提交前组件旧的高度
+                 */
+                this.oldHeight = NaN;
                 this._height = 0;
                 this._minWidth = 0;
                 this._maxWidth = 10000;
@@ -82,6 +93,16 @@ var egret;
                 this._measuredWidth = 0;
                 this._measuredHeight = 0;
                 /**
+                 * 属性提交前组件旧的X
+                 * @member egret.gui.UIComponent#oldX
+                 */
+                this.oldX = NaN;
+                /**
+                 * 属性提交前组件旧的Y
+                 * @member egret.gui.UIComponent#oldY
+                 */
+                this.oldY = NaN;
+                /**
                  * @member egret.gui.UIComponent#_invalidatePropertiesFlag
                  */
                 this._invalidatePropertiesFlag = false;
@@ -89,9 +110,27 @@ var egret;
                  * @member egret.gui.UIComponent#_invalidateSizeFlag
                  */
                 this._invalidateSizeFlag = false;
+                /**
+                 * 上一次测量的首选宽度
+                 * @member egret.gui.UIComponent#_oldPreferWidth
+                 */
+                this._oldPreferWidth = NaN;
+                /**
+                 * 上一次测量的首选高度
+                 * @member egret.gui.UIComponent#_oldPreferHeight
+                 */
+                this._oldPreferHeight = NaN;
                 this._invalidateDisplayListFlag = false;
                 this._validateNowFlag = false;
                 this._includeInLayout = true;
+                this._left = NaN;
+                this._right = NaN;
+                this._top = NaN;
+                this._bottom = NaN;
+                this._horizontalCenter = NaN;
+                this._verticalCenter = NaN;
+                this._percentWidth = NaN;
+                this._percentHeight = NaN;
                 /**
                  * 父级布局管理器设置了组件的宽度标志，尺寸设置优先级：自动布局>显式设置>自动测量
                  * @member egret.gui.UIComponent#_layoutWidthExplicitlySet
@@ -1369,6 +1408,10 @@ var egret;
                 enumerable: true,
                 configurable: true
             });
+            /**
+             * __proto__属性是否可以设置的标志，兼容IE9，IE10。
+             */
+            UIComponent.prototypeCanSet = undefined;
             UIComponent.emptyStyleChain = {};
             return UIComponent;
         })(egret.DisplayObjectContainer);

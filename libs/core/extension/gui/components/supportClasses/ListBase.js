@@ -52,7 +52,10 @@ var egret;
                  * @member egret.gui.ListBase#_doingWholesaleChanges
                  */
                 this._doingWholesaleChanges = false;
+                this.dataProviderChanged = false;
                 this._labelField = "label";
+                this.labelFieldOrFunctionChanged = false;
+                this._labelFunction = null;
                 this._requireSelection = false;
                 this.requireSelectionChanged = false;
                 /**
@@ -68,6 +71,11 @@ var egret;
                  * 索引改变后是否需要抛出事件
                  */
                 this._dispatchChangeAfterSelection = false;
+                /**
+                 *  在属性提交前缓存真实选中项的数据源
+                 */
+                this._pendingSelectedItem = undefined;
+                this._selectedItem = null;
                 this._useVirtualLayout = false;
                 this.selectedIndexAdjusted = false;
             }

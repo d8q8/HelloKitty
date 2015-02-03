@@ -50,6 +50,11 @@ var egret;
             function SkinnableDataContainer() {
                 _super.call(this);
                 /**
+                 * [SkinPart]数据项目容器实体
+                 * @member egret.gui.SkinnableDataContainer#dataGroup
+                 */
+                this.dataGroup = null;
+                /**
                  * dataGroup发生改变时传递的参数
                  */
                 this._dataGroupProperties = {};

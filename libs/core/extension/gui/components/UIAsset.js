@@ -37,9 +37,7 @@ var egret;
         /**
          * @class egret.gui.UIAsset
          * @classdesc
-         * 素材包装器。<p/>
-         * 注意：UIAsset仅在添content时测量一次初始尺寸， 请不要在外部直接修改content尺寸，
-         * 若做了引起content尺寸发生变化的操作, 需手动调用UIAsset的invalidateSize()进行重新测量。
+         * 素材和非GUI显示对象包装器包装器。<p/>
          * @extends egret.gui.UIComponent
          * @implements egret.gui.ISkinnableClient
          */
@@ -53,6 +51,12 @@ var egret;
                 if (autoScale === void 0) { autoScale = true; }
                 _super.call(this);
                 /**
+                 * 矩形区域，它定义素材对象的九个缩放区域。
+                 * 注意:此属性仅在source的解析结果为Texture并且fileMode为BitmapFillMode.SCALE时有效。
+                 * @member {egret.Texture} egret.gui.UIAsset#scale9Grid
+                 */
+                this.scale9Grid = null;
+                /**
                  * 确定位图填充尺寸的方式。默认值：BitmapFillMode.SCALE。
                  * 设置为 BitmapFillMode.REPEAT时，位图将重复以填充区域。
                  * 设置为 BitmapFillMode.SCALE时，位图将拉伸以填充区域。
@@ -61,6 +65,8 @@ var egret;
                  */
                 this.fillMode = "scale";
                 this.sourceChanged = false;
+                this._source = null;
+                this._content = null;
                 this.createChildrenCalled = false;
                 this.contentReused = false;
                 /**
@@ -160,10 +166,14 @@ var egret;
                 if (oldContent !== content) {
                     if (oldContent instanceof egret.DisplayObject) {
                         if (oldContent.parent == this) {
+                            oldContent._sizeChangeCallBack = null;
+                            oldContent._sizeChangeCallTarget = null;
                             this._removeFromDisplayList(oldContent);
                         }
                     }
                     if (content instanceof egret.DisplayObject) {
+                        content._sizeChangeCallBack = this.invalidateSize;
+                        content._sizeChangeCallTarget = this;
                         this._addToDisplayListAt(content, 0);
                     }
                 }
@@ -183,8 +193,14 @@ var egret;
                         this.measuredHeight = (content).preferredHeight;
                     }
                     else {
-                        this.measuredWidth = content.width * content.scaleX;
-                        this.measuredHeight = content.height * content.scaleY;
+                        var oldW = content.explicitWidth;
+                        var oldH = content.explicitHeight;
+                        content.width = NaN;
+                        content.height = NaN;
+                        this.measuredWidth = content.measuredWidth * content.scaleX;
+                        this.measuredHeight = content.measuredHeight * content.scaleY;
+                        content.width = oldW;
+                        content.height = oldH;
                     }
                 }
                 else if (content instanceof egret.Texture) {
@@ -305,6 +321,10 @@ var egret;
             UIAsset.prototype.swapChildrenAt = function (index1, index2) {
                 throw (new Error("swapChildrenAt()" + UIAsset.errorStr + "swapElementsAt()代替"));
             };
+            /**
+             * 皮肤解析适配器
+             */
+            UIAsset.assetAdapter = null;
             UIAsset.errorStr = "在此组件中不可用，若此组件为容器类，请使用";
             return UIAsset;
         })(gui.UIComponent);
