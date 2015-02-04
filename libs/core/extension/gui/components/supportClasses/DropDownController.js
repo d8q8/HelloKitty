@@ -48,9 +48,16 @@ var egret;
              */
             function DropDownController() {
                 _super.call(this);
+                /**
+                 * 鼠标按下标志
+                 */
+                this.mouseIsDown = false;
+                this._openButton = null;
+                this._dropDown = null;
                 this._isOpen = false;
                 this._closeOnResize = true;
                 this._rollOverOpenDelay = NaN;
+                this.rollOverOpenDelayTimer = null;
             }
             Object.defineProperty(DropDownController.prototype, "openButton", {
                 /**

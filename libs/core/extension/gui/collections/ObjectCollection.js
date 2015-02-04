@@ -55,6 +55,15 @@ var egret;
                 if (parentKey === void 0) { parentKey = "parent"; }
                 _super.call(this);
                 /**
+                 * 要从item中获取子项列表的属性名
+                 */
+                this.childrenKey = "children";
+                /**
+                 * 要从item中获取父级项的属性名
+                 */
+                this.parentKey = "parent";
+                this._source = null;
+                /**
                  * 要显示的节点列表
                  */
                 this.nodeList = [];

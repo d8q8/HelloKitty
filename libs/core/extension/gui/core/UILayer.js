@@ -39,6 +39,18 @@ var egret;
              * @param upperBoundReference {strin}
              */
             function UILayer(owner, lowerBoundReference, upperBoundReference) {
+                /**
+                 * 实体容器
+                 */
+                this.owner = null;
+                /**
+                 * 容器下边界属性
+                 */
+                this.lowerBoundReference = null;
+                /**
+                 * 容器上边界属性
+                 */
+                this.upperBoundReference = null;
                 this.raw_getElementAt = "raw_getElementAt";
                 this.raw_addElementAt = "raw_addElementAt";
                 this.raw_getElementIndex = "raw_getElementIndex";

@@ -51,6 +51,7 @@ var egret;
             function ViewStack() {
                 _super.call(this);
                 this._createAllChildren = false;
+                this._selectedChild = null;
                 /**
                  * 在属性提交前缓存选中项索引
                  */

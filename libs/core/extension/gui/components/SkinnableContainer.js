@@ -49,6 +49,15 @@ var egret;
             function SkinnableContainer() {
                 _super.call(this);
                 /**
+                 * [SkinPart]实体容器
+                 * @member egret.gui.SkinnableContainer#contentGroup
+                 */
+                this.contentGroup = null;
+                /**
+                 * 实体容器实例化之前缓存子对象的容器
+                 */
+                this._placeHolderGroup = null;
+                /**
                  * contentGroup发生改变时传递的参数
                  */
                 this.contentGroupProperties = {};

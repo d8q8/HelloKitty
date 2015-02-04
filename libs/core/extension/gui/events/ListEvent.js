@@ -72,6 +72,21 @@ var egret;
                 if (item === void 0) { item = null; }
                 if (itemRenderer === void 0) { itemRenderer = null; }
                 _super.call(this, type, bubbles, cancelable, touchPointID, stageX, stageY, ctrlKey, altKey, shiftKey, buttonDown);
+                /**
+                 * 触发鼠标事件的项呈示器数据源项。
+                 * @member egret.gui.ListEvent#item
+                 */
+                this.item = null;
+                /**
+                 * 触发鼠标事件的项呈示器。
+                 * @member egret.gui.ListEvent#itemRenderer
+                 */
+                this.itemRenderer = null;
+                /**
+                 * 触发鼠标事件的项索引
+                 * @member egret.gui.ListEvent#itemIndex
+                 */
+                this.itemIndex = NaN;
                 this.itemIndex = itemIndex;
                 this.item = item;
                 this.itemRenderer = itemRenderer;

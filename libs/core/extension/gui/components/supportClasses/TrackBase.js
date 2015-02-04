@@ -49,9 +49,27 @@ var egret;
                 _super.call(this);
                 this._slideDuration = 300;
                 /**
+                 * [SkinPart]实体滑块组件
+                 * @member egret.gui.TrackBase#thumb
+                 */
+                this.thumb = null;
+                /**
+                 * [SkinPart]实体轨道组件
+                 * @member egret.gui.TrackBase#track
+                 */
+                this.track = null;
+                /**
+                 * 记录鼠标在thumb上按下的位置
+                 */
+                this._clickOffsetX = NaN;
+                this._clickOffsetY = NaN;
+                /**
                  * 当鼠标拖动thumb时，需要更新value的标记。
                  */
                 this.needUpdateValue = false;
+                this._moveStageX = NaN;
+                this._moveStageY = NaN;
+                this.mouseDownTarget = null;
                 this.addEventListener(egret.Event.ADDED_TO_STAGE, this.addedToStageHandler, this);
                 this.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.mouseDownHandler, this);
             }

@@ -47,8 +47,23 @@ var egret;
              */
             function TitleWindow() {
                 _super.call(this);
+                /**
+                 * [SkinPart]关闭按钮
+                 * @member egret.gui.TitleWindow#closeButton
+                 */
+                this.closeButton = null;
+                /**
+                 * [SkinPart]可移动区域
+                 * @member egret.gui.TitleWindow#moveArea
+                 */
+                this.moveArea = null;
                 this._showCloseButton = true;
                 this._autoBackToStage = true;
+                /**
+                 * 鼠标按下时的偏移量
+                 */
+                this._offsetPointX = NaN;
+                this._offsetPointY = NaN;
                 this.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onWindowMouseDown, this, true, 100);
             }
             /**

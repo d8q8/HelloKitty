@@ -46,6 +46,8 @@ var egret;
                  * @member egret.gui.Animation#easerFunction
                  */
                 this.easerFunction = egret.Ease.sineInOut;
+                this.thisObject = null;
+                this._isPlaying = false;
                 this._duration = 500;
                 this._startDelay = 0;
                 this._repeatCount = 1;
@@ -56,6 +58,26 @@ var egret;
                  */
                 this.motionPaths = [];
                 this._currentValue = {};
+                /**
+                 * 动画开始播放时的回调函数,只会在首次延迟等待结束时触发一次,若有重复播放，之后将触发repeatFunction。startFunction(animation:Animation):void
+                 * @member egret.gui.Animation#startFunction
+                 */
+                this.startFunction = null;
+                /**
+                 * 动画播放结束时的回调函数,可以是正常播放结束，也可以是被调用了end()方法导致结束。注意：stop()方法被调用不会触发这个函数。endFunction(animation:Animation):void
+                 * @member egret.gui.Animation#endFunction
+                 */
+                this.endFunction = null;
+                /**
+                 * 动画更新时的回调函数,updateFunction(animation:Animation):void
+                 * @member egret.gui.Animation#updateFunction
+                 */
+                this.updateFunction = null;
+                /**
+                 * 动画被停止的回调函数，即stop()方法被调用。stopFunction(animation:Animation):void
+                 * @member egret.gui.Animation#stopFunction
+                 */
+                this.stopFunction = null;
                 this.pauseTime = 0;
                 this._isPaused = false;
                 /**

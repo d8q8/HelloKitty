@@ -49,7 +49,23 @@ var egret;
              */
             function TreeItemRenderer() {
                 _super.call(this);
+                /**
+                 * [SkinPart]图标显示对象
+                 * @member egret.gui.TreeItemRenderer#iconDisplay
+                 */
+                this.iconDisplay = null;
+                /**
+                 * [SkinPart]子节点开启按钮
+                 * @member egret.gui.TreeItemRenderer#disclosureButton
+                 */
+                this.disclosureButton = null;
+                /**
+                 * [SkinPart]用于调整缩进值的容器对象。
+                 * @member egret.gui.TreeItemRenderer#contentGroup
+                 */
+                this.contentGroup = null;
                 this._indentation = 17;
+                this._iconSkinName = null;
                 this._depth = 0;
                 this._hasChildren = false;
                 this._isOpen = false;

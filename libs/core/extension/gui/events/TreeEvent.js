@@ -58,6 +58,26 @@ var egret;
                 if (item === void 0) { item = null; }
                 if (itemRenderer === void 0) { itemRenderer = null; }
                 _super.call(this, type, bubbles, cancelable);
+                /**
+                 * 触发鼠标事件的项呈示器数据源项。
+                 * @member egret.gui.TreeEvent#item
+                 */
+                this.item = null;
+                /**
+                 * 触发鼠标事件的项呈示器。
+                 * @member egret.gui.TreeEvent#itemRenderer
+                 */
+                this.itemRenderer = null;
+                /**
+                 * 触发鼠标事件的项索引
+                 * @member egret.gui.TreeEvent#itemIndex
+                 */
+                this.itemIndex = NaN;
+                /**
+                 * 当事件类型为ITEM_OPENING时，true表示即将打开节点，反之关闭。
+                 * @member egret.gui.TreeEvent#opening
+                 */
+                this.opening = false;
                 this.item = item;
                 this.itemRenderer = itemRenderer;
                 this.itemIndex = itemIndex;

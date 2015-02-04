@@ -48,16 +48,32 @@ var egret;
              */
             function TextBase() {
                 _super.call(this);
+                /**
+                 * 呈示此文本的内部 TextField
+                 */
+                this._textField = null;
                 this.allStyleChanged = false;
+                this.fontFamilyChanged = false;
                 this._fontFamily = "SimSun";
+                this._sizeChanged = false;
                 this._size = 30;
                 this._focusEnabled = true;
+                this.boldChanged = false;
                 this._bold = false;
+                this.italicChanged = false;
                 this._italic = false;
+                this.textAlignChanged = false;
                 this._textAlign = egret.HorizontalAlign.LEFT;
+                this.verticalAlignChanged = false;
                 this._verticalAlign = egret.VerticalAlign.TOP;
+                this.lineSpacingChanged = false;
                 this._lineSpacing = 0;
+                this.textColorChanged = false;
                 this._textColor = 0xFFFFFF;
+                /**
+                 * @member egret.gui.TextBase#_textChanged
+                 */
+                this._textChanged = false;
                 this._text = "";
                 this._textFlow = null;
                 this._textFlowChanged = false;
@@ -178,7 +194,7 @@ var egret;
             });
             Object.defineProperty(TextBase.prototype, "italic", {
                 /**
-                 * 是否显示为粗体，默认false。
+                 * 是否显示为斜体，默认false。
                  * @member egret.gui.TextBase#italic
                  */
                 get: function () {
@@ -280,8 +296,6 @@ var egret;
                  * @member egret.gui.TextBase#text
                  */
                 get: function () {
-                    if (this._textField)
-                        return this._textField.text;
                     return this._text;
                 },
                 set: function (value) {
@@ -289,8 +303,8 @@ var egret;
                         return;
                     this._text = value || "";
                     this._textChanged = true;
-                    this._textFlow = null;
                     this._textFlowChanged = false;
+                    this._textFlow = [];
                     this.invalidateProperties();
                     this.invalidateSize();
                     this.invalidateDisplayList();
@@ -300,15 +314,13 @@ var egret;
             });
             Object.defineProperty(TextBase.prototype, "textFlow", {
                 get: function () {
-                    if (this._textField)
-                        return this._textField.textFlow;
                     return this._textFlow;
                 },
                 set: function (value) {
                     this._textFlow = value || [];
                     this._textFlowChanged = true;
-                    this._text = null;
                     this._textChanged = false;
+                    this._text = "";
                     this.invalidateProperties();
                     this.invalidateSize();
                     this.invalidateDisplayList();
@@ -371,10 +383,14 @@ var egret;
                 }
                 if (this._textChanged) {
                     this._textField.text = this._text;
-                    this._textChanged = false;
                 }
                 if (this._textFlowChanged) {
                     this._textField.textFlow = this._textFlow;
+                }
+                if (this._textChanged || this._textFlowChanged) {
+                    this._text = this._textField.text;
+                    this._textFlow = this._textField.textFlow;
+                    this._textChanged = false;
                     this._textFlowChanged = false;
                 }
             };
@@ -384,13 +400,11 @@ var egret;
             TextBase.prototype.checkTextField = function () {
                 if (!this._textField) {
                     this._createTextField();
-                    if (this._text) {
+                    if (this._textChanged) {
                         this._textField.text = this._text;
-                        this._textChanged = true;
                     }
-                    if (this._textFlow) {
+                    if (this._textFlowChanged) {
                         this._textField.textFlow = this._textFlow;
-                        this._textFlowChanged = true;
                     }
                     this.invalidateProperties();
                 }
@@ -405,6 +419,10 @@ var egret;
                 this._textField.textColor = this.textColor;
                 this._textField.multiline = true;
                 this._addToDisplayList(this._textField);
+            };
+            TextBase.prototype._textFieldChanged = function () {
+                this._text = this._textField.text;
+                this._textFlow = this._textField.textFlow;
             };
             TextBase.prototype.measure = function () {
                 _super.prototype.measure.call(this);

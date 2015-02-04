@@ -49,6 +49,7 @@ var egret;
             function ItemRenderer() {
                 _super.call(this);
                 this.dataChangedFlag = false;
+                this._data = null;
                 this._selected = false;
                 this._itemIndex = -1;
                 this.touchChildren = true;

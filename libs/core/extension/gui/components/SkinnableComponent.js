@@ -62,7 +62,9 @@ var egret;
                  * 外部显式设置了皮肤名
                  */
                 this._skinNameExplicitlySet = false;
-                this.createChildrenCalled = false;
+                this._skinName = null;
+                this._createChildrenCalled = false;
+                this._skin = null;
                 this.skinLayoutEnabled = false;
                 //========================皮肤视图状态=====================start=======================
                 this.stateIsDirty = false;
@@ -90,7 +92,7 @@ var egret;
                         return;
                     this._skinName = value;
                     this._skinNameExplicitlySet = true;
-                    if (this.createChildrenCalled) {
+                    if (this._createChildrenCalled) {
                         this.parseSkinName();
                     }
                 },
@@ -103,7 +105,7 @@ var egret;
             SkinnableComponent.prototype.createChildren = function () {
                 _super.prototype.createChildren.call(this);
                 this.parseSkinName();
-                this.createChildrenCalled = true;
+                this._createChildrenCalled = true;
             };
             /**
              * 解析skinName
@@ -487,6 +489,14 @@ var egret;
             SkinnableComponent.prototype.swapChildrenAt = function (index1, index2) {
                 throw (new Error("swapChildrenAt()" + SkinnableComponent.errorStr + "swapElementsAt()代替"));
             };
+            /**
+             * 皮肤解析适配器
+             */
+            SkinnableComponent.skinAdapter = null;
+            /**
+             * 默认皮肤主题解析器
+             */
+            SkinnableComponent._defaultTheme = null;
             SkinnableComponent.errorStr = "在此组件中不可用，若此组件为容器类，请使用";
             return SkinnableComponent;
         })(gui.UIComponent);

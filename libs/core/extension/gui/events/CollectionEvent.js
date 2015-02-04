@@ -62,6 +62,21 @@ var egret;
                 if (items === void 0) { items = null; }
                 if (oldItems === void 0) { oldItems = null; }
                 _super.call(this, type, bubbles, cancelable);
+                /**
+                 * 指示发生的事件类型。此属性值可以是 CollectionEventKind 类中的一个值，也可以是 null，用于指示类型未知。
+                 * @member egret.gui.CollectionEvent#kind
+                 */
+                this.kind = null;
+                /**
+                 * 受事件影响的项目的列表
+                 * @member egret.gui.CollectionEvent#items
+                 */
+                this.items = null;
+                /**
+                 * 仅当kind的值为CollectionEventKind.REPLACE时，表示替换前的项目列表
+                 * @member egret.gui.CollectionEvent#oldItems
+                 */
+                this.oldItems = null;
                 this.kind = kind;
                 this.location = location;
                 this.oldLocation = oldLocation;

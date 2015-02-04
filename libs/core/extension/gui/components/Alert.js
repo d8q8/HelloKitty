@@ -51,6 +51,25 @@ var egret;
                 this._firstButtonLabel = "";
                 this._secondButtonLabel = "";
                 this._contentText = "";
+                /**
+                 * 对话框关闭回调函数
+                 */
+                this.closeHandler = null;
+                /**
+                 * [SkinPart]文本内容显示对象
+                 * @member egret.gui.Alert#contentDisplay
+                 */
+                this.contentDisplay = null;
+                /**
+                 * [SkinPart]第一个按钮，通常是"确定"。
+                 * @member egret.gui.Alert#firstButton
+                 */
+                this.firstButton = null;
+                /**
+                 * [SkinPart]第二个按钮，通常是"取消"。
+                 * @member egret.gui.Alert#secondButton
+                 */
+                this.secondButton = null;
             }
             /**
              * 弹出Alert控件的静态方法。在Alert控件中选择一个按钮，将关闭该控件。

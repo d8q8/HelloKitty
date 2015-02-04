@@ -57,6 +57,7 @@ var egret;
                 this._modalColor = 0x000000;
                 this._modalAlpha = 0.5;
                 this.invalidateModalFlag = false;
+                this.modalMask = null;
             }
             Object.defineProperty(PopUpManagerImpl.prototype, "popUpList", {
                 /**
@@ -276,6 +277,14 @@ var egret;
              * @param modal {boolea}
              */
             function PopUpData(popUp, modal) {
+                /**
+                 * @member egret.PopUpData#popUp
+                 */
+                this.popUp = null;
+                /**
+                 * @member egret.PopUpData#modal
+                 */
+                this.modal = false;
                 this.popUp = popUp;
                 this.modal = modal;
             }

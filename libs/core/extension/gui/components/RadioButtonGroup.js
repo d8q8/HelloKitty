@@ -49,10 +49,16 @@ var egret;
             function RadioButtonGroup() {
                 _super.call(this);
                 /**
+                 * 组名
+                 */
+                this._name = null;
+                /**
                  * 单选按钮列表
                  */
                 this.radioButtons = [];
                 this._enabled = true;
+                this._selectedValue = null;
+                this._selection = null;
                 this._name = "_radioButtonGroup" + RadioButtonGroup.groupCount;
                 RadioButtonGroup.groupCount++;
             }

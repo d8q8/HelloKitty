@@ -228,8 +228,24 @@ class HelloKitty extends egret.DisplayObjectContainer {
             }
         }
 
+        //var urlloader = new egret.URLLoader();
+        //urlloader.load(new egret.URLRequest("http://ht2015.fx678.com/api/?c=api&a=gettop10"));
+        //urlloader.addEventListener(egret.Event.COMPLETE,(e)=>{
+        //    console.log("获取接口数据:",e.target.data);
+        //    var o = JSON.parse(e.target.data);
+        //    console.log(o.result,o.toplist);
+        //},this);
+
+        var arr:Array<any> = ["a","国",1,5,"中","b","z",9,3,"c"];
+        console.log(arr.sort());
+
+        console.log(lcp.NumberUtil.roundDecimalToPlace(3.14159265,2));
+
+        var aa:new()=>A;
+        console.log(aa);
 
     }
+
 
     private _sp:lcp.LCircle;
     public _i:number;
@@ -528,5 +544,6 @@ class HelloKitty extends egret.DisplayObjectContainer {
         //----------------------------------------------------------------------------------------------------
     }
 
-
 }
+
+class A{}

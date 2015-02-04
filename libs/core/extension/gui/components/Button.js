@@ -47,6 +47,12 @@ var egret;
              */
             function Button() {
                 _super.call(this);
+                /**
+                 * [SkinPart]按钮上的文本标签
+                 * @member egret.gui.ButtonBase#labelDisplay
+                 */
+                this.iconDisplay = null;
+                this._icon = null;
             }
             Object.defineProperty(Button.prototype, "icon", {
                 /**

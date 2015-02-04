@@ -52,6 +52,8 @@ var egret;
                  * 图标字段或函数改变标志
                  */
                 this.iconFieldOrFunctionChanged = false;
+                this._iconField = null;
+                this._iconFunction = null;
             }
             /**
              * @method egret.gui.Tree#createChildren

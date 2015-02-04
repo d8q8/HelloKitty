@@ -47,7 +47,9 @@ var egret;
              */
             function LayoutBase() {
                 _super.call(this);
+                this._target = null;
                 this._useVirtualLayout = false;
+                this._typicalLayoutRect = null;
             }
             Object.defineProperty(LayoutBase.prototype, "target", {
                 /**

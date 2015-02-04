@@ -49,6 +49,11 @@ var egret;
             function TabBar() {
                 _super.call(this);
                 /**
+                 * requireSelection改变标志
+                 */
+                this.requireSelectionChanged_tabBar = false;
+                this._touchBeginItem = null;
+                /**
                  * 是否捕获ItemRenderer以便在MouseUp时抛出ItemClick事件
                  */
                 this._captureItemRenderer = true;

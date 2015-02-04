@@ -49,6 +49,10 @@ var egret;
              */
             function DataGroup() {
                 _super.call(this);
+                /**
+                 * 项呈示器的主机组件
+                 */
+                this._rendererOwner = null;
                 this.useVirtualLayoutChanged = false;
                 this.rendererToClassMap = [];
                 this.freeRenderers = [];
@@ -56,17 +60,33 @@ var egret;
                  * 是否创建了新的项呈示器标志
                  */
                 this.createNewRendererFlag = false;
+                this.cleanTimer = null;
                 this.dataProviderChanged = false;
+                this._dataProvider = null;
                 /**
                  * 对象池字典
                  */
                 this.recyclerDic = [];
+                /**
+                 * 项呈示器改变
+                 */
+                this.itemRendererChanged = false;
+                /**
+                 * 这里不直接使用Class类型是因为JS里不能用对象作为键，所以需要hashCode。而只有实例对象才有hashCode，Class无法作为键。
+                 */
+                this._itemRenderer = null;
                 this.itemRendererSkinNameChange = false;
+                this._itemRendererSkinName = null;
+                this._itemRendererFunction = null;
                 /**
                  * 正在进行虚拟布局阶段
                  */
                 this.virtualLayoutUnderway = false;
                 this.typicalItemChanged = false;
+                /**
+                 * 项呈示器的默认尺寸
+                 */
+                this.typicalLayoutRect = null;
                 /**
                  * 索引到项呈示器的转换数组
                  */

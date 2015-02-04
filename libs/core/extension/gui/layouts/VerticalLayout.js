@@ -784,9 +784,25 @@ var egret;
         var ChildInfo = (function () {
             function ChildInfo() {
                 /**
+                 * @member egret.ChildInfo#layoutElement
+                 */
+                this.layoutElement = null;
+                /**
                  * @member egret.ChildInfo#size
                  */
                 this.size = 0;
+                /**
+                 * @member egret.ChildInfo#percent
+                 */
+                this.percent = NaN;
+                /**
+                 * @member egret.ChildInfo#min
+                 */
+                this.min = NaN;
+                /**
+                 * @member egret.ChildInfo#max
+                 */
+                this.max = NaN;
             }
             return ChildInfo;
         })();

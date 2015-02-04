@@ -48,6 +48,11 @@ var egret;
             function ClassFactory(generator) {
                 if (generator === void 0) { generator = null; }
                 _super.call(this);
+                /**
+                 * newInstance() 方法根据工厂对象生成对象时使用的 Class。
+                 * @member egret.egret#generator
+                 */
+                this.generator = null;
                 this.generator = generator;
             }
             /**

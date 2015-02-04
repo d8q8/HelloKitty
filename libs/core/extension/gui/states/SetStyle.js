@@ -35,16 +35,17 @@ var egret;
     var gui;
     (function (gui) {
         /**
-         * @class egret.gui.SetProperty
+         * @class egret.gui.SetStyle
          * @classdesc
          * 设置属性
          * @extends egret.gui.OverrideBase
+         * @private
          */
         var SetStyle = (function (_super) {
             __extends(SetStyle, _super);
             /**
              * 构造函数
-             * @method egret.gui.SetProperty#constructor
+             * @method egret.gui.SetStyle#constructor
              */
             function SetStyle(target, name, value) {
                 _super.call(this);
@@ -53,7 +54,7 @@ var egret;
                 this.value = value;
             }
             /**
-             * @method egret.gui.SetProperty#apply
+             * @method egret.gui.SetStyle#apply
              * @param parent {IContainer}
              */
             SetStyle.prototype.apply = function (parent) {
@@ -64,7 +65,7 @@ var egret;
                 this.setStyleValue(obj, this.name, this.value, this.oldValue);
             };
             /**
-             * @method egret.gui.SetProperty#remove
+             * @method egret.gui.SetStyle#remove
              * @param parent {IContainer}
              */
             SetStyle.prototype.remove = function (parent) {

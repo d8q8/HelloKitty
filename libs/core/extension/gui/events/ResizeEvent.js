@@ -56,6 +56,16 @@ var egret;
                 if (bubbles === void 0) { bubbles = false; }
                 if (cancelable === void 0) { cancelable = false; }
                 _super.call(this, type, bubbles, cancelable);
+                /**
+                 * 旧的高度
+                 * @member egret.gui.ResizeEvent#oldHeight
+                 */
+                this.oldHeight = NaN;
+                /**
+                 * 旧的宽度
+                 * @member egret.gui.ResizeEvent#oldWidth
+                 */
+                this.oldWidth = NaN;
                 this.oldWidth = oldWidth;
                 this.oldHeight = oldHeight;
             }

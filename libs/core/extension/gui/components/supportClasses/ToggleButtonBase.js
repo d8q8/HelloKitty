@@ -47,6 +47,7 @@ var egret;
              */
             function ToggleButtonBase() {
                 _super.call(this);
+                this._selected = false;
                 /**
                  * 是否根据鼠标事件自动变换选中状态,默认true。仅框架内使用。
                  */

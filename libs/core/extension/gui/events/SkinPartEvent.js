@@ -56,6 +56,16 @@ var egret;
                 if (partName === void 0) { partName = null; }
                 if (instance === void 0) { instance = null; }
                 _super.call(this, type, bubbles, cancelable);
+                /**
+                 * 被添加或移除的皮肤组件实例
+                 * @member egret.gui.SkinPartEvent#instance
+                 */
+                this.instance = null;
+                /**
+                 * 被添加或移除的皮肤组件的实例名
+                 * @member egret.gui.SkinPartEvent#partName
+                 */
+                this.partName = null;
                 this.partName = partName;
                 this.instance = instance;
             }

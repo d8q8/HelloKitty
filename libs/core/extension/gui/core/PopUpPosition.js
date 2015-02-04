@@ -67,6 +67,11 @@ var egret;
              * @constant egret.gui.PopUpPosition.RIGHT
              */
             PopUpPosition.RIGHT = "right";
+            /**
+             * 在屏幕中心弹出
+             * @constant egret.gui.PopUpPosition.SCREEN_CENTER
+             */
+            PopUpPosition.SCREEN_CENTER = "screenCenter";
             return PopUpPosition;
         })();
         gui.PopUpPosition = PopUpPosition;

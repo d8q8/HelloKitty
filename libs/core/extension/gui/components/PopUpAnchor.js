@@ -59,6 +59,8 @@ var egret;
                 this._popUpHeightMatchesAnchorHeight = false;
                 this._popUpWidthMatchesAnchorWidth = false;
                 this._displayPopUp = false;
+                this._popUp = null;
+                this._relativeToStage = false;
                 this._popUpPosition = gui.PopUpPosition.TOP_LEFT;
                 /**
                  * 正在播放动画的标志
@@ -145,7 +147,6 @@ var egret;
             Object.defineProperty(PopUpAnchor.prototype, "popUpPosition", {
                 /**
                  * popUp相对于PopUpAnchor的弹出位置。请使用PopUpPosition里定义的常量。默认值TOP_LEFT。
-                 * @see org.flexlite.domUI.core.PopUpPosition
                  * @member egret.gui.PopUpAnchor#popUpPosition
                  */
                 get: function () {
@@ -154,6 +155,7 @@ var egret;
                 set: function (value) {
                     if (this._popUpPosition == value)
                         return;
+                    this._relativeToStage = value == gui.PopUpPosition.SCREEN_CENTER;
                     this._popUpPosition = value;
                     this.invalidateDisplayList();
                 },
@@ -182,6 +184,8 @@ var egret;
             PopUpAnchor.prototype.calculatePopUpPosition = function () {
                 var registrationPoint = egret.Point.identity;
                 switch (this._popUpPosition) {
+                    case gui.PopUpPosition.SCREEN_CENTER:
+                        break;
                     case gui.PopUpPosition.BELOW:
                         registrationPoint.x = 0;
                         registrationPoint.y = this.height;
@@ -283,7 +287,7 @@ var egret;
                 if (!this.addedToStage || !this.popUp)
                     return;
                 if (this.popUp.parent == null && this.displayPopUp) {
-                    gui.PopUpManager.addPopUp(this.popUp, false, false);
+                    gui.PopUpManager.addPopUp(this.popUp, this._relativeToStage, this._relativeToStage);
                     this.popUp.ownerChanged(this);
                     this.popUpIsDisplayed = true;
                     if (this.inAnimation)

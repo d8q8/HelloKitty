@@ -191,13 +191,18 @@ var HelloKitty = (function (_super) {
         console.log("白菜内裤另一种去重:", lcp.ArrayUtil.reDupliction(arr_Num));
         console.log("再用白菜内裤去随机:", lcp.ArrayUtil.randomize(lcp.ArrayUtil.removeDuplicates(arr_Num)));
         console.log("用白菜内裤随机N个数:", lcp.ArrayUtil.randomNum(arr_Num, 10));
-        var arr = [100, 100, 100, 100, 90, 100, 100, 90];
-        console.log("比较什么就随意：", arr[0] == arr[1]);
-        for (var i = 0; i < arr.length; i++) {
-            if (i > 0) {
-                console.log("第", i, "次比较结果：", arr[i] == arr[(i - 1)]);
-            }
-        }
+        //var urlloader = new egret.URLLoader();
+        //urlloader.load(new egret.URLRequest("http://ht2015.fx678.com/api/?c=api&a=gettop10"));
+        //urlloader.addEventListener(egret.Event.COMPLETE,(e)=>{
+        //    console.log("获取接口数据:",e.target.data);
+        //    var o = JSON.parse(e.target.data);
+        //    console.log(o.result,o.toplist);
+        //},this);
+        var arr = ["a", "国", 1, 5, "中", "b", "z", 9, 3, "c"];
+        console.log(arr.sort());
+        console.log(lcp.NumberUtil.roundDecimalToPlace(3.14159265, 2));
+        var aa;
+        console.log(aa);
     };
     HelloKitty.prototype.sp_click = function (e) {
         lcp.LTrace.trace(this, "我单击了元件" + (this._i++) + "次", this._sp.name, this._sp.x, this._sp.y, this._sp.width, this._sp.height, this._sp.touchEnabled);
@@ -471,3 +476,9 @@ var HelloKitty = (function (_super) {
     return HelloKitty;
 })(egret.DisplayObjectContainer);
 HelloKitty.prototype.__class__ = "HelloKitty";
+var A = (function () {
+    function A() {
+    }
+    return A;
+})();
+A.prototype.__class__ = "A";

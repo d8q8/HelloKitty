@@ -48,7 +48,16 @@ var egret;
              */
             function Panel() {
                 _super.call(this);
+                /**
+                 * [SkinPart]标题显示对象
+                 * @member egret.gui.Panel#titleDisplay
+                 */
+                this.titleDisplay = null;
                 this._title = "";
+                /**
+                 * 标题内容改变
+                 */
+                this.titleChanged = false;
                 this.touchEnabled = false;
             }
             Object.defineProperty(Panel.prototype, "title", {
