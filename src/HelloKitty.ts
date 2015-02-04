@@ -136,6 +136,8 @@ class HelloKitty extends egret.DisplayObjectContainer {
         //侦听画布
         //this.myResize();
 
+        //涂鸦板
+        this.testBoard();
 
         //创建100个精灵
         //this.createSprite(this.stage.stageWidth, this.stage.stageHeight);
@@ -228,21 +230,21 @@ class HelloKitty extends egret.DisplayObjectContainer {
             }
         }
 
-        //var urlloader = new egret.URLLoader();
-        //urlloader.load(new egret.URLRequest("http://ht2015.fx678.com/api/?c=api&a=gettop10"));
-        //urlloader.addEventListener(egret.Event.COMPLETE,(e)=>{
-        //    console.log("获取接口数据:",e.target.data);
-        //    var o = JSON.parse(e.target.data);
-        //    console.log(o.result,o.toplist);
-        //},this);
+        /*var urlloader = new egret.URLLoader();
+        urlloader.load(new egret.URLRequest("http://ht2015.fx678.com/api/?c=api&a=gettop10"));
+        urlloader.addEventListener(egret.Event.COMPLETE,(e)=>{
+            console.log("获取接口数据:",e.target.data);
+            var o = JSON.parse(e.target.data);
+            console.log(o.result,o.toplist);
+        },this);*/
 
-        var arr:Array<any> = ["a","国",1,5,"中","b","z",9,3,"c"];
-        console.log(arr.sort());
+        //var arr:any[] = ["a","国",1,5,"中","b","z",9,3,"c"];
+        //console.log(arr.sort());
 
         console.log(lcp.NumberUtil.roundDecimalToPlace(3.14159265,2));
 
-        var aa:new()=>A;
-        console.log(aa);
+        //验证类
+        console.log("邮箱验证",lcp.ValidationUtil.isEmail("d8q8@163.com"));
 
     }
 
@@ -519,7 +521,7 @@ class HelloKitty extends egret.DisplayObjectContainer {
             var startX, startY, startZ, endX, endY, endZ;//开始坐标和结束坐标
             startX = startY = startZ = endX = endY = endZ = 0;
             window.addEventListener('devicemotion', (e)=> {
-                var acceleration = e.accelerationIncludingGravity;//
+                var acceleration = e.accelerationIncludingGravity;
                 var endtime = egret.getTimer();//结束时间
                 if ((endtime - starttime) > 100) {
                     var diffTime = endtime - starttime;//时间差
@@ -545,5 +547,3 @@ class HelloKitty extends egret.DisplayObjectContainer {
     }
 
 }
-
-class A{}
