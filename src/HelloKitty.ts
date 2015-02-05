@@ -289,7 +289,6 @@ class HelloKitty extends egret.DisplayObjectContainer {
 
     }
 
-
     private _sp:lcp.LCircle;
     public _i:number;
 
