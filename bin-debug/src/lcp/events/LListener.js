@@ -12,7 +12,7 @@ var lcp;
     var LListener = (function () {
         function LListener() {
             this.CLASS_NAME = "LListener";
-            egret.Logger.warning("不可以实例化" + this.CLASS_NAME + "类,请实例Lcp." + this.CLASS_NAME + ".getInstance()开始");
+            lcp.LTrace.warning(10001, "不可以实例化" + this.CLASS_NAME + "类,请实例Lcp." + this.CLASS_NAME + ".getInstance()开始");
             if (this._dispatcher == null)
                 this._dispatcher = new egret.EventDispatcher();
         }

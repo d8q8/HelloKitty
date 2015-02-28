@@ -46,3 +46,5 @@ var lcp;
     lcp.LPoint = LPoint;
     LPoint.prototype.__class__ = "lcp.LPoint";
 })(lcp || (lcp = {}));
+//扩展点类方法
+//egret.Point.twodis = lcp.LPoint.twodis; 

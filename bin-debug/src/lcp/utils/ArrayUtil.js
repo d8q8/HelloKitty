@@ -593,3 +593,7 @@ var lcp;
     lcp.ArrayUtil = ArrayUtil;
     ArrayUtil.prototype.__class__ = "lcp.ArrayUtil";
 })(lcp || (lcp = {}));
+//Array.sum = lcp.ArrayUtil.sum;
+//Array.average = lcp.ArrayUtil.average;
+//Array.random = lcp.ArrayUtil.random;
+//Array.randomize = lcp.ArrayUtil.randomize; 

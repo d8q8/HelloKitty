@@ -142,3 +142,6 @@ var lcp;
     lcp.LSprite = LSprite;
     LSprite.prototype.__class__ = "lcp.LSprite";
 })(lcp || (lcp = {}));
+//扩展碰撞检测
+//egret.Sprite.hitTestObject = lcp.LSprite.hitTestObject;
+//egret.Sprite.hitTest = lcp.LSprite.hitTest;

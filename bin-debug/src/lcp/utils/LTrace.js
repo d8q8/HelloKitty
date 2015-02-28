@@ -12,7 +12,7 @@ var lcp;
     var LTrace = (function () {
         function LTrace() {
             this.CLASS_NAME = "LTrace";
-            egret.Logger.warning("不可以实例化" + this.CLASS_NAME + "类,这是跟踪捕获类");
+            lcp.LTrace.warning(10001, "不可以实例化" + this.CLASS_NAME + "类，这是跟踪捕获类");
         }
         /**
          * 跟踪捕获
@@ -25,6 +25,19 @@ var lcp;
                 optionalParams[_i - 1] = arguments[_i];
             }
             console.log(message, optionalParams);
+        };
+        /**
+         * 警告类
+         * @param errorId
+         * @param args
+         */
+        LTrace.warning = function (errorId) {
+            var args = [];
+            for (var _i = 1; _i < arguments.length; _i++) {
+                args[_i - 1] = arguments[_i];
+            }
+            egret.egret_string_code[errorId] = "{0}";
+            egret.Logger.warningWithErrorId(errorId, args);
         };
         /**
          * 类名
