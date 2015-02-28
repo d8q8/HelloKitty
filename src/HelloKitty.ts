@@ -8,6 +8,7 @@ class HelloKitty extends egret.DisplayObjectContainer {
 
     public CLASS_NAME:string = 'HelloKitty';
     private _listener:lcp.ListenerManager;
+
     constructor() {
         super();
         this.addEventListener(egret.Event.ADDED_TO_STAGE, this.onAddToStage, this);
@@ -24,8 +25,8 @@ class HelloKitty extends egret.DisplayObjectContainer {
     private init() {
 
         /*console.log("前:", lcp.LGlobal.root, this);
-        lcp.LGlobal.root = this;
-        console.log("后:", lcp.LGlobal.root, this);*/
+         lcp.LGlobal.root = this;
+         console.log("后:", lcp.LGlobal.root, this);*/
         lcp.StageReference.setStage(this.stage);
 
         console.log(lcp.StageReference.getStage().stageWidth);
@@ -44,50 +45,57 @@ class HelloKitty extends egret.DisplayObjectContainer {
         });
         //sp.isDrag=true;
         sp.addChild(rect);
-        console.log(sp.width,sp.height,sp.getChildAt(0));
+        console.log(sp.width, sp.height, sp.getChildAt(0));
         this._listener = lcp.ListenerManager.getManager(rect);
-        console.log("注册侦听",this._listener);
+        console.log("注册侦听", this._listener);
 
         var touchBegin = (e) => {
             console.log("开始:单击了玫瑰,哟西", rect.x, rect.y, e.stageX, e.stageY);
-            var comEvent = new lcp.LEvent("aaa",{a:3,b:4});
+            var comEvent = new lcp.LEvent("aaa", {a: 3, b: 4});
             lcp.LListener.getInstance().dispatchEvent(comEvent);
         };
         var touchEnd = (e) => {
             console.log("结束:单击了玫瑰,哟西", rect.x, rect.y, e.stageX, e.stageY);
         };
-        this._listener.addEventListener(egret.TouchEvent.TOUCH_BEGIN, touchBegin,this);
-        this._listener.addEventListener(egret.TouchEvent.TOUCH_END, touchEnd,this);
+        this._listener.addEventListener(egret.TouchEvent.TOUCH_BEGIN, touchBegin, this);
+        this._listener.addEventListener(egret.TouchEvent.TOUCH_END, touchEnd, this);
         rect.addEventListener(egret.TouchEvent.TOUCH_BEGIN, touchBegin, this);
-        rect.addEventListener(egret.TouchEvent.TOUCH_END,touchEnd,this);
+        rect.addEventListener(egret.TouchEvent.TOUCH_END, touchEnd, this);
 
-        lcp.LListener.getInstance().addEventListener("aaa",(e)=>{
-            console.log(e.param,this._listener.getTotalEventListeners());
+        lcp.LListener.getInstance().addEventListener("aaa", (e)=> {
+            console.log(e.param, this._listener.getTotalEventListeners());
             this._listener.removeEventListeners();
             console.log(sp.children());
             //sp.removeAllChildren();
-        },this);
+        }, this);
 
         var sp1 = new lcp.LSprite();
         this.addChild(sp1);
         var rect1 = lcp.ObjectUtil.objectPrototypeClone(rect);
         sp1.addChild(rect1);
-        sp1.isDrag=true;
-        console.log("克隆属性",rect1);
+        sp1.isDrag = true;
+        console.log("克隆属性", rect1);
 
-        TweenLite.to(rect, 1, {x: 100, y: 200, rotation: 360,onComplete:(arr)=>{
-            //console.log("这里取this",this);
-            //console.log("动画完成:",arr[0],arr[1],arr[2],arr[3]);
-        },onCompleteParams:[[rect,1,2,3]]});
+        TweenLite.to(rect, 1, {
+            x: 100, y: 200, rotation: 360, onComplete: (arr)=> {
+                //console.log("这里取this",this);
+                //console.log("动画完成:",arr[0],arr[1],arr[2],arr[3]);
+            }, onCompleteParams: [[rect, 1, 2, 3]]
+        });
 
 
         var shp = new egret.Shape();
         shp.graphics.beginFill(0xff0000);
-        shp.graphics.drawRect(0,0,100,100);
+        shp.graphics.drawRect(0, 0, 100, 100);
         shp.graphics.endFill();
         this.addChild(shp);
 
-        egret.Tween.get(shp,{loop:true}).to({x:200,y:500,scaleX:.5,scaleY:.5},500).wait(500).to({x:400,y:200,scaleX:1,scaleY:1},500);
+        egret.Tween.get(shp, {loop: true}).to({x: 200, y: 500, scaleX: .5, scaleY: .5}, 500).wait(500).to({
+            x: 400,
+            y: 200,
+            scaleX: 1,
+            scaleY: 1
+        }, 500);
 
         //egret.Tween.get(rect).to({x:100,y:200,rotation:360},1000).call((arr)=>{
         //    console.log("动画完成:",arr[0],arr[1],arr[2]);
@@ -204,50 +212,82 @@ class HelloKitty extends egret.DisplayObjectContainer {
 
         //测试Timer
         /*var mark:number=0;
-        var timer = new egret.Timer(1000,5);
-        timer.start();
-        timer.addEventListener(egret.TimerEvent.TIMER,(e)=>{
-            mark++;
-            console.log("计时测试",mark,"次",e.target.delay,e.target.repeatCount);
-        },this);
-        timer.addEventListener(egret.TimerEvent.TIMER_COMPLETE,(e)=>{
-            console.log("计时完成",mark,"次",e.target.delay,e.target.repeatCount);
-        },this);*/
+         var timer = new egret.Timer(1000,5);
+         timer.start();
+         timer.addEventListener(egret.TimerEvent.TIMER,(e)=>{
+         mark++;
+         console.log("计时测试",mark,"次",e.target.delay,e.target.repeatCount);
+         },this);
+         timer.addEventListener(egret.TimerEvent.TIMER_COMPLETE,(e)=>{
+         console.log("计时完成",mark,"次",e.target.delay,e.target.repeatCount);
+         },this);*/
 
 
-        var arr_Num:Array<any> = [1,2,3,3,3,3,5,4,4,1,1,4,4,5,5,5,7,9,3,2,5,7,8,0,11,14,56,34,75,90];
-        console.log("先用白菜内裤去重:",lcp.ArrayUtil.removeDuplicates(arr_Num));
-        console.log("白菜内裤另一种去重:",lcp.ArrayUtil.reDupliction(arr_Num));
-        console.log("再用白菜内裤去随机:",lcp.ArrayUtil.randomize(lcp.ArrayUtil.removeDuplicates(arr_Num)));
-        console.log("用白菜内裤随机N个数:",lcp.ArrayUtil.randomNum(arr_Num,10));
+        var arr_Num:Array<any> = [1, 2, 3, 3, 3, 3, 5, 4, 4, 1, 1, 4, 4, 5, 5, 5, 7, 9, 3, 2, 5, 7, 8, 0, 11, 14, 56, 34, 75, 90];
+        console.log("先用白菜内裤去重:", lcp.ArrayUtil.removeDuplicates(arr_Num));
+        console.log("白菜内裤另一种去重:", lcp.ArrayUtil.reDupliction(arr_Num));
+        console.log("再用白菜内裤去随机:", lcp.ArrayUtil.randomize(lcp.ArrayUtil.removeDuplicates(arr_Num)));
+        console.log("用白菜内裤随机N个数:", lcp.ArrayUtil.randomNum(arr_Num, 10));
 
-        var arr:Array<number> = [100,100,100,100,90,100,100,90];
-        console.log("比较什么就随意：",arr[0]==arr[1]);
+        var arr:Array<number> = [100, 100, 100, 100, 90, 100, 100, 90];
+        console.log("比较什么就随意：", arr[0] == arr[1]);
 
-        for(var i=0;i<arr.length;i++){
-            if(i>0){
-                console.log("第",i,"次比较结果：",arr[i]==arr[(i-1)]);
+        for (var i = 0; i < arr.length; i++) {
+            if (i > 0) {
+                console.log("第", i, "次比较结果：", arr[i] == arr[(i - 1)]);
             }
         }
 
         /*var urlloader = new egret.URLLoader();
-        urlloader.load(new egret.URLRequest("http://ht2015.fx678.com/api/?c=api&a=gettop10"));
-        urlloader.addEventListener(egret.Event.COMPLETE,(e)=>{
-            console.log("获取接口数据:",e.target.data);
-            var o = JSON.parse(e.target.data);
-            console.log(o.result,o.toplist);
-        },this);*/
+         urlloader.load(new egret.URLRequest("http://ht2015.fx678.com/api/?c=api&a=gettop10"));
+         urlloader.addEventListener(egret.Event.COMPLETE,(e)=>{
+         console.log("获取接口数据:",e.target.data);
+         var o = JSON.parse(e.target.data);
+         console.log(o.result,o.toplist);
+         },this);*/
 
         //var arr:any[] = ["a","国",1,5,"中","b","z",9,3,"c"];
         //console.log(arr.sort());
 
-        console.log(lcp.NumberUtil.roundDecimalToPlace(3.14159265,2));
+        console.log(lcp.NumberUtil.roundDecimalToPlace(3.14159265, 2));
 
         //验证类
-        console.log("邮箱验证",lcp.ValidationUtil.isEmail("d8q8@163.com"));
+        console.log("整数", lcp.ValidationUtil.isValid(lcp.regexEnum.intege, 111));
+        console.log("正整数", lcp.ValidationUtil.isValid(lcp.regexEnum.intege1, 111));
+        console.log("负整数", lcp.ValidationUtil.isValid(lcp.regexEnum.intege2, -111));
+        console.log("数字", lcp.ValidationUtil.isValid(lcp.regexEnum.num, -111.546));
+        console.log("正数", lcp.ValidationUtil.isValid(lcp.regexEnum.num1, 111));
+        console.log("负数", lcp.ValidationUtil.isValid(lcp.regexEnum.num2, -111.546));
+        console.log("浮点数", lcp.ValidationUtil.isValid(lcp.regexEnum.decmal, -111.546));
+        console.log("正浮点数", lcp.ValidationUtil.isValid(lcp.regexEnum.decmal1, 111.546));
+        console.log("负浮点数", lcp.ValidationUtil.isValid(lcp.regexEnum.decmal2, -111.546));
+        console.log("正负浮点数", lcp.ValidationUtil.isValid(lcp.regexEnum.decmal3, -111.546));
+        console.log("非负浮点数", lcp.ValidationUtil.isValid(lcp.regexEnum.decmal4, 111.546));
+        console.log("非正浮点数", lcp.ValidationUtil.isValid(lcp.regexEnum.decmal5, -111.546));
+        console.log("邮箱", lcp.ValidationUtil.isEmail("d8q8@163.com"));
+        console.log("颜色", lcp.ValidationUtil.isValid(lcp.regexEnum.color, "ff0000"));
+        console.log("url地址", lcp.ValidationUtil.isValid(lcp.regexEnum.url, "http://www.qq.com"));
+        console.log("仅中文", lcp.ValidationUtil.isValid(lcp.regexEnum.chinese, "白鹭引擎"));
+        console.log("仅ACSII字符", lcp.ValidationUtil.isValid(lcp.regexEnum.ascii, "0D"));
+        console.log("邮编", lcp.ValidationUtil.isValid(lcp.regexEnum.zipcode, "430000"));
+        console.log("手机", lcp.ValidationUtil.isValid(lcp.regexEnum.mobile, "13000000000"));
+        console.log("ip地址", lcp.ValidationUtil.isValid(lcp.regexEnum.ip4, "192.168.1.1"));
+        console.log("非空", lcp.ValidationUtil.isValid(lcp.regexEnum.notempty, "0D"));
+        console.log("图片", lcp.ValidationUtil.isValid(lcp.regexEnum.picture, "d8q8.jpg"));
+        console.log("压缩文件", lcp.ValidationUtil.isValid(lcp.regexEnum.rar, "d8q8.rar"));
+        console.log("日期", lcp.ValidationUtil.isValid(lcp.regexEnum.date, "2015-02-05"));
+        console.log("短时间", lcp.ValidationUtil.isTime("15:27:50"));
+        console.log("短日期", lcp.ValidationUtil.isDate("2015-02-05"));
+        console.log("长日期", lcp.ValidationUtil.isDateTime("2015-02-05 15:27:50"));
+        console.log("QQ号码", lcp.ValidationUtil.isValid(lcp.regexEnum.ascii, "10000"));
+        console.log("电话号码", lcp.ValidationUtil.isValid(lcp.regexEnum.tel, "82751213"));
+        console.log("用户注册", lcp.ValidationUtil.isValid(lcp.regexEnum.username, "d8q8"));
+        console.log("字母", lcp.ValidationUtil.isValid(lcp.regexEnum.letter, "abcd"));
+        console.log("大写字母", lcp.ValidationUtil.isValid(lcp.regexEnum.letter_u, "ABCD"));
+        console.log("小写字母", lcp.ValidationUtil.isValid(lcp.regexEnum.letter_l, "abcd"));
+        console.log("身份证", lcp.ValidationUtil.isCardID("431381198109106573"));
 
     }
-
 
     private _sp:lcp.LCircle;
     public _i:number;

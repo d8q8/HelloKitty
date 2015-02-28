@@ -39,7 +39,6 @@ module lcp {
 
         petal?:number;//花瓣数,偶数翻倍,奇数不变
 
-
     }
 
 }
