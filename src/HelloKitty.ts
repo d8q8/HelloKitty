@@ -31,71 +31,71 @@ class HelloKitty extends egret.DisplayObjectContainer {
 
         console.log(lcp.StageReference.getStage().stageWidth);
 
-        var sp = new lcp.LSprite();
-        this.addChild(sp);
-        //元件
-        var rect = new lcp.LRose({
-            x: 100,
-            y: 150,
-            radius: 100,
-            petal: 4,
-            thickness: 5,
-            linecolor: 0xff0000,
-            fillcolor: 0x00ff00
-        });
-        //sp.isDrag=true;
-        sp.addChild(rect);
-        console.log(sp.width, sp.height, sp.getChildAt(0));
-        this._listener = lcp.ListenerManager.getManager(rect);
-        console.log("注册侦听", this._listener);
+        /*var sp = new lcp.LSprite();
+         this.addChild(sp);
+         //元件
+         var rect = new lcp.LRose({
+         x: 100,
+         y: 150,
+         radius: 100,
+         petal: 4,
+         thickness: 5,
+         linecolor: 0xff0000,
+         fillcolor: 0x00ff00
+         });
+         //sp.isDrag=true;
+         sp.addChild(rect);
+         console.log(sp.width, sp.height, sp.getChildAt(0));
+         this._listener = lcp.ListenerManager.getManager(rect);
+         console.log("注册侦听", this._listener);
 
-        var touchBegin = (e) => {
-            console.log("开始:单击了玫瑰,哟西", rect.x, rect.y, e.stageX, e.stageY);
-            var comEvent = new lcp.LEvent("aaa", {a: 3, b: 4});
-            lcp.LListener.getInstance().dispatchEvent(comEvent);
-        };
-        var touchEnd = (e) => {
-            console.log("结束:单击了玫瑰,哟西", rect.x, rect.y, e.stageX, e.stageY);
-        };
-        this._listener.addEventListener(egret.TouchEvent.TOUCH_BEGIN, touchBegin, this);
-        this._listener.addEventListener(egret.TouchEvent.TOUCH_END, touchEnd, this);
-        rect.addEventListener(egret.TouchEvent.TOUCH_BEGIN, touchBegin, this);
-        rect.addEventListener(egret.TouchEvent.TOUCH_END, touchEnd, this);
+         var touchBegin = (e) => {
+         console.log("开始:单击了玫瑰,哟西", rect.x, rect.y, e.stageX, e.stageY);
+         var comEvent = new lcp.LEvent("aaa", {a: 3, b: 4});
+         lcp.LListener.getInstance().dispatchEvent(comEvent);
+         };
+         var touchEnd = (e) => {
+         console.log("结束:单击了玫瑰,哟西", rect.x, rect.y, e.stageX, e.stageY);
+         };
+         this._listener.addEventListener(egret.TouchEvent.TOUCH_BEGIN, touchBegin, this);
+         this._listener.addEventListener(egret.TouchEvent.TOUCH_END, touchEnd, this);
+         rect.addEventListener(egret.TouchEvent.TOUCH_BEGIN, touchBegin, this);
+         rect.addEventListener(egret.TouchEvent.TOUCH_END, touchEnd, this);
 
-        lcp.LListener.getInstance().addEventListener("aaa", (e)=> {
-            console.log(e.param, this._listener.getTotalEventListeners());
-            this._listener.removeEventListeners();
-            console.log(sp.children());
-            //sp.removeAllChildren();
-        }, this);
+         lcp.LListener.getInstance().addEventListener("aaa", (e)=> {
+         console.log(e.param, this._listener.getTotalEventListeners());
+         this._listener.removeEventListeners();
+         console.log(sp.children());
+         //sp.removeAllChildren();
+         }, this);*/
 
-        var sp1 = new lcp.LSprite();
-        this.addChild(sp1);
-        var rect1 = lcp.ObjectUtil.objectPrototypeClone(rect);
-        sp1.addChild(rect1);
-        sp1.isDrag = true;
-        console.log("克隆属性", rect1);
+        /*var sp1 = new lcp.LSprite();
+         this.addChild(sp1);
+         var rect1 = lcp.ObjectUtil.objectPrototypeClone(rect);
+         sp1.addChild(rect1);
+         sp1.isDrag = true;
+         console.log("克隆属性", rect1);
 
-        TweenLite.to(rect, 1, {
-            x: 100, y: 200, rotation: 360, onComplete: (arr)=> {
-                //console.log("这里取this",this);
-                //console.log("动画完成:",arr[0],arr[1],arr[2],arr[3]);
-            }, onCompleteParams: [[rect, 1, 2, 3]]
-        });
+         TweenLite.to(rect, 1, {
+         x: 100, y: 200, rotation: 360, onComplete: (arr)=> {
+         //console.log("这里取this",this);
+         //console.log("动画完成:",arr[0],arr[1],arr[2],arr[3]);
+         }, onCompleteParams: [[rect, 1, 2, 3]]
+         });*/
 
 
-        var shp = new egret.Shape();
-        shp.graphics.beginFill(0xff0000);
-        shp.graphics.drawRect(0, 0, 100, 100);
-        shp.graphics.endFill();
-        this.addChild(shp);
+        /*var shp = new egret.Shape();
+         shp.graphics.beginFill(0xff0000);
+         shp.graphics.drawRect(0, 0, 100, 100);
+         shp.graphics.endFill();
+         this.addChild(shp);
 
-        egret.Tween.get(shp, {loop: true}).to({x: 200, y: 500, scaleX: .5, scaleY: .5}, 500).wait(500).to({
-            x: 400,
-            y: 200,
-            scaleX: 1,
-            scaleY: 1
-        }, 500);
+         egret.Tween.get(shp, {loop: true}).to({x: 200, y: 500, scaleX: .5, scaleY: .5}, 500).wait(500).to({
+         x: 400,
+         y: 200,
+         scaleX: 1,
+         scaleY: 1
+         }, 500);*/
 
         //egret.Tween.get(rect).to({x:100,y:200,rotation:360},1000).call((arr)=>{
         //    console.log("动画完成:",arr[0],arr[1],arr[2]);
@@ -110,29 +110,29 @@ class HelloKitty extends egret.DisplayObjectContainer {
          },this);*/
 
         //文本
-        /*var txt_shadow = new egret.TextField();
-         this.addChild(txt_shadow);
-         var txt = new egret.TextField();
-         this.addChild(txt);
-         txt.type = egret.TextFieldType.INPUT;
-         txt.multiline = true;
-         txt.x = 100;
-         txt.y = 200;
-         txt.width = 200;
-         txt.height = 40;
-         txt.text = "请输入文本";
-         txt.textColor = 0xff0000;
-         txt.addEventListener(egret.Event.CHANGE, (e)=> {
-         txt_shadow.text = txt.text;
-         }, this);
-         txt_shadow.multiline = true;
-         txt_shadow.text = txt.text;
-         txt_shadow.width = txt.width;
-         txt_shadow.height = txt.height;
-         txt_shadow.x = txt.x + 1;
-         txt_shadow.y = txt.y + 1;
-         txt_shadow.textColor = 0xffffff;
-         txt_shadow.alpha = .5;*/
+        var txt_shadow = new egret.TextField();
+        this.addChild(txt_shadow);
+        var txt = new egret.TextField();
+        this.addChild(txt);
+        txt.type = egret.TextFieldType.INPUT;
+        txt.multiline = true;
+        txt.x = 100;
+        txt.y = 200;
+        txt.width = 200;
+        txt.height = 40;
+        txt.text = "请输入文本";
+        txt.textColor = 0xff0000;
+        txt.addEventListener(egret.Event.CHANGE, (e)=> {
+            txt_shadow.text = txt.text;
+        }, this);
+        txt_shadow.multiline = true;
+        txt_shadow.text = txt.text;
+        txt_shadow.width = txt.width;
+        txt_shadow.height = txt.height;
+        txt_shadow.x = txt.x + 1;
+        txt_shadow.y = txt.y + 1;
+        txt_shadow.textColor = 0xffffff;
+        txt_shadow.alpha = .5;
 
         console.log("主体1宽:", document.body.clientWidth);
         console.log("主体1高:", document.body.clientHeight);
@@ -145,7 +145,7 @@ class HelloKitty extends egret.DisplayObjectContainer {
         //this.myResize();
 
         //涂鸦板
-        this.testBoard();
+        //this.testBoard();
 
         //创建100个精灵
         //this.createSprite(this.stage.stageWidth, this.stage.stageHeight);
@@ -286,6 +286,8 @@ class HelloKitty extends egret.DisplayObjectContainer {
         console.log("大写字母", lcp.ValidationUtil.isValid(lcp.regexEnum.letter_u, "ABCD"));
         console.log("小写字母", lcp.ValidationUtil.isValid(lcp.regexEnum.letter_l, "abcd"));
         console.log("身份证", lcp.ValidationUtil.isCardID("431381198109106573"));
+
+        //var _color:Array<number> = [0xffffff,0x000000,0xff0000,0x00ff00,0x0000ff];
 
     }
 
