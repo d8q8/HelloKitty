@@ -23,48 +23,47 @@ var HelloKitty = (function (_super) {
         this.init();
     };
     HelloKitty.prototype.init = function () {
+        var _this = this;
         /*console.log("前:", lcp.LGlobal.root, this);
          lcp.LGlobal.root = this;
          console.log("后:", lcp.LGlobal.root, this);*/
         lcp.StageReference.setStage(this.stage);
         console.log(lcp.StageReference.getStage().stageWidth);
-        /*var sp = new lcp.LSprite();
-         this.addChild(sp);
-         //元件
-         var rect = new lcp.LRose({
-         x: 100,
-         y: 150,
-         radius: 100,
-         petal: 4,
-         thickness: 5,
-         linecolor: 0xff0000,
-         fillcolor: 0x00ff00
-         });
-         //sp.isDrag=true;
-         sp.addChild(rect);
-         console.log(sp.width, sp.height, sp.getChildAt(0));
-         this._listener = lcp.ListenerManager.getManager(rect);
-         console.log("注册侦听", this._listener);
-
-         var touchBegin = (e) => {
-         console.log("开始:单击了玫瑰,哟西", rect.x, rect.y, e.stageX, e.stageY);
-         var comEvent = new lcp.LEvent("aaa", {a: 3, b: 4});
-         lcp.LListener.getInstance().dispatchEvent(comEvent);
-         };
-         var touchEnd = (e) => {
-         console.log("结束:单击了玫瑰,哟西", rect.x, rect.y, e.stageX, e.stageY);
-         };
-         this._listener.addEventListener(egret.TouchEvent.TOUCH_BEGIN, touchBegin, this);
-         this._listener.addEventListener(egret.TouchEvent.TOUCH_END, touchEnd, this);
-         rect.addEventListener(egret.TouchEvent.TOUCH_BEGIN, touchBegin, this);
-         rect.addEventListener(egret.TouchEvent.TOUCH_END, touchEnd, this);
-
-         lcp.LListener.getInstance().addEventListener("aaa", (e)=> {
-         console.log(e.param, this._listener.getTotalEventListeners());
-         this._listener.removeEventListeners();
-         console.log(sp.children());
-         //sp.removeAllChildren();
-         }, this);*/
+        var sp = new lcp.LSprite();
+        this.addChild(sp);
+        //元件
+        var rect = new lcp.LRose({
+            x: 200,
+            y: 250,
+            radius: 100,
+            petal: 4,
+            thickness: 5,
+            linecolor: 0xff0000,
+            fillcolor: 0x00ff00
+        });
+        sp.isDrag = true;
+        sp.addChild(rect);
+        console.log(sp.width, sp.height, sp.getChildAt(0));
+        this._listener = lcp.ListenerManager.getManager(rect);
+        console.log("注册侦听", this._listener);
+        var touchBegin = function (e) {
+            console.log("开始:单击了玫瑰,哟西", rect.x, rect.y, e.stageX, e.stageY);
+            var comEvent = new lcp.LEvent("aaa", { a: 3, b: 4 });
+            lcp.LListener.getInstance().dispatchEvent(comEvent);
+        };
+        var touchEnd = function (e) {
+            console.log("结束:单击了玫瑰,哟西", rect.x, rect.y, e.stageX, e.stageY);
+        };
+        this._listener.addEventListener(egret.TouchEvent.TOUCH_BEGIN, touchBegin, this);
+        this._listener.addEventListener(egret.TouchEvent.TOUCH_END, touchEnd, this);
+        rect.addEventListener(egret.TouchEvent.TOUCH_BEGIN, touchBegin, this);
+        rect.addEventListener(egret.TouchEvent.TOUCH_END, touchEnd, this);
+        lcp.LListener.getInstance().addEventListener("aaa", function (e) {
+            console.log(e.param, _this._listener.getTotalEventListeners());
+            _this._listener.removeEventListeners();
+            console.log(sp.children());
+            //sp.removeAllChildren();
+        }, this);
         /*var sp1 = new lcp.LSprite();
          this.addChild(sp1);
          var rect1 = lcp.ObjectUtil.objectPrototypeClone(rect);
