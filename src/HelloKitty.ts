@@ -31,19 +31,19 @@ class HelloKitty extends egret.DisplayObjectContainer {
 
         console.log(lcp.StageReference.getStage().stageWidth);
 
-        /*var sp = new lcp.LSprite();
+        var sp = new lcp.LSprite();
          this.addChild(sp);
          //元件
          var rect = new lcp.LRose({
-         x: 100,
-         y: 150,
+         x: 200,
+         y: 250,
          radius: 100,
          petal: 4,
          thickness: 5,
          linecolor: 0xff0000,
          fillcolor: 0x00ff00
          });
-         //sp.isDrag=true;
+         sp.isDrag=true;
          sp.addChild(rect);
          console.log(sp.width, sp.height, sp.getChildAt(0));
          this._listener = lcp.ListenerManager.getManager(rect);
@@ -67,7 +67,7 @@ class HelloKitty extends egret.DisplayObjectContainer {
          this._listener.removeEventListeners();
          console.log(sp.children());
          //sp.removeAllChildren();
-         }, this);*/
+         }, this);
 
         /*var sp1 = new lcp.LSprite();
          this.addChild(sp1);
