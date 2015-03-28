@@ -10,6 +10,7 @@ var lcp;
         function ObjectUtil() {
             this.CLASS_NAME = "ObjectUtil";
         }
+        var __egretProto__ = ObjectUtil.prototype;
         /**
          * 搜索对象中是否包含一个属性
          * @param obj
@@ -261,7 +262,7 @@ var lcp;
          * 类名
          * @returns {string}
          */
-        ObjectUtil.prototype.toString = function () {
+        __egretProto__.toString = function () {
             //console.log("ClassName",this.CLASS_NAME);
             return this.CLASS_NAME;
         };

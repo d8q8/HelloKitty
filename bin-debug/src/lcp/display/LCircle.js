@@ -1,9 +1,3 @@
-var __extends = this.__extends || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    __.prototype = b.prototype;
-    d.prototype = new __();
-};
 /**
  * Created by d8q8 on 2014/8/15.
  * @module lcp
@@ -26,10 +20,11 @@ var lcp;
                 _super.prototype.init.call(this, vars);
             }
         }
-        LCircle.prototype.drawShape = function () {
+        var __egretProto__ = LCircle.prototype;
+        __egretProto__.drawShape = function () {
             this.graphics.drawCircle(this.vars.radius, this.vars.radius, this.vars.radius);
         };
-        LCircle.prototype.clone = function (vars) {
+        __egretProto__.clone = function (vars) {
             return new LCircle(vars ? vars : this.vars);
         };
         return LCircle;

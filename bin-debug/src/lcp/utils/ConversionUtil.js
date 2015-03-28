@@ -10,6 +10,7 @@ var lcp;
         function ConversionUtil() {
             this.CLASS_NAME = "ConversionUtil";
         }
+        var __egretProto__ = ConversionUtil.prototype;
         /**
          * 比特转字节
          * @param bits
@@ -286,7 +287,7 @@ var lcp;
          * 类名
          * @returns {string}
          */
-        ConversionUtil.prototype.toString = function () {
+        __egretProto__.toString = function () {
             //console.log("ClassName",this.CLASS_NAME);
             return this.CLASS_NAME;
         };

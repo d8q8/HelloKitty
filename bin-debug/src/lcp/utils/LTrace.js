@@ -14,6 +14,7 @@ var lcp;
             this.CLASS_NAME = "LTrace";
             lcp.LTrace.warning(10001, "不可以实例化" + this.CLASS_NAME + "类，这是跟踪捕获类");
         }
+        var __egretProto__ = LTrace.prototype;
         /**
          * 跟踪捕获
          * @param message
@@ -43,7 +44,7 @@ var lcp;
          * 类名
          * @returns {string}
          */
-        LTrace.prototype.toString = function () {
+        __egretProto__.toString = function () {
             return this.CLASS_NAME;
         };
         return LTrace;

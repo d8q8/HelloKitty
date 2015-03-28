@@ -1,9 +1,3 @@
-var __extends = this.__extends || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    __.prototype = b.prototype;
-    d.prototype = new __();
-};
 /**
  * Created by d8q8 on 2014/12/7.
  * @module lcp
@@ -23,6 +17,7 @@ var lcp;
             this._eventDispatcher = dispatcher;
             this._events = [];
         }
+        var __egretProto__ = ListenerManager.prototype;
         /**
          * 注册一个IEventDispatcher到侦听管理器
          * @param dispatcher
@@ -43,7 +38,7 @@ var lcp;
          * @param useCapture
          * @param priority
          */
-        ListenerManager.prototype.addEventListener = function (type, listener, thisObject, useCapture, priority) {
+        __egretProto__.addEventListener = function (type, listener, thisObject, useCapture, priority) {
             if (useCapture === void 0) { useCapture = false; }
             if (priority === void 0) { priority = 0; }
             var info = new EventInfo(type, listener, thisObject ? thisObject : this._eventDispatcher, useCapture);
@@ -58,7 +53,7 @@ var lcp;
          * @param event
          * @returns {boolean}
          */
-        ListenerManager.prototype.dispatchEvent = function (event) {
+        __egretProto__.dispatchEvent = function (event) {
             return this._eventDispatcher.dispatchEvent(event);
         };
         /**
@@ -66,7 +61,7 @@ var lcp;
          * @param type
          * @returns {boolean}
          */
-        ListenerManager.prototype.hasEventListener = function (type) {
+        __egretProto__.hasEventListener = function (type) {
             return this._eventDispatcher.hasEventListener(type);
         };
         /**
@@ -74,7 +69,7 @@ var lcp;
          * @param type
          * @returns {boolean}
          */
-        ListenerManager.prototype.willTrigger = function (type) {
+        __egretProto__.willTrigger = function (type) {
             return this._eventDispatcher.willTrigger(type);
         };
         /**
@@ -84,7 +79,7 @@ var lcp;
          * @param thisObject
          * @param useCapture
          */
-        ListenerManager.prototype.removeEventListener = function (type, listener, thisObject, useCapture) {
+        __egretProto__.removeEventListener = function (type, listener, thisObject, useCapture) {
             if (useCapture === void 0) { useCapture = false; }
             if (this._blockRequest)
                 return;
@@ -98,7 +93,7 @@ var lcp;
          * 移除指定类型的事件
          * @param type
          */
-        ListenerManager.prototype.removeEventsForType = function (type) {
+        __egretProto__.removeEventsForType = function (type) {
             this._blockRequest = true;
             var l = this._events.length;
             var eventInfo;
@@ -115,7 +110,7 @@ var lcp;
          * 移除指定侦听器报告的事件
          * @param listener
          */
-        ListenerManager.prototype.removeEventsForListener = function (listener) {
+        __egretProto__.removeEventsForListener = function (listener) {
             this._blockRequest = true;
             var l = this._events.length;
             var eventInfo;
@@ -131,7 +126,7 @@ var lcp;
         /**
          * 移除所有侦听
          */
-        ListenerManager.prototype.removeEventListeners = function () {
+        __egretProto__.removeEventListeners = function () {
             this._blockRequest = true;
             var l = this._events.length;
             var eventInfo;
@@ -146,13 +141,13 @@ var lcp;
          * @param type
          * @returns {number}
          */
-        ListenerManager.prototype.getTotalEventListeners = function (type) {
+        __egretProto__.getTotalEventListeners = function (type) {
             return (type == null) ? this._events.length : lcp.ArrayUtil.getItemsByKey(this._events, 'type', type).length;
         };
         /**
          * 释放
          */
-        ListenerManager.prototype.destroy = function () {
+        __egretProto__.destroy = function () {
             this.removeEventListeners();
             delete ListenerManager._proxyMap[this._eventDispatcher];
             this._eventDispatcher = null;
@@ -162,7 +157,7 @@ var lcp;
          * 类名
          * @returns {string}
          */
-        ListenerManager.prototype.toString = function () {
+        __egretProto__.toString = function () {
             //console.log("ClassName",this.CLASS_NAME);
             return this.CLASS_NAME;
         };
@@ -180,7 +175,8 @@ var lcp;
             this.thisObject = thisObject;
             this.useCapture = useCapture;
         }
-        EventInfo.prototype.equals = function (eventInfo) {
+        var __egretProto__ = EventInfo.prototype;
+        __egretProto__.equals = function (eventInfo) {
             return this.type == eventInfo.type && this.listener == eventInfo.listener && this.thisObject == eventInfo.thisObject && this.useCapture == eventInfo.useCapture;
         };
         return EventInfo;

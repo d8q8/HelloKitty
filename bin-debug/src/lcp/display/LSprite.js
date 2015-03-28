@@ -1,9 +1,3 @@
-var __extends = this.__extends || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    __.prototype = b.prototype;
-    d.prototype = new __();
-};
 /**
  * Created by d8q8 on 2014/8/20.
  * @module lcp
@@ -23,7 +17,8 @@ var lcp;
             this._isDrag = false;
             this.startDrag();
         }
-        Object.defineProperty(LSprite.prototype, "isDrag", {
+        var __egretProto__ = LSprite.prototype;
+        Object.defineProperty(__egretProto__, "isDrag", {
             /**
              * 更简化拖拽为一个属性判断
              * @returns {boolean}
@@ -49,7 +44,7 @@ var lcp;
         /**
          * 简化开始拖拽
          */
-        LSprite.prototype.startDrag = function () {
+        __egretProto__.startDrag = function () {
             this.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this._startDrag, this);
         };
         /**
@@ -57,7 +52,7 @@ var lcp;
          * @param e
          * @private
          */
-        LSprite.prototype._startDrag = function (e) {
+        __egretProto__._startDrag = function (e) {
             var _this = this;
             //console.log(this._isDrag);
             if (this._isDrag == true) {
@@ -80,13 +75,13 @@ var lcp;
         /**
          * 简化停止拖拽
          */
-        LSprite.prototype.stopDrag = function () {
+        __egretProto__.stopDrag = function () {
             this.addEventListener(egret.TouchEvent.TOUCH_END, this._stopDrag, this);
         };
         /**
          * 拖拽结束
          */
-        LSprite.prototype._stopDrag = function (e) {
+        __egretProto__._stopDrag = function (e) {
             this.clickOffset = null;
             this._target.removeEventListener(egret.Event.ENTER_FRAME, this.enter_frame, this);
             this.stage.removeEventListener(egret.TouchEvent.TOUCH_MOVE, this._moveFunc, this);
@@ -95,7 +90,7 @@ var lcp;
          * 实时获取坐标
          * @param e
          */
-        LSprite.prototype.enter_frame = function (e) {
+        __egretProto__.enter_frame = function (e) {
             if (this.clickOffset != null) {
                 this._target.x = this._mouseX - this.clickOffset.x;
                 this._target.y = this._mouseY - this.clickOffset.y;
@@ -134,7 +129,7 @@ var lcp;
          * 类名
          * @returns {string}
          */
-        LSprite.prototype.toString = function () {
+        __egretProto__.toString = function () {
             return this.CLASS_NAME;
         };
         return LSprite;

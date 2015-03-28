@@ -1,9 +1,3 @@
-var __extends = this.__extends || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    __.prototype = b.prototype;
-    d.prototype = new __();
-};
 /**
  * Created by d8q8 on 2014/8/15.
  * @module lcp
@@ -24,11 +18,12 @@ var lcp;
             this.vars = {};
             this.initValue(); //初始化属性值
         }
+        var __egretProto__ = LGraphics.prototype;
         /**
          * 初始化图形子类处理方法
          * @param vars
          */
-        LGraphics.prototype.init = function (vars) {
+        __egretProto__.init = function (vars) {
             if (vars) {
                 lcp.LVars.some(this.vars, vars);
                 this.x = this.vars.x;
@@ -43,7 +38,7 @@ var lcp;
         /**
          * 初始化默认值
          */
-        LGraphics.prototype.initValue = function () {
+        __egretProto__.initValue = function () {
             this.vars.x = 0;
             this.vars.y = 0;
             this.vars.name = this.CLASS_NAME;
@@ -72,7 +67,7 @@ var lcp;
         /**
          * 绘制图形
          */
-        LGraphics.prototype.draw = function () {
+        __egretProto__.draw = function () {
             this.graphics.clear();
             this.graphics.lineStyle(this.vars.thickness, this.vars.linecolor, this.vars.linealpha, this.vars.pixelHinting, this.vars.scaleMode, this.vars.caps, this.vars.joints, this.vars.miterLimit);
             this.graphics.beginFill(this.vars.fillcolor, this.vars.fillalpha);
@@ -82,13 +77,13 @@ var lcp;
         /**
          * 重写图形方法
          */
-        LGraphics.prototype.drawShape = function () {
+        __egretProto__.drawShape = function () {
         };
         /**
          * 类名
          * @returns {string}
          */
-        LGraphics.prototype.toString = function () {
+        __egretProto__.toString = function () {
             return this.CLASS_NAME;
         };
         return LGraphics;

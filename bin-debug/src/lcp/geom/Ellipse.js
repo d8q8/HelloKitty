@@ -24,7 +24,8 @@ var lcp;
             this.width = width;
             this.height = height;
         }
-        Object.defineProperty(Ellipse.prototype, "x", {
+        var __egretProto__ = Ellipse.prototype;
+        Object.defineProperty(__egretProto__, "x", {
             /**
              * x坐标
              * @returns {number}
@@ -38,7 +39,7 @@ var lcp;
             enumerable: true,
             configurable: true
         });
-        Object.defineProperty(Ellipse.prototype, "y", {
+        Object.defineProperty(__egretProto__, "y", {
             /**
              * y坐标
              * @returns {number}
@@ -52,7 +53,7 @@ var lcp;
             enumerable: true,
             configurable: true
         });
-        Object.defineProperty(Ellipse.prototype, "width", {
+        Object.defineProperty(__egretProto__, "width", {
             /**
              * 宽度
              * @returns {number}
@@ -66,7 +67,7 @@ var lcp;
             enumerable: true,
             configurable: true
         });
-        Object.defineProperty(Ellipse.prototype, "height", {
+        Object.defineProperty(__egretProto__, "height", {
             /**
              * 高度
              * @returns {number}
@@ -80,7 +81,7 @@ var lcp;
             enumerable: true,
             configurable: true
         });
-        Object.defineProperty(Ellipse.prototype, "center", {
+        Object.defineProperty(__egretProto__, "center", {
             /**
              * 中心点
              * @returns {egret.Point}
@@ -95,7 +96,7 @@ var lcp;
             enumerable: true,
             configurable: true
         });
-        Object.defineProperty(Ellipse.prototype, "size", {
+        Object.defineProperty(__egretProto__, "size", {
             /**
              * 大小
              * @returns {egret.Point}
@@ -106,7 +107,7 @@ var lcp;
             enumerable: true,
             configurable: true
         });
-        Object.defineProperty(Ellipse.prototype, "perimeter", {
+        Object.defineProperty(__egretProto__, "perimeter", {
             /**
              * 周长
              * @returns {number}
@@ -117,7 +118,7 @@ var lcp;
             enumerable: true,
             configurable: true
         });
-        Object.defineProperty(Ellipse.prototype, "area", {
+        Object.defineProperty(__egretProto__, "area", {
             /**
              * 面积
              * @returns {number}
@@ -133,7 +134,7 @@ var lcp;
          * @param degree
          * @returns {egret.Point}
          */
-        Ellipse.prototype.getPointOfDegree = function (degree) {
+        __egretProto__.getPointOfDegree = function (degree) {
             var radian = (degree - 90) * (Math.PI / 180);
             var xRadius = this.width * 0.5;
             var yRadius = this.height * 0.5;
@@ -144,7 +145,7 @@ var lcp;
          * @param point
          * @returns {boolean}
          */
-        Ellipse.prototype.containsPoint = function (point) {
+        __egretProto__.containsPoint = function (point) {
             var xRadius = this.width * 0.5;
             var yRadius = this.height * 0.5;
             var xTar = point.x - this.x - xRadius;
@@ -156,21 +157,21 @@ var lcp;
          * @param ellipse
          * @returns {boolean}
          */
-        Ellipse.prototype.equals = function (ellipse) {
+        __egretProto__.equals = function (ellipse) {
             return this.x == ellipse.x && this.y == ellipse.y && this.width == ellipse.width && this.height == ellipse.height;
         };
         /**
          * 克隆副本
          * @returns {lcp.Ellipse}
          */
-        Ellipse.prototype.clone = function () {
+        __egretProto__.clone = function () {
             return new Ellipse(this.x, this.y, this.width, this.height);
         };
         /**
          * 类名
          * @returns {string}
          */
-        Ellipse.prototype.toString = function () {
+        __egretProto__.toString = function () {
             //console.log("ClassName",this.CLASS_NAME);
             return this.CLASS_NAME;
         };

@@ -25,7 +25,8 @@ var lcp;
                 this.percentage = percentage;
             }
         }
-        Object.defineProperty(Percent.prototype, "percentage", {
+        var __egretProto__ = Percent.prototype;
+        Object.defineProperty(__egretProto__, "percentage", {
             /**
              * 百分比表示为一个百分比。37.5%的人会被表达 37.5
              * @returns {number}
@@ -39,7 +40,7 @@ var lcp;
             enumerable: true,
             configurable: true
         });
-        Object.defineProperty(Percent.prototype, "decimalPercentage", {
+        Object.defineProperty(__egretProto__, "decimalPercentage", {
             /**
              * 表示为一个浮点数。37.5%将表示为0.375
              * @returns {number}
@@ -58,20 +59,20 @@ var lcp;
          * @param percent 百分比对象
          * @returns {boolean} 如果相同就为true,否则false
          */
-        Percent.prototype.equals = function (percent) {
+        __egretProto__.equals = function (percent) {
             return this.decimalPercentage == percent.decimalPercentage;
         };
         /**
          * 返回一个副本
          * @returns {lcp.Percent}
          */
-        Percent.prototype.clone = function () {
+        __egretProto__.clone = function () {
             return new Percent(this.decimalPercentage);
         };
-        Percent.prototype.valueOf = function () {
+        __egretProto__.valueOf = function () {
             return this.decimalPercentage;
         };
-        Percent.prototype.toString = function () {
+        __egretProto__.toString = function () {
             return this.decimalPercentage.toString();
         };
         return Percent;

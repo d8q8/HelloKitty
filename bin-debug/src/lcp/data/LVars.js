@@ -19,7 +19,8 @@ var lcp;
                 }
             }
         }
-        LVars.prototype._set = function (property, value) {
+        var __egretProto__ = LVars.prototype;
+        __egretProto__._set = function (property, value) {
             if (value == null) {
                 delete this._vars[property];
             }
@@ -28,7 +29,7 @@ var lcp;
             }
             return this;
         };
-        Object.defineProperty(LVars.prototype, "vars", {
+        Object.defineProperty(__egretProto__, "vars", {
             get: function () {
                 return this._vars;
             },

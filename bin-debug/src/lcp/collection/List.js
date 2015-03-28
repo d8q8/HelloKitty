@@ -17,12 +17,13 @@ var lcp;
         function List(collection) {
             this._collection = (collection == null) ? [] : collection.concat();
         }
+        var __egretProto__ = List.prototype;
         /**
          * 新增单项到列表中
          * @param item
          * @returns {boolean}
          */
-        List.prototype.addItem = function (item) {
+        __egretProto__.addItem = function (item) {
             this._collection.push(item);
             return true;
         };
@@ -32,7 +33,7 @@ var lcp;
          * @param index
          * @returns {boolean}
          */
-        List.prototype.addItemAt = function (item, index) {
+        __egretProto__.addItemAt = function (item, index) {
             if (index === void 0) { index = 0; }
             this._collection.splice(index, 0, item);
             return true;
@@ -42,7 +43,7 @@ var lcp;
          * @param items
          * @returns {boolean}
          */
-        List.prototype.addItems = function (items) {
+        __egretProto__.addItems = function (items) {
             this._collection = this._collection.concat(items.toArray());
             return true;
         };
@@ -52,14 +53,14 @@ var lcp;
          * @param index
          * @returns {boolean}
          */
-        List.prototype.addItemsAt = function (items, index) {
+        __egretProto__.addItemsAt = function (items, index) {
             if (index === void 0) { index = 0x7fffffff; }
             return lcp.ArrayUtil.addItemsAt(this._collection, items.toArray(), index);
         };
         /**
          * 清空列表
          */
-        List.prototype.clear = function () {
+        __egretProto__.clear = function () {
             this._collection.splice(0);
         };
         /**
@@ -67,7 +68,7 @@ var lcp;
          * @param item
          * @returns {boolean}
          */
-        List.prototype.contains = function (item) {
+        __egretProto__.contains = function (item) {
             return this.indexOf(item) != -1;
         };
         /**
@@ -75,7 +76,7 @@ var lcp;
          * @param items
          * @returns {boolean}
          */
-        List.prototype.containsAll = function (items) {
+        __egretProto__.containsAll = function (items) {
             return lcp.ArrayUtil.containsAll(this._collection, items.toArray());
         };
         /**
@@ -83,7 +84,7 @@ var lcp;
          * @param list
          * @returns {boolean}
          */
-        List.prototype.equals = function (list) {
+        __egretProto__.equals = function (list) {
             return lcp.ArrayUtil.equals(this._collection, list.toArray());
         };
         /**
@@ -91,7 +92,7 @@ var lcp;
          * @param index
          * @returns {any}
          */
-        List.prototype.getItemAt = function (index) {
+        __egretProto__.getItemAt = function (index) {
             if (index === void 0) { index = 0; }
             return this._collection[index];
         };
@@ -101,7 +102,7 @@ var lcp;
          * @param endIndex
          * @returns {lcp.List}
          */
-        List.prototype.subList = function (startIndex, endIndex) {
+        __egretProto__.subList = function (startIndex, endIndex) {
             if (startIndex === void 0) { startIndex = 0; }
             if (endIndex === void 0) { endIndex = 16777215; }
             return new List(this._collection.slice(startIndex, endIndex));
@@ -112,7 +113,7 @@ var lcp;
          * @param fromIndex
          * @returns {number}
          */
-        List.prototype.indexOf = function (item, fromIndex) {
+        __egretProto__.indexOf = function (item, fromIndex) {
             if (fromIndex === void 0) { fromIndex = 0; }
             return this._collection.indexOf(item, fromIndex);
         };
@@ -120,7 +121,7 @@ var lcp;
          * 判断列表是否有元素
          * @returns {boolean}
          */
-        List.prototype.isEmpty = function () {
+        __egretProto__.isEmpty = function () {
             return this.size == 0;
         };
         /**
@@ -129,11 +130,11 @@ var lcp;
          * @param fromIndex
          * @returns {number}
          */
-        List.prototype.lastIndexOf = function (item, fromIndex) {
+        __egretProto__.lastIndexOf = function (item, fromIndex) {
             if (fromIndex === void 0) { fromIndex = 0x7fffffff; }
             return this._collection.lastIndexOf(item, fromIndex);
         };
-        Object.defineProperty(List.prototype, "size", {
+        Object.defineProperty(__egretProto__, "size", {
             /**
              * 列表元素个数
              * @returns {number}
@@ -149,7 +150,7 @@ var lcp;
          * @param item
          * @returns {boolean}
          */
-        List.prototype.removeAllInstancesOfItem = function (item) {
+        __egretProto__.removeAllInstancesOfItem = function (item) {
             return lcp.ArrayUtil.removeItem(this._collection, item) != 0;
         };
         /**
@@ -157,7 +158,7 @@ var lcp;
          * @param item
          * @returns {boolean}
          */
-        List.prototype.removeItem = function (item) {
+        __egretProto__.removeItem = function (item) {
             var i = this._collection.indexOf(item);
             if (i == -1)
                 return false;
@@ -169,7 +170,7 @@ var lcp;
          * @param index
          * @returns {any}
          */
-        List.prototype.removeItemAt = function (index) {
+        __egretProto__.removeItemAt = function (index) {
             if (index === void 0) { index = 0; }
             return this._collection.splice(index, 1)[0];
         };
@@ -178,7 +179,7 @@ var lcp;
          * @param items
          * @returns {boolean}
          */
-        List.prototype.removeItems = function (items) {
+        __egretProto__.removeItems = function (items) {
             return lcp.ArrayUtil.removeItems(this._collection, items.toArray());
         };
         /**
@@ -186,7 +187,7 @@ var lcp;
          * @param items
          * @returns {boolean}
          */
-        List.prototype.retainItems = function (items) {
+        __egretProto__.retainItems = function (items) {
             return lcp.ArrayUtil.retainItems(this._collection, items.toArray());
         };
         /**
@@ -195,7 +196,7 @@ var lcp;
          * @param index
          * @returns {any}
          */
-        List.prototype.setItem = function (item, index) {
+        __egretProto__.setItem = function (item, index) {
             if (index === void 0) { index = 0; }
             return this._collection.splice(index, 1, item)[0];
         };
@@ -203,21 +204,21 @@ var lcp;
          * 列表转数组
          * @returns {Array<any>}
          */
-        List.prototype.toArray = function () {
+        __egretProto__.toArray = function () {
             return this._collection.concat();
         };
         /**
          * 创建一个副本
          * @returns {lcp.List}
          */
-        List.prototype.clone = function () {
+        __egretProto__.clone = function () {
             return new List(this.toArray());
         };
         /**
          * 返回字符
          * @returns {string}
          */
-        List.prototype.toString = function () {
+        __egretProto__.toString = function () {
             return this._collection.toString();
         };
         return List;
