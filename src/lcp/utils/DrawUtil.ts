@@ -44,9 +44,7 @@ module lcp {
         public static drawShape(graphics:egret.Graphics, points:Array<any>):void {
             if (points.length < 3)
                 LTrace.trace("低于三个点是不能绘制一个图形的.");
-
             DrawUtil.drawPath(graphics, points);
-
             graphics.lineTo(points[0].x, points[0].y);
         }
 
@@ -138,6 +136,50 @@ module lcp {
                 graphics.curveTo(x, y, x + radiusWidth, y);
             } else
                 graphics.lineTo(x, y);
+        }
+
+        /**
+         * 任意角度画弧
+         * @param graphics
+         * @param color
+         * @param r
+         * @param ang
+         */
+        public static drawArcLine(graphics:egret.Graphics,thickness:number,color:number,r:number,ang:number):void{
+            graphics.lineStyle(thickness,color);
+            //graphics.beginFill(color);
+            var a = ang/180*Math.PI/0.01;
+            graphics.lineTo(r,0);
+            for(var i=0;i<=a;i++){
+                graphics.curveTo(Math.cos((i-0.5)*0.01)*r,Math.sin((i-0.5)*0.01)*r,Math.cos(i*0.01)*r,Math.sin(i*0.01)*r);
+            }
+            graphics.endFill();
+        }
+
+        public static drawArc(g:egret.Graphics,thickness:number,color:number,radius:number,startAngle:number,endAngle:number):void
+        {
+            g.lineStyle(thickness,color);
+            //g.beginFill();
+            for(var i=startAngle;i<=endAngle;i++)
+            {
+                var px=radius*Math.cos(-i*Math.PI/180);
+                var py=radius*Math.sin(-i*Math.PI/180);
+                if(i==startAngle)
+                    g.moveTo(px,py);
+                g.lineTo(px,py);
+            }
+            g.endFill();
+        }
+
+        public static drawDottedCircle(g:egret.Graphics,thickness:number,color:number,radius:number,gap:number):void
+        {
+            if(gap<0) return;
+            var part=360/gap;
+            for(var i=0;i<part;i++)
+            {
+                if(i%2!=0)
+                    this.drawArc(g,thickness,color,radius,i*gap,(i+1)*gap);
+            }
         }
 
         /**

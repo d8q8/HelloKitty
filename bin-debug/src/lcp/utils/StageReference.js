@@ -13,6 +13,7 @@ var lcp;
         function StageReference() {
             this.CLASS_NAME = "StageReference";
         }
+        var __egretProto__ = StageReference.prototype;
         /**
          * 返回一个舞台的引用
          * @param id
@@ -73,7 +74,7 @@ var lcp;
          * 类名
          * @returns {string}
          */
-        StageReference.prototype.toString = function () {
+        __egretProto__.toString = function () {
             //console.log("ClassName",this.CLASS_NAME);
             return this.CLASS_NAME;
         };

@@ -32,42 +32,48 @@ class HelloKitty extends egret.DisplayObjectContainer {
         console.log(lcp.StageReference.getStage().stageWidth);
 
         var sp = new lcp.LSprite();
-         this.addChild(sp);
-         //元件
-         var rect = new lcp.LRose({
-         x: 200,
-         y: 250,
-         radius: 100,
-         petal: 4,
-         thickness: 5,
-         linecolor: 0xff0000,
-         fillcolor: 0x00ff00
-         });
-         sp.isDrag=true;
-         sp.addChild(rect);
-         console.log(sp.width, sp.height, sp.getChildAt(0));
-         this._listener = lcp.ListenerManager.getManager(rect);
-         console.log("注册侦听", this._listener);
+        this.addChild(sp);
+        //元件
+        var rect = new lcp.LRose({
+            x: 200,
+            y: 250,
+            radius: 100,
+            petal: 4,
+            thickness: 5,
+            linecolor: 0xff0000,
+            fillcolor: 0x00ff00
+        });
+        sp.isDrag = true;
+        sp.addChild(rect);
+        console.log(sp.width, sp.height, sp.getChildAt(0));
+        this._listener = lcp.ListenerManager.getManager(rect);
+        console.log("注册侦听", this._listener);
 
-         var touchBegin = (e) => {
-         console.log("开始:单击了玫瑰,哟西", rect.x, rect.y, e.stageX, e.stageY);
-         var comEvent = new lcp.LEvent("aaa", {a: 3, b: 4});
-         lcp.LListener.getInstance().dispatchEvent(comEvent);
-         };
-         var touchEnd = (e) => {
-         console.log("结束:单击了玫瑰,哟西", rect.x, rect.y, e.stageX, e.stageY);
-         };
-         this._listener.addEventListener(egret.TouchEvent.TOUCH_BEGIN, touchBegin, this);
-         this._listener.addEventListener(egret.TouchEvent.TOUCH_END, touchEnd, this);
-         rect.addEventListener(egret.TouchEvent.TOUCH_BEGIN, touchBegin, this);
-         rect.addEventListener(egret.TouchEvent.TOUCH_END, touchEnd, this);
+        var touchBegin = (e) => {
+            console.log("开始:单击了玫瑰,哟西", rect.x, rect.y, e.stageX, e.stageY);
+            var comEvent = new lcp.LEvent("aaa", {a: 3, b: 4});
+            lcp.LListener.getInstance().dispatchEvent(comEvent);
+        };
+        var touchEnd = (e) => {
+            console.log("结束:单击了玫瑰,哟西", rect.x, rect.y, e.stageX, e.stageY);
+        };
+        this._listener.addEventListener(egret.TouchEvent.TOUCH_BEGIN, touchBegin, this);
+        this._listener.addEventListener(egret.TouchEvent.TOUCH_END, touchEnd, this);
+        rect.addEventListener(egret.TouchEvent.TOUCH_BEGIN, touchBegin, this);
+        rect.addEventListener(egret.TouchEvent.TOUCH_END, touchEnd, this);
 
-         lcp.LListener.getInstance().addEventListener("aaa", (e)=> {
-         console.log(e.param, this._listener.getTotalEventListeners());
-         this._listener.removeEventListeners();
-         console.log(sp.children());
-         //sp.removeAllChildren();
-         }, this);
+        var has:Function = <Function>rect.hasEventListener;
+        console.log("测试call没加侦听事件:",has.call(rect,egret.Event.COMPLETE,egret.TouchEvent.TOUCH_END));
+        console.log("测试apply没加侦听事件:",has.apply(rect,[egret.Event.COMPLETE,egret.TouchEvent.TOUCH_END]));
+        console.log("元件call按下事件:",has.call(rect,egret.TouchEvent.TOUCH_BEGIN));
+        console.log("元件apply按下事件:",has.apply(rect,[egret.TouchEvent.TOUCH_BEGIN]));
+
+        lcp.LListener.getInstance().addEventListener("aaa", (e)=> {
+            console.log(e.param, this._listener.getTotalEventListeners());
+            this._listener.removeEventListeners();
+            console.log(sp.children());
+            //sp.removeAllChildren();
+        }, this);
 
         /*var sp1 = new lcp.LSprite();
          this.addChild(sp1);
@@ -289,6 +295,32 @@ class HelloKitty extends egret.DisplayObjectContainer {
 
         //var _color:Array<number> = [0xffffff,0x000000,0xff0000,0x00ff00,0x0000ff];
 
+        var circle1 = new lcp.LCircle({
+            name: "circle1",
+            x: 200,
+            y: 400,
+            radius: 100,
+            fillalpha: 0,
+            thickness: 5,
+            linecolor: 0x00ff00
+        });
+        this.addChild(circle1);
+
+        var circle2 = new lcp.LSprite();
+        this.addChild(circle2);
+        circle2.x = 300;
+        circle2.y = 500;
+        //lcp.DrawUtil.drawArcLine(circle2.graphics,5,0xff0000,100,150);
+        lcp.DrawUtil.drawArc(circle2.graphics, 5, 0xff0000, 100, 0, 300);
+        //lcp.DrawUtil.drawDottedCircle(circle2.graphics,5,0xff0000,100,5);
+
+
+        //egret.localStorage.setItem("a","123");
+        //egret.localStorage.getItem("a");
+        //egret.localStorage.removeItem("a");
+        //egret.localStorage.clear();
+
+
     }
 
     private _sp:lcp.LCircle;
@@ -394,6 +426,7 @@ class HelloKitty extends egret.DisplayObjectContainer {
         //},this);
 
         //TweenLite.to(sp,.5,{x:100,y:300});
+
     }
 
     /**

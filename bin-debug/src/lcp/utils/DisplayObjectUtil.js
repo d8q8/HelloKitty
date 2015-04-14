@@ -13,6 +13,7 @@ var lcp;
         function DisplayObjectUtil() {
             this.CLASS_NAME = "DisplayObjectUtil";
         }
+        var __egretProto__ = DisplayObjectUtil.prototype;
         /**
          * 移除所有子元件
          * @param parent 父元件
@@ -84,7 +85,7 @@ var lcp;
          * 类名
          * @returns {string}
          */
-        DisplayObjectUtil.prototype.toString = function () {
+        __egretProto__.toString = function () {
             //console.log("ClassName",this.CLASS_NAME);
             return this.CLASS_NAME;
         };

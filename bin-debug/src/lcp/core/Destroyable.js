@@ -13,14 +13,15 @@ var lcp;
         function Destroyable() {
             this.CLASS_NAME = "Destroyable";
         }
-        Destroyable.prototype.destroy = function () {
+        var __egretProto__ = Destroyable.prototype;
+        __egretProto__.destroy = function () {
             this.isDestroyed = true;
         };
         /**
          * 类名
          * @returns {string}
          */
-        Destroyable.prototype.toString = function () {
+        __egretProto__.toString = function () {
             return this.CLASS_NAME;
         };
         return Destroyable;

@@ -1,9 +1,3 @@
-var __extends = this.__extends || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    __.prototype = b.prototype;
-    d.prototype = new __();
-};
 /**
  * Created by d8q8 on 2014/8/28.
  * @module lcp
@@ -27,7 +21,8 @@ var lcp;
                 _super.prototype.init.call(this, vars);
             }
         }
-        LRose.prototype.drawShape = function () {
+        var __egretProto__ = LRose.prototype;
+        __egretProto__.drawShape = function () {
             var angle; //储存极角
             var dist; //储存极径
             var sin;
@@ -43,7 +38,7 @@ var lcp;
                 this.graphics.lineTo(this.vars.radius - dist * cos, this.vars.radius - dist * sin);
             }
         };
-        LRose.prototype.clone = function (vars) {
+        __egretProto__.clone = function (vars) {
             return new LRose(vars ? vars : this.vars);
         };
         return LRose;

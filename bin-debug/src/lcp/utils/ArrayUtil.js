@@ -10,6 +10,7 @@ var lcp;
         function ArrayUtil() {
             this.CLASS_NAME = "ArrayUtil";
         }
+        var __egretProto__ = ArrayUtil.prototype;
         /**
          * 返回所有匹配属性的第一项
          * @param inArray
@@ -584,7 +585,7 @@ var lcp;
          * 类名
          * @returns {string}
          */
-        ArrayUtil.prototype.toString = function () {
+        __egretProto__.toString = function () {
             //console.log("ClassName",this.CLASS_NAME);
             return this.CLASS_NAME;
         };

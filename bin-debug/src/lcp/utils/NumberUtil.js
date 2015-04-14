@@ -13,6 +13,7 @@ var lcp;
         function NumberUtil() {
             this.CLASS_NAME = "NumberUtil";
         }
+        var __egretProto__ = NumberUtil.prototype;
         /**
          * 如果两值相等,由精度定义决定
          * @param val1 值1
@@ -516,7 +517,7 @@ var lcp;
          * 类名
          * @returns {string}
          */
-        NumberUtil.prototype.toString = function () {
+        __egretProto__.toString = function () {
             //console.log("ClassName",this.CLASS_NAME);
             return this.CLASS_NAME;
         };

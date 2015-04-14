@@ -1,9 +1,3 @@
-var __extends = this.__extends || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    __.prototype = b.prototype;
-    d.prototype = new __();
-};
 /**
  * Created by d8q8 on 2014/8/14.
  * @module
@@ -17,12 +11,13 @@ var HelloKitty = (function (_super) {
         this.CLASS_NAME = 'HelloKitty';
         this.addEventListener(egret.Event.ADDED_TO_STAGE, this.onAddToStage, this);
     }
-    HelloKitty.prototype.onAddToStage = function (e) {
+    var __egretProto__ = HelloKitty.prototype;
+    __egretProto__.onAddToStage = function (e) {
         this.removeEventListener(egret.Event.ADDED_TO_STAGE, this.onAddToStage, this);
         egret.Profiler.getInstance().run();
         this.init();
     };
-    HelloKitty.prototype.init = function () {
+    __egretProto__.init = function () {
         var _this = this;
         /*console.log("前:", lcp.LGlobal.root, this);
          lcp.LGlobal.root = this;
@@ -58,6 +53,11 @@ var HelloKitty = (function (_super) {
         this._listener.addEventListener(egret.TouchEvent.TOUCH_END, touchEnd, this);
         rect.addEventListener(egret.TouchEvent.TOUCH_BEGIN, touchBegin, this);
         rect.addEventListener(egret.TouchEvent.TOUCH_END, touchEnd, this);
+        var has = rect.hasEventListener;
+        console.log("测试call没加侦听事件:", has.call(rect, egret.Event.COMPLETE, egret.TouchEvent.TOUCH_END));
+        console.log("测试apply没加侦听事件:", has.apply(rect, [egret.Event.COMPLETE, egret.TouchEvent.TOUCH_END]));
+        console.log("元件call按下事件:", has.call(rect, egret.TouchEvent.TOUCH_BEGIN));
+        console.log("元件apply按下事件:", has.apply(rect, [egret.TouchEvent.TOUCH_BEGIN]));
         lcp.LListener.getInstance().addEventListener("aaa", function (e) {
             console.log(e.param, _this._listener.getTotalEventListeners());
             _this._listener.removeEventListeners();
@@ -255,14 +255,35 @@ var HelloKitty = (function (_super) {
         console.log("小写字母", lcp.ValidationUtil.isValid(lcp.regexEnum.letter_l, "abcd"));
         console.log("身份证", lcp.ValidationUtil.isCardID("431381198109106573"));
         //var _color:Array<number> = [0xffffff,0x000000,0xff0000,0x00ff00,0x0000ff];
+        var circle1 = new lcp.LCircle({
+            name: "circle1",
+            x: 200,
+            y: 400,
+            radius: 100,
+            fillalpha: 0,
+            thickness: 5,
+            linecolor: 0x00ff00
+        });
+        this.addChild(circle1);
+        var circle2 = new lcp.LSprite();
+        this.addChild(circle2);
+        circle2.x = 300;
+        circle2.y = 500;
+        //lcp.DrawUtil.drawArcLine(circle2.graphics,5,0xff0000,100,150);
+        lcp.DrawUtil.drawArc(circle2.graphics, 5, 0xff0000, 100, 0, 300);
+        //lcp.DrawUtil.drawDottedCircle(circle2.graphics,5,0xff0000,100,5);
+        //egret.localStorage.setItem("a","123");
+        //egret.localStorage.getItem("a");
+        //egret.localStorage.removeItem("a");
+        //egret.localStorage.clear();
     };
-    HelloKitty.prototype.sp_click = function (e) {
+    __egretProto__.sp_click = function (e) {
         lcp.LTrace.trace(this, "我单击了元件" + (this._i++) + "次", this._sp.name, this._sp.x, this._sp.y, this._sp.width, this._sp.height, this._sp.touchEnabled);
     };
     /**
      * 涂鸦板
      */
-    HelloKitty.prototype.testBoard = function () {
+    __egretProto__.testBoard = function () {
         var _this = this;
         var sp = new egret.Sprite();
         this.addChild(sp);
@@ -284,7 +305,7 @@ var HelloKitty = (function (_super) {
     /**
      * 测试碰撞
      */
-    HelloKitty.prototype.testHittest = function () {
+    __egretProto__.testHittest = function () {
         //圆
         var sp = new lcp.LCircle({
             name: "sp",
@@ -353,7 +374,7 @@ var HelloKitty = (function (_super) {
     /**
      * 创建100个精灵
      */
-    HelloKitty.prototype.createSprite = function (wid, hei) {
+    __egretProto__.createSprite = function (wid, hei) {
         var _this = this;
         for (var i = 0; i < 100; i++) {
             var sp = new lcp.LCircle({
@@ -385,7 +406,7 @@ var HelloKitty = (function (_super) {
     /**
      * 数组和数字的测试
      */
-    HelloKitty.prototype.arrTest = function () {
+    __egretProto__.arrTest = function () {
         //数字数组排序
         var num_Arr = [1, 22, 14, 2, 54, 21, 6, 8, 3, 9];
         lcp.LOrder.sort(num_Arr); //默认升序
@@ -461,7 +482,7 @@ var HelloKitty = (function (_super) {
     /**
      * 处理侦听改变画布宽高
      */
-    HelloKitty.prototype.myResize = function () {
+    __egretProto__.myResize = function () {
         // -----------------------------------------------------------
         // 处理宽和高,侦听resize,给出一种解决方案
         var resizeTimer = null;
@@ -492,7 +513,7 @@ var HelloKitty = (function (_super) {
     /**
      * 获取手机传感器事件,可以写摇一摇功能,哟西
      */
-    HelloKitty.prototype.testDeviceOrientation = function () {
+    __egretProto__.testDeviceOrientation = function () {
         //---------------------------------------------------------------------------------------------------
         //获取手机传感器事件,可以写摇一摇功能,哟西
         if (window && window["DeviceMotionEvent"]) {

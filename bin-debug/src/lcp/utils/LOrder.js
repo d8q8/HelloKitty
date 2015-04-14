@@ -18,6 +18,7 @@ var lcp;
         function LOrder() {
             this.CLASS_NAME = "LOrder";
         }
+        var __egretProto__ = LOrder.prototype;
         /**
          * 降序
          * @param a
@@ -150,7 +151,7 @@ var lcp;
          * 类名
          * @returns {string}
          */
-        LOrder.prototype.toString = function () {
+        __egretProto__.toString = function () {
             //console.log("ClassName",this.CLASS_NAME);
             return this.CLASS_NAME;
         };

@@ -10,6 +10,7 @@ var lcp;
         function DateUtil() {
             this.CLASS_NAME = "DateUtil";
         }
+        var __egretProto__ = DateUtil.prototype;
         /**
          * 格式化时间
          * @param dateToFormat
@@ -440,7 +441,7 @@ var lcp;
          * 类名
          * @returns {string}
          */
-        DateUtil.prototype.toString = function () {
+        __egretProto__.toString = function () {
             //console.log("ClassName",this.CLASS_NAME);
             return this.CLASS_NAME;
         };
