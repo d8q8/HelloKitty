@@ -20,6 +20,7 @@ var game_file_list = [
 	"lcp/events/LListener.js",
 	"lcp/events/ListenerManager.js",
 	"lcp/geom/LPoint.js",
+	"lcp/utils/ColorUtil.js",
 	"lcp/utils/DateUtil.js",
 	"lcp/utils/DisplayObjectUtil.js",
 	"lcp/utils/DrawUtil.js",

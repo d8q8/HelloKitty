@@ -63,10 +63,10 @@ class HelloKitty extends egret.DisplayObjectContainer {
         rect.addEventListener(egret.TouchEvent.TOUCH_END, touchEnd, this);
 
         var has:Function = <Function>rect.hasEventListener;
-        console.log("测试call没加侦听事件:",has.call(rect,egret.Event.COMPLETE,egret.TouchEvent.TOUCH_END));
-        console.log("测试apply没加侦听事件:",has.apply(rect,[egret.Event.COMPLETE,egret.TouchEvent.TOUCH_END]));
-        console.log("元件call按下事件:",has.call(rect,egret.TouchEvent.TOUCH_BEGIN));
-        console.log("元件apply按下事件:",has.apply(rect,[egret.TouchEvent.TOUCH_BEGIN]));
+        console.log("测试call没加侦听事件:", has.call(rect, egret.Event.COMPLETE, egret.TouchEvent.TOUCH_END));
+        console.log("测试apply没加侦听事件:", has.apply(rect, [egret.Event.COMPLETE, egret.TouchEvent.TOUCH_END]));
+        console.log("元件call按下事件:", has.call(rect, egret.TouchEvent.TOUCH_BEGIN));
+        console.log("元件apply按下事件:", has.apply(rect, [egret.TouchEvent.TOUCH_BEGIN]));
 
         lcp.LListener.getInstance().addEventListener("aaa", (e)=> {
             console.log(e.param, this._listener.getTotalEventListeners());
@@ -117,9 +117,9 @@ class HelloKitty extends egret.DisplayObjectContainer {
 
         //文本
         var txt_shadow = new egret.TextField();
-        this.addChild(txt_shadow);
+        //this.addChild(txt_shadow);
         var txt = new egret.TextField();
-        this.addChild(txt);
+        //this.addChild(txt);
         txt.type = egret.TextFieldType.INPUT;
         txt.multiline = true;
         txt.x = 100;
@@ -293,7 +293,6 @@ class HelloKitty extends egret.DisplayObjectContainer {
         console.log("小写字母", lcp.ValidationUtil.isValid(lcp.regexEnum.letter_l, "abcd"));
         console.log("身份证", lcp.ValidationUtil.isCardID("431381198109106573"));
 
-        //var _color:Array<number> = [0xffffff,0x000000,0xff0000,0x00ff00,0x0000ff];
 
         var circle1 = new lcp.LCircle({
             name: "circle1",
@@ -304,10 +303,10 @@ class HelloKitty extends egret.DisplayObjectContainer {
             thickness: 5,
             linecolor: 0x00ff00
         });
-        this.addChild(circle1);
+        //this.addChild(circle1);
 
         var circle2 = new lcp.LSprite();
-        this.addChild(circle2);
+        //this.addChild(circle2);
         circle2.x = 300;
         circle2.y = 500;
         //lcp.DrawUtil.drawArcLine(circle2.graphics,5,0xff0000,100,150);
@@ -320,7 +319,25 @@ class HelloKitty extends egret.DisplayObjectContainer {
         //egret.localStorage.removeItem("a");
         //egret.localStorage.clear();
 
+        console.log("测试颜色值:", lcp.ColorUtil.getColor(255, 255, 255, 0));
+        console.log("测试颜色值:", lcp.ColorUtil.getHexStringFromARGB(0, 255, 255, 255));
+        console.log("测试颜色值:", lcp.ColorUtil.getARGB(0xffffff));
 
+        //var _color:Array<number> = [0xffffff,0xffff00,0xff0000,0x00ff00,0x0000ff];
+        var _color:Array<number> = [16777215, 16776960, 16711680, 65280, 255];
+        for (var i = 0; i < _color.length; i++) {
+            this.addChild(this.createText("测试文本" + i, 50, 250 + 50 * i, _color[i]));
+        }
+
+    }
+
+    public createText(str:string, x:number, y:number, color:number):egret.TextField {
+        var txt = new egret.TextField();
+        txt.x = x;
+        txt.y = y;
+        txt.text = str;
+        txt.textColor = color;
+        return txt;
     }
 
     private _sp:lcp.LCircle;
