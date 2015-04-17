@@ -16,6 +16,7 @@ var lcp;
             if (this._dispatcher == null)
                 this._dispatcher = new egret.EventDispatcher();
         }
+        var __egretProto__ = LListener.prototype;
         /**
          * 单例全局侦听类
          * @returns {lcp.LListener}
@@ -33,7 +34,7 @@ var lcp;
          * @param useCapture
          * @param priority
          */
-        LListener.prototype.addEventListener = function (type, listener, thisObject, useCapture, priority) {
+        __egretProto__.addEventListener = function (type, listener, thisObject, useCapture, priority) {
             if (useCapture === void 0) { useCapture = false; }
             if (priority === void 0) { priority = 0; }
             this._dispatcher.addEventListener(type, listener, thisObject, useCapture, priority);
@@ -45,7 +46,7 @@ var lcp;
          * @param thisObject
          * @param useCapture
          */
-        LListener.prototype.removeEventListener = function (type, listener, thisObject, useCapture) {
+        __egretProto__.removeEventListener = function (type, listener, thisObject, useCapture) {
             if (useCapture === void 0) { useCapture = false; }
             this._dispatcher.removeEventListener(type, listener, thisObject, useCapture);
         };
@@ -54,7 +55,7 @@ var lcp;
          * @param type
          * @returns {boolean}
          */
-        LListener.prototype.hasEventListener = function (type) {
+        __egretProto__.hasEventListener = function (type) {
             return this._dispatcher.hasEventListener(type);
         };
         /**
@@ -62,7 +63,7 @@ var lcp;
          * @param type
          * @returns {boolean}
          */
-        LListener.prototype.willTrigger = function (type) {
+        __egretProto__.willTrigger = function (type) {
             return this._dispatcher.willTrigger(type);
         };
         /**
@@ -70,14 +71,14 @@ var lcp;
          * @param event
          * @returns {boolean}
          */
-        LListener.prototype.dispatchEvent = function (event) {
+        __egretProto__.dispatchEvent = function (event) {
             return this._dispatcher.dispatchEvent(event);
         };
         /**
          * 类名
          * @returns {string}
          */
-        LListener.prototype.toString = function () {
+        __egretProto__.toString = function () {
             return this._dispatcher.toString();
         };
         return LListener;

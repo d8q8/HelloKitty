@@ -1,9 +1,3 @@
-var __extends = this.__extends || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    __.prototype = b.prototype;
-    d.prototype = new __();
-};
 /**
  * Created by d8q8 on 2014/8/12.
  * @module lcp
@@ -24,21 +18,22 @@ var lcp;
             this.obj = obj;
             this.CLASS_NAME = "LEvent";
         }
+        var __egretProto__ = LEvent.prototype;
         /**
          * 克隆副本
          * @param obj
          * @returns {lcp.LEvent}
          */
-        LEvent.prototype.clone = function (obj) {
+        __egretProto__.clone = function (obj) {
             return new LEvent(this.type, obj ? obj : this.obj, this.bubbles, this.cancelable);
         };
         /**
          * 类输出
          */
-        LEvent.prototype.toString = function () {
+        __egretProto__.toString = function () {
             console.log(this.CLASS_NAME, "type", "bubbles", "cancelable");
         };
-        Object.defineProperty(LEvent.prototype, "param", {
+        Object.defineProperty(__egretProto__, "param", {
             /**
              * 获取传参,
              * @returns {Object}

@@ -18,48 +18,52 @@ var HelloKitty = (function (_super) {
         this.init();
     };
     __egretProto__.init = function () {
+        var _this = this;
         /*console.log("前:", lcp.LGlobal.root, this);
          lcp.LGlobal.root = this;
          console.log("后:", lcp.LGlobal.root, this);*/
         lcp.StageReference.setStage(this.stage);
         console.log(lcp.StageReference.getStage().stageWidth);
-        /*var sp = new lcp.LSprite();
-         this.addChild(sp);
-         //元件
-         var rect = new lcp.LRose({
-         x: 100,
-         y: 150,
-         radius: 100,
-         petal: 4,
-         thickness: 5,
-         linecolor: 0xff0000,
-         fillcolor: 0x00ff00
-         });
-         //sp.isDrag=true;
-         sp.addChild(rect);
-         console.log(sp.width, sp.height, sp.getChildAt(0));
-         this._listener = lcp.ListenerManager.getManager(rect);
-         console.log("注册侦听", this._listener);
-
-         var touchBegin = (e) => {
-         console.log("开始:单击了玫瑰,哟西", rect.x, rect.y, e.stageX, e.stageY);
-         var comEvent = new lcp.LEvent("aaa", {a: 3, b: 4});
-         lcp.LListener.getInstance().dispatchEvent(comEvent);
-         };
-         var touchEnd = (e) => {
-         console.log("结束:单击了玫瑰,哟西", rect.x, rect.y, e.stageX, e.stageY);
-         };
-         this._listener.addEventListener(egret.TouchEvent.TOUCH_BEGIN, touchBegin, this);
-         this._listener.addEventListener(egret.TouchEvent.TOUCH_END, touchEnd, this);
-         rect.addEventListener(egret.TouchEvent.TOUCH_BEGIN, touchBegin, this);
-         rect.addEventListener(egret.TouchEvent.TOUCH_END, touchEnd, this);
-
-         lcp.LListener.getInstance().addEventListener("aaa", (e)=> {
-         console.log(e.param, this._listener.getTotalEventListeners());
-         this._listener.removeEventListeners();
-         console.log(sp.children());
-         //sp.removeAllChildren();
-         }, this);*/
+        var sp = new lcp.LSprite();
+        this.addChild(sp);
+        //元件
+        var rect = new lcp.LRose({
+            x: 200,
+            y: 250,
+            radius: 100,
+            petal: 4,
+            thickness: 5,
+            linecolor: 0xff0000,
+            fillcolor: 0x00ff00
+        });
+        sp.isDrag = true;
+        sp.addChild(rect);
+        console.log(sp.width, sp.height, sp.getChildAt(0));
+        this._listener = lcp.ListenerManager.getManager(rect);
+        console.log("注册侦听", this._listener);
+        var touchBegin = function (e) {
+            console.log("开始:单击了玫瑰,哟西", rect.x, rect.y, e.stageX, e.stageY);
+            var comEvent = new lcp.LEvent("aaa", { a: 3, b: 4 });
+            lcp.LListener.getInstance().dispatchEvent(comEvent);
+        };
+        var touchEnd = function (e) {
+            console.log("结束:单击了玫瑰,哟西", rect.x, rect.y, e.stageX, e.stageY);
+        };
+        this._listener.addEventListener(egret.TouchEvent.TOUCH_BEGIN, touchBegin, this);
+        this._listener.addEventListener(egret.TouchEvent.TOUCH_END, touchEnd, this);
+        rect.addEventListener(egret.TouchEvent.TOUCH_BEGIN, touchBegin, this);
+        rect.addEventListener(egret.TouchEvent.TOUCH_END, touchEnd, this);
+        var has = rect.hasEventListener;
+        console.log("测试call没加侦听事件:", has.call(rect, egret.Event.COMPLETE, egret.TouchEvent.TOUCH_END));
+        console.log("测试apply没加侦听事件:", has.apply(rect, [egret.Event.COMPLETE, egret.TouchEvent.TOUCH_END]));
+        console.log("元件call按下事件:", has.call(rect, egret.TouchEvent.TOUCH_BEGIN));
+        console.log("元件apply按下事件:", has.apply(rect, [egret.TouchEvent.TOUCH_BEGIN]));
+        lcp.LListener.getInstance().addEventListener("aaa", function (e) {
+            console.log(e.param, _this._listener.getTotalEventListeners());
+            _this._listener.removeEventListeners();
+            console.log(sp.children());
+            //sp.removeAllChildren();
+        }, this);
         /*var sp1 = new lcp.LSprite();
          this.addChild(sp1);
          var rect1 = lcp.ObjectUtil.objectPrototypeClone(rect);
@@ -97,9 +101,9 @@ var HelloKitty = (function (_super) {
          },this);*/
         //文本
         var txt_shadow = new egret.TextField();
-        this.addChild(txt_shadow);
+        //this.addChild(txt_shadow);
         var txt = new egret.TextField();
-        this.addChild(txt);
+        //this.addChild(txt);
         txt.type = egret.TextFieldType.INPUT;
         txt.multiline = true;
         txt.x = 100;
@@ -250,7 +254,43 @@ var HelloKitty = (function (_super) {
         console.log("大写字母", lcp.ValidationUtil.isValid(lcp.regexEnum.letter_u, "ABCD"));
         console.log("小写字母", lcp.ValidationUtil.isValid(lcp.regexEnum.letter_l, "abcd"));
         console.log("身份证", lcp.ValidationUtil.isCardID("431381198109106573"));
-        //var _color:Array<number> = [0xffffff,0x000000,0xff0000,0x00ff00,0x0000ff];
+        var circle1 = new lcp.LCircle({
+            name: "circle1",
+            x: 200,
+            y: 400,
+            radius: 100,
+            fillalpha: 0,
+            thickness: 5,
+            linecolor: 0x00ff00
+        });
+        //this.addChild(circle1);
+        var circle2 = new lcp.LSprite();
+        //this.addChild(circle2);
+        circle2.x = 300;
+        circle2.y = 500;
+        //lcp.DrawUtil.drawArcLine(circle2.graphics,5,0xff0000,100,150);
+        lcp.DrawUtil.drawArc(circle2.graphics, 5, 0xff0000, 100, 0, 300);
+        //lcp.DrawUtil.drawDottedCircle(circle2.graphics,5,0xff0000,100,5);
+        //egret.localStorage.setItem("a","123");
+        //egret.localStorage.getItem("a");
+        //egret.localStorage.removeItem("a");
+        //egret.localStorage.clear();
+        console.log("测试颜色值:", lcp.ColorUtil.getColor(255, 255, 255, 0));
+        console.log("测试颜色值:", lcp.ColorUtil.getHexStringFromARGB(0, 255, 255, 255));
+        console.log("测试颜色值:", lcp.ColorUtil.getARGB(0xffffff));
+        //var _color:Array<number> = [0xffffff,0xffff00,0xff0000,0x00ff00,0x0000ff];
+        var _color = [16777215, 16776960, 16711680, 65280, 255];
+        for (var i = 0; i < _color.length; i++) {
+            this.addChild(this.createText("测试文本" + i, 50, 250 + 50 * i, _color[i]));
+        }
+    };
+    __egretProto__.createText = function (str, x, y, color) {
+        var txt = new egret.TextField();
+        txt.x = x;
+        txt.y = y;
+        txt.text = str;
+        txt.textColor = color;
+        return txt;
     };
     __egretProto__.sp_click = function (e) {
         lcp.LTrace.trace(this, "我单击了元件" + (this._i++) + "次", this._sp.name, this._sp.x, this._sp.y, this._sp.width, this._sp.height, this._sp.touchEnabled);
