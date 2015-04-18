@@ -1,8 +1,7 @@
 {
 	"document_class": "HelloKitty",
 	"native": {
-		"path_ignore": [],
-		"android_path": "E:\\Egret\\HelloAndroid"
+		"path_ignore": []
 	},
 	"modules": [
 		{

@@ -15,6 +15,7 @@ var game_file_list = [
 	"lcp/utils/ObjectUtil.js",
 	"lcp/collection/List.js",
 	"lcp/data/LVars.js",
+	"lcp/display/LArc.js",
 	"lcp/display/LCircle.js",
 	"lcp/display/LRose.js",
 	"lcp/events/LListener.js",
@@ -23,7 +24,6 @@ var game_file_list = [
 	"lcp/utils/ColorUtil.js",
 	"lcp/utils/DateUtil.js",
 	"lcp/utils/DisplayObjectUtil.js",
-	"lcp/utils/DrawUtil.js",
 	"lcp/utils/StageReference.js",
 	"lcp/utils/ValidationUtil.js",
 	"HelloKitty.js"
