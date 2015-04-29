@@ -41,7 +41,6 @@ module lcp {
 
         startAngle?:number;//开始角度
         endAngle?:number;//结束角度
-        angle?:number;//角度
 
     }
 

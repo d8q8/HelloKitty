@@ -29,7 +29,7 @@ var HelloKitty = (function (_super) {
         //元件
         var rect = new lcp.LRose({
             x: 200,
-            y: 150,
+            y: 250,
             radius: 100,
             petal: 4,
             thickness: 5,
@@ -263,21 +263,14 @@ var HelloKitty = (function (_super) {
             thickness: 5,
             linecolor: 0x00ff00
         });
-        var circle2 = new lcp.LArc({
-            x: 300,
-            y: 500,
-            radius: 100,
-            startAngle: 30,
-            endAngle: 180,
-            //angle: 200,
-            thickness: 5,
-            linecolor: 0xff0000,
-            linealpha: 0,
-            fillcolor: 0x00ff00,
-            fillalpha: 1
-        });
-        this.addChild(circle2);
-        this.addChild(circle1);
+        //this.addChild(circle1);
+        var circle2 = new lcp.LArc();
+        //this.addChild(circle2);
+        circle2.x = 300;
+        circle2.y = 500;
+        //lcp.DrawUtil.drawArcLine(circle2.graphics,5,0xff0000,100,150);
+        lcp.DrawUtil.drawArc(circle2.graphics, 5, 0xff0000, 100, 0, 300);
+        //lcp.DrawUtil.drawDottedCircle(circle2.graphics,5,0xff0000,100,5);
         //egret.localStorage.setItem("a","123");
         //egret.localStorage.getItem("a");
         //egret.localStorage.removeItem("a");
