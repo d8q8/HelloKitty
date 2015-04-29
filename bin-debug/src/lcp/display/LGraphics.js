@@ -42,8 +42,8 @@ var lcp;
             this.vars.x = 0;
             this.vars.y = 0;
             this.vars.name = this.CLASS_NAME;
-            this.vars.width = 0;
-            this.vars.height = 0;
+            //this.vars.width = 0;
+            //this.vars.height = 0;
             this.vars.anchorX = .5;
             this.vars.anchorY = .5;
             this.vars.touchEnabled = true;
@@ -63,6 +63,9 @@ var lcp;
             this.vars.corner = 3;
             this.vars.ratio = .5;
             this.vars.petal = 4;
+            this.vars.startAngle = 0;
+            this.vars.endAngle = 0;
+            this.vars.angle = 0;
         };
         /**
          * 绘制图形

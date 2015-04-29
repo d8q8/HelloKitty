@@ -16,8 +16,8 @@ var lcp;
             _super.call(this);
             this.CLASS_NAME = 'LRose';
             if (vars) {
-                vars.width = vars.radius * 2;
-                vars.height = vars.radius * 2;
+                //vars.width = vars.radius * 2;
+                //vars.height = vars.radius * 2;
                 _super.prototype.init.call(this, vars);
             }
         }
