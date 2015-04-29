@@ -68,7 +68,6 @@ module lcp {
 
             this.vars.startAngle = 0;
             this.vars.endAngle = 0;
-            this.vars.angle = 0;
         }
 
         /**
