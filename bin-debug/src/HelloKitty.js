@@ -132,7 +132,7 @@ var HelloKitty = (function (_super) {
         //侦听画布
         //this.myResize();
         //涂鸦板
-        //this.testBoard();
+        this.testBoard();
         //创建100个精灵
         //this.createSprite(this.stage.stageWidth, this.stage.stageHeight);
         //测试数组
@@ -187,16 +187,18 @@ var HelloKitty = (function (_super) {
         console.log("我的内裤排序->升序:", lcp.LOrder.sort(arr_sort));
         console.log("我的内裤排序->降序:", lcp.LOrder.sort(arr_sort, 2 /* DESCENDING */));
         //测试Timer
-        /*var mark:number=0;
-         var timer = new egret.Timer(1000,5);
-         timer.start();
-         timer.addEventListener(egret.TimerEvent.TIMER,(e)=>{
-         mark++;
-         console.log("计时测试",mark,"次",e.target.delay,e.target.repeatCount);
-         },this);
-         timer.addEventListener(egret.TimerEvent.TIMER_COMPLETE,(e)=>{
-         console.log("计时完成",mark,"次",e.target.delay,e.target.repeatCount);
-         },this);*/
+        var mark = 0;
+        var timer = new egret.Timer(1000, 5);
+        timer.start();
+        timer.addEventListener(egret.TimerEvent.TIMER, function (e) {
+            mark++;
+            console.log("计时测试:", mark, "次", e.target.delay, e.target.repeatCount, "当前计数:", e.target.currentCount);
+        }, this);
+        timer.addEventListener(egret.TimerEvent.TIMER_COMPLETE, function (e) {
+            console.log("计时完成:", mark, "次", e.target.delay, e.target.repeatCount, "当前计数:", e.target.currentCount);
+            timer.reset();
+            console.log("计时重置:", mark, "次,", e.target.delay, e.target.repeatCount, "当前计数:", e.target.currentCount);
+        }, this);
         var arr_Num = [1, 2, 3, 3, 3, 3, 5, 4, 4, 1, 1, 4, 4, 5, 5, 5, 7, 9, 3, 2, 5, 7, 8, 0, 11, 14, 56, 34, 75, 90];
         console.log("先用白菜内裤去重:", lcp.ArrayUtil.removeDuplicates(arr_Num));
         console.log("白菜内裤另一种去重:", lcp.ArrayUtil.reDupliction(arr_Num));
@@ -209,13 +211,11 @@ var HelloKitty = (function (_super) {
                 console.log("第", i, "次比较结果：", arr[i] == arr[(i - 1)]);
             }
         }
-        /*var urlloader = new egret.URLLoader();
-         urlloader.load(new egret.URLRequest("http://ht2015.fx678.com/api/?c=api&a=gettop10"));
-         urlloader.addEventListener(egret.Event.COMPLETE,(e)=>{
-         console.log("获取接口数据:",e.target.data);
-         var o = JSON.parse(e.target.data);
-         console.log(o.result,o.toplist);
-         },this);*/
+        var urlloader = new egret.URLLoader();
+        urlloader.load(new egret.URLRequest("你的地址,最好是本地域的,不要跨域,跨域要自己解决."));
+        urlloader.addEventListener(egret.Event.COMPLETE, function (e) {
+            console.log("获取接口数据:", e.target.data);
+        }, this);
         //var arr:any[] = ["a","国",1,5,"中","b","z",9,3,"c"];
         //console.log(arr.sort());
         console.log(lcp.NumberUtil.roundDecimalToPlace(3.14159265, 2));
@@ -276,8 +276,8 @@ var HelloKitty = (function (_super) {
             fillcolor: 0x00ff00,
             fillalpha: 1
         });
-        this.addChild(circle2);
         this.addChild(circle1);
+        this.addChild(circle2);
         //egret.localStorage.setItem("a","123");
         //egret.localStorage.getItem("a");
         //egret.localStorage.removeItem("a");
@@ -310,7 +310,7 @@ var HelloKitty = (function (_super) {
         var sp = new egret.Sprite();
         this.addChild(sp);
         this.stage.addEventListener(egret.TouchEvent.TOUCH_BEGIN, function (e) {
-            sp.graphics.lineStyle(3, 0xff0000);
+            sp.graphics.lineStyle(5, 0xff0000, 1, true);
             sp.graphics.moveTo(e.stageX, e.stageY);
             _this.stage.addEventListener(egret.TouchEvent.TOUCH_MOVE, arguments.callee, _this);
         }, this);
