@@ -65,7 +65,6 @@ var lcp;
             this.vars.petal = 4;
             this.vars.startAngle = 0;
             this.vars.endAngle = 0;
-            this.vars.angle = 0;
         };
         /**
          * 绘制图形

@@ -132,7 +132,7 @@ var HelloKitty = (function (_super) {
         //侦听画布
         //this.myResize();
         //涂鸦板
-        this.testBoard();
+        //this.testBoard();
         //创建100个精灵
         //this.createSprite(this.stage.stageWidth, this.stage.stageHeight);
         //测试数组
@@ -211,11 +211,11 @@ var HelloKitty = (function (_super) {
                 console.log("第", i, "次比较结果：", arr[i] == arr[(i - 1)]);
             }
         }
-        var urlloader = new egret.URLLoader();
+        /*var urlloader = new egret.URLLoader();
         urlloader.load(new egret.URLRequest("你的地址,最好是本地域的,不要跨域,跨域要自己解决."));
-        urlloader.addEventListener(egret.Event.COMPLETE, function (e) {
+        urlloader.addEventListener(egret.Event.COMPLETE, (e)=> {
             console.log("获取接口数据:", e.target.data);
-        }, this);
+        }, this);*/
         //var arr:any[] = ["a","国",1,5,"中","b","z",9,3,"c"];
         //console.log(arr.sort());
         console.log(lcp.NumberUtil.roundDecimalToPlace(3.14159265, 2));
