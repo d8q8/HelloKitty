@@ -85,8 +85,7 @@ interface DEFLATE {
     uncompress(input:Uint8Array): Uint8Array;
 }
 
-declare
-var JSZip:{
+declare var JSZip:{
     (): JSZip;
     (data:any, options?:JSZipLoadOptions): JSZip;
     new (): JSZip;
@@ -107,5 +106,4 @@ interface FileSaver {
     (data:Blob, filename:string): void
 }
 
-declare
-var saveAs:FileSaver;
+declare var saveAs:FileSaver;
