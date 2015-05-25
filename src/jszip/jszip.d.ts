@@ -4,15 +4,15 @@
  * @constructor
  **/
 interface JSZip {
-    file(path: string): JSZipObject;
-    file(path: RegExp): JSZipObject[];
-    file(path: string, data: any, options?: JSZipFileOptions): JSZip;
-    folder(name: string): JSZip;
-    folder(name: RegExp): JSZipObject[];
-    filter(predicate: (relativePath: string, file: JSZipObject) => boolean): JSZipObject[];
-    remove(path: string): JSZip;
-    generate(options?: JSZipGeneratorOptions): any;
-    load(data: any, options: JSZipLoadOptions): JSZip;
+    file(path:string): JSZipObject;
+    file(path:RegExp): JSZipObject[];
+    file(path:string, data:any, options?:JSZipFileOptions): JSZip;
+    folder(name:string): JSZip;
+    folder(name:RegExp): JSZipObject[];
+    filter(predicate:(relativePath:string, file:JSZipObject) => boolean): JSZipObject[];
+    remove(path:string): JSZip;
+    generate(options?:JSZipGeneratorOptions): any;
+    load(data:any, options:JSZipLoadOptions): JSZip;
 }
 
 interface JSZipObject {
@@ -29,7 +29,7 @@ interface JSZipObject {
     asNodeBuffer(): Buffer;
 }
 
-interface JSZipFileOptions extends JSZipObjectOptions{
+interface JSZipFileOptions extends JSZipObjectOptions {
     compressionOptions?:Object;
     comment?: string;
     optimizedBinaryString?: boolean;
@@ -70,26 +70,27 @@ interface JSZipSupport {
     nodebuffer: boolean;
 }
 
-interface Buffer{
+interface Buffer {
     data?:any;
     encoding?:string;
 }
 
 interface DEFLATE {
-    compress(input: string, compressionOptions: {level:number}): Uint8Array;
-    compress(input: number[], compressionOptions: {level:number}): Uint8Array;
-    compress(input: Uint8Array, compressionOptions: {level:number}): Uint8Array;
+    compress(input:string, compressionOptions:{level:number}): Uint8Array;
+    compress(input:number[], compressionOptions:{level:number}): Uint8Array;
+    compress(input:Uint8Array, compressionOptions:{level:number}): Uint8Array;
 
-    uncompress(input: string): Uint8Array;
-    uncompress(input: number[]): Uint8Array;
-    uncompress(input: Uint8Array): Uint8Array;
+    uncompress(input:string): Uint8Array;
+    uncompress(input:number[]): Uint8Array;
+    uncompress(input:Uint8Array): Uint8Array;
 }
 
-declare var JSZip: {
+declare
+var JSZip:{
     (): JSZip;
-    (data: any, options?: JSZipLoadOptions): JSZip;
+    (data:any, options?:JSZipLoadOptions): JSZip;
     new (): JSZip;
-    new (data: any, options?: JSZipLoadOptions): JSZip;
+    new (data:any, options?:JSZipLoadOptions): JSZip;
 
     prototype: JSZip;
     support: JSZipSupport;
@@ -102,6 +103,9 @@ declare module "jszip" {
     export = JSZip;
 }
 
-declare var saveAs:{
-    (data?:any,path?:string):void;
+interface FileSaver {
+    (data:Blob, filename:string): void
 }
+
+declare
+var saveAs:FileSaver;
