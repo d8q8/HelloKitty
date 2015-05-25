@@ -290,6 +290,8 @@ var HelloKitty = (function (_super) {
         for (var i = 0; i < _color.length; i++) {
             this.addChild(this.createText("测试文本" + i, 50, 250 + 50 * i, _color[i]));
         }
+        //获取压缩包,来自官方实例
+        this.getZip();
     };
     __egretProto__.getZip = function () {
         var zip = new JSZip();

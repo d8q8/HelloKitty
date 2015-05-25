@@ -337,9 +337,10 @@ class HelloKitty extends egret.DisplayObjectContainer {
             this.addChild(this.createText("测试文本" + i, 50, 250 + 50 * i, _color[i]));
         }
 
-
-
+        //获取压缩包,来自官方实例
+        this.getZip();
     }
+
 
     private getZip(){
         var zip = new JSZip();
