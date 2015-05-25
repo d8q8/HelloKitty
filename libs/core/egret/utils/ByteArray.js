@@ -91,6 +91,9 @@ var egret;
             //    newview.set(view);      // memcpy
             //    return newarraybuffer;
             //}
+            /**
+             * @private
+             */
             set: function (value) {
                 this.data = new DataView(value);
             },
@@ -101,6 +104,9 @@ var egret;
             get: function () {
                 return this.data;
             },
+            /**
+             * @private
+             */
             set: function (value) {
                 this.data = value;
                 this.write_position = value.byteLength;

@@ -71,6 +71,9 @@ var egret;
             }
             var __egretProto__ = EditableText.prototype;
             Object.defineProperty(__egretProto__, "selectable", {
+                /**
+                 * @inheritDoc
+                 */
                 get: function () {
                     return this._selectable;
                 },
@@ -124,12 +127,12 @@ var egret;
                 configurable: true
             });
             Object.defineProperty(__egretProto__, "enabled", {
-                get: function () {
-                    return this._editable;
-                },
                 /**
                  * @inheritDoc
                  */
+                get: function () {
+                    return this._editable;
+                },
                 set: function (value) {
                     if (value == this._UIC_Props_._enabled)
                         return;
@@ -252,6 +255,9 @@ var egret;
                 configurable: true
             });
             Object.defineProperty(__egretProto__, "contentWidth", {
+                /**
+                 * @inheritDoc
+                 */
                 get: function () {
                     return this._contentWidth;
                 },
@@ -266,6 +272,9 @@ var egret;
                 this.dispatchPropertyChangeEvent("contentWidth", oldValue, value);
             };
             Object.defineProperty(__egretProto__, "contentHeight", {
+                /**
+                 * @inheritDoc
+                 */
                 get: function () {
                     return this._contentHeight;
                 },

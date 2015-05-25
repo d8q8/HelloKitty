@@ -60,6 +60,12 @@ var egret;
             enumerable: true,
             configurable: true
         });
+        __egretProto__._draw = function (renderContext) {
+            if (this._graphics && this._graphics._dirty) {
+                this._setCacheDirty();
+            }
+            _super.prototype._draw.call(this, renderContext);
+        };
         __egretProto__._render = function (renderContext) {
             if (this._graphics)
                 this._graphics._draw(renderContext);
@@ -70,7 +76,7 @@ var egret;
             var l = this._children.length;
             for (var i = 0; i < l; i++) {
                 var child = this._children[i];
-                if (!child._DO_Props_._visible) {
+                if (!child.visible) {
                     continue;
                 }
                 var childBounds = child.getBounds(egret.Rectangle.identity, false);

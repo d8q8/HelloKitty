@@ -57,6 +57,9 @@ var egret;
                 get: function () {
                     return 1;
                 },
+                /**
+                 * @deprecated
+                 */
                 set: function (value) {
                     egret.Logger.warningWithErrorId(1016, "VScrollBar.trackAlpha");
                 },
@@ -67,6 +70,9 @@ var egret;
                 get: function () {
                     return 1;
                 },
+                /**
+                 * @deprecated
+                 */
                 set: function (value) {
                     egret.Logger.warningWithErrorId(1016, "VScrollBar.thumbAlpha");
                 },

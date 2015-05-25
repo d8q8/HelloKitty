@@ -185,7 +185,7 @@ var egret;
             dom.style.border = "none";
             dom.style.padding = "0";
         };
-        __egretProto__.initStageDelegateDiv = function () {
+        __egretProto__._initStageDelegateDiv = function () {
             var self = this;
             var stageDelegateDiv = egret.Browser.getInstance().$("#StageDelegateDiv");
             if (!stageDelegateDiv) {
@@ -324,7 +324,6 @@ var egret;
         HTMLInput.getInstance = function () {
             if (HTMLInput._instance == null) {
                 HTMLInput._instance = new egret.HTMLInput();
-                HTMLInput._instance.initStageDelegateDiv();
             }
             return HTMLInput._instance;
         };
@@ -334,5 +333,6 @@ var egret;
     HTMLInput.prototype.__class__ = "egret.HTMLInput";
 })(egret || (egret = {}));
 egret.StageText.create = function () {
+    egret.HTMLInput.getInstance()._initStageDelegateDiv();
     return new egret.HTML5StageText();
 };

@@ -176,6 +176,7 @@ var egret;
             this._maxX = 0;
             this._maxY = 0;
             this._firstCheck = true;
+            this._dirty = true;
         };
         /**
          * 对从上一次调用 beginFill()方法之后添加的直线和曲线应用填充。
@@ -199,6 +200,7 @@ var egret;
                 this._maxX = Math.max(this._maxX, x + w);
                 this._maxY = Math.max(this._maxY, y + h);
             }
+            this._dirty = true;
         };
         __egretProto__._checkPoint = function (x, y) {
             if (this._firstCheck) {
@@ -216,6 +218,7 @@ var egret;
             }
             this._lastX = x;
             this._lastY = y;
+            this._dirty = true;
         };
         __egretProto__._measureBounds = function () {
             return egret.Rectangle.identity.initialize(this._minX, this._minY, this._maxX - this._minX, this._maxY - this._minY);

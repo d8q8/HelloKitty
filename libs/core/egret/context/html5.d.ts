@@ -336,6 +336,7 @@ declare module egret {
         constructor();
         proceed(loader: URLLoader): void;
         private loadSound(loader);
+        private loadWebAudio(loader);
         private getXHR();
         private setResponseType(xhr, responseType);
         private loadTexture(loader);
@@ -406,7 +407,7 @@ declare module egret {
         isCurrentStageText(stageText: any): boolean;
         private initValue(dom);
         _needShow: boolean;
-        private initStageDelegateDiv();
+        _initStageDelegateDiv(): any;
         private initInputElement(multiline);
         show(): void;
         disconnectStageText(stageText: any): void;
@@ -415,4 +416,149 @@ declare module egret {
         private static _instance;
         static getInstance(): HTMLInput;
     }
+}
+declare module egret {
+    /**
+     * @private
+     */
+    class Html5Audio implements IAudio {
+        /**
+         * audio音频对象
+         * @member {any} egret.Sound#audio
+         */
+        constructor();
+        private _audio;
+        private _loop;
+        /**
+         * 播放声音
+         * @method egret.Sound#play
+         * @param loop {boolean} 是否循环播放，默认为false
+         */
+        _play(type?: string): void;
+        private clear();
+        private paused;
+        /**
+         * 暂停声音
+         * @method egret.Sound#pause
+         */
+        _pause(): void;
+        /**
+         * 重新加载声音
+         * @method egret.Sound#load
+         */
+        _load(): void;
+        _setAudio(audio: any): void;
+        private initStart();
+        private _listeners;
+        /**
+         * 添加事件监听
+         * @param type 事件类型
+         * @param listener 监听函数
+         */
+        _addEventListener(type: string, listener: Function, useCapture?: boolean): void;
+        /**s
+         * 移除事件监听
+         * @param type 事件类型
+         * @param listener 监听函数
+         */
+        _removeEventListener(type: string, listener: Function, useCapture?: boolean): void;
+        _preload(type: string, callback?: Function, thisObj?: any): void;
+        _destroy(): void;
+        /**
+         * 获取当前音量值
+         * @returns number
+         */
+        _getVolume(): number;
+        _setVolume(value: number): void;
+        _setLoop(value: boolean): void;
+        private _startTime;
+        _getCurrentTime(): number;
+        _setCurrentTime(value: number): void;
+    }
+}
+declare module egret {
+    /**
+     * @private
+     */
+    class WebAudio implements IAudio {
+        static canUseWebAudio: any;
+        static ctx: any;
+        /**
+         * audio音频对象
+         * @member {any} egret.Sound#audio
+         */
+        private audioBuffer;
+        private _arrayBuffer;
+        private context;
+        private gain;
+        private bufferSource;
+        private paused;
+        constructor();
+        private _loop;
+        /**
+         * 播放声音
+         * @method egret.Sound#play
+         * @param loop {boolean} 是否循环播放，默认为false
+         */
+        _play(type?: string): void;
+        private clear();
+        private addListeners();
+        private removeListeners();
+        /**
+         * 暂停声音
+         * @method egret.Sound#pause
+         */
+        _pause(): void;
+        private _listeners;
+        private _onEndedCall;
+        /**
+         * 添加事件监听
+         * @param type 事件类型
+         * @param listener 监听函数
+         */
+        _addEventListener(type: string, listener: Function, useCapture?: boolean): void;
+        /**s
+         * 移除事件监听
+         * @param type 事件类型
+         * @param listener 监听函数
+         */
+        _removeEventListener(type: string, listener: Function, useCapture?: boolean): void;
+        /**
+         * 重新加载声音
+         * @method egret.Sound#load
+         */
+        _load(): void;
+        _setArrayBuffer(buffer: ArrayBuffer, callback: Function): void;
+        _preload(type: string, callback?: Function, thisObj?: any): void;
+        /**
+         * 获取当前音量值
+         * @returns number
+         */
+        _getVolume(): number;
+        _setVolume(value: number): void;
+        _setLoop(value: boolean): void;
+        private _startTime;
+        private _currentTime;
+        _getCurrentTime(): number;
+        _setCurrentTime(value: number): void;
+        _destroy(): void;
+    }
+}
+/**
+ * @private
+ */
+interface AudioBuffer {
+}
+/**
+ * @private
+ */
+interface AudioBufferSourceNode {
+    buffer: any;
+    context: any;
+    onended: Function;
+    stop(when?: number): void;
+    noteOff(when?: number): void;
+    addEventListener(type: string, listener: Function, useCapture?: boolean): any;
+    removeEventListener(type: string, listener: Function, useCapture?: boolean): any;
+    disconnect(): any;
 }

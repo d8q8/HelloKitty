@@ -228,7 +228,7 @@ var egret;
              * @param event {TouchEvent}
              */
             __egretProto__.disclosureButton_mouseDownHandler = function (event) {
-                gui.TreeEvent.dispatchTreeEvent(this, gui.TreeEvent.ITEM_OPENING, this.itemIndex, this.data, this, !this._isOpen);
+                gui.TreeEvent.dispatchTreeEvent(this, gui.TreeEvent.ITEM_OPENING, this.itemIndex, this.data, this, !this._isOpen, false, true);
             };
             return TreeItemRenderer;
         })(gui.ItemRenderer);

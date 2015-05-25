@@ -106,7 +106,7 @@ var egret;
          */
         __egretProto__.addChild = function (child) {
             var index = this._children.length;
-            if (child._DO_Props_._parent == this)
+            if (child.parent == this)
                 index--;
             return this._doAddChild(child, index);
         };
@@ -128,7 +128,7 @@ var egret;
                 egret.Logger.fatalWithErrorId(1007);
                 return child;
             }
-            var host = child._DO_Props_._parent;
+            var host = child.parent;
             if (host == this) {
                 this.doSetChildIndex(child, index);
                 return child;
@@ -203,7 +203,7 @@ var egret;
                     if (notifyListeners) {
                         childAddToStage.dispatchEventWith(egret.Event.REMOVED_FROM_STAGE);
                     }
-                    childAddToStage._DO_Props_._stage = null;
+                    childAddToStage.stage = null;
                 }
             }
             child._parentChanged(null);
@@ -237,7 +237,7 @@ var egret;
                 if (child == this) {
                     return true;
                 }
-                child = child._DO_Props_._parent;
+                child = child.parent;
             }
             return false;
         };
@@ -352,7 +352,7 @@ var egret;
             var l = children.length;
             for (var i = 0; i < l; i++) {
                 var child = children[i];
-                if (!child._DO_Props_._visible) {
+                if (!child.visible) {
                     continue;
                 }
                 var childBounds = child.getBounds(egret.Rectangle.identity, false);
@@ -410,7 +410,8 @@ var egret;
             for (var i = l - 1; i >= 0; i--) {
                 var child = children[i];
                 var mtx = child._getMatrix();
-                var scrollRect = child._DO_Props_._scrollRect;
+                //todo
+                var scrollRect = child.scrollRect;
                 if (scrollRect) {
                     mtx.append(1, 0, 0, 1, -scrollRect.x, -scrollRect.y);
                 }

@@ -293,13 +293,13 @@ var egret;
                 this.setScrollTop(vspTo, duration);
             };
             Object.defineProperty(__egretProto__, "autoHideScrollBars", {
-                get: function () {
-                    return this._Scr_Props_._autoHideScrollBars;
-                },
                 /**
                  * 是否自动隐藏滚动条
                  * @member egret.gui.Scroller#autoHideScrollBars
                  */
+                get: function () {
+                    return this._Scr_Props_._autoHideScrollBars;
+                },
                 set: function (value) {
                     if (this._Scr_Props_._autoHideScrollBars == value)
                         return;
@@ -313,6 +313,10 @@ var egret;
                 configurable: true
             });
             Object.defineProperty(__egretProto__, "autoHideDelay", {
+                /**
+                 * 自动隐藏滚动条延时时间(毫秒)，当autoHideScrollBars为true时有效
+                 * @member egret.gui.Scroller#autoHideDelay
+                 */
                 get: function () {
                     return this._Scr_Props_._autoHideDelay;
                 },

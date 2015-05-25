@@ -209,7 +209,6 @@ var egret;
                     return this._columnWidth;
                 },
                 /**
-                 *  @private
                  */
                 set: function (value) {
                     if (value == this._columnWidth)
@@ -230,7 +229,6 @@ var egret;
                     return this._rowHeight;
                 },
                 /**
-                 *  @private
                  */
                 set: function (value) {
                     if (value == this._rowHeight)

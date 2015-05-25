@@ -58,6 +58,9 @@ var egret;
                 get: function () {
                     return 1;
                 },
+                /**
+                 * @deprecated
+                 */
                 set: function (value) {
                     egret.Logger.warningWithErrorId(1016, "HScrollBar.trackAlpha");
                 },
@@ -68,6 +71,9 @@ var egret;
                 get: function () {
                     return 1;
                 },
+                /**
+                 * @deprecated
+                 */
                 set: function (value) {
                     egret.Logger.warningWithErrorId(1016, "HScrollBar.thumbAlpha");
                 },

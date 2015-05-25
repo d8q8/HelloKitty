@@ -9,6 +9,8 @@ var egret_file_list = [
 	"core/egret/utils/RenderCommand.js",
 	"core/egret/events/Event.js",
 	"core/egret/events/HTTPStatusEvent.js",
+	"core/egret/events/SoundEvent.js",
+	"core/egret/events/FocusEvent.js",
 	"core/egret/events/IOErrorEvent.js",
 	"core/egret/events/TouchEvent.js",
 	"core/egret/events/TimerEvent.js",
@@ -100,6 +102,8 @@ var egret_file_list = [
 	"core/egret/context/net/HTML5NetContext.js",
 	"core/egret/context/interactive/HTML5TouchContext.js",
 	"core/egret/context/display/HTML5StageText.js",
+	"core/egret/context/audio/Html5Audio.js",
+	"core/egret/context/audio/WebAudio.js",
 	"core/extension/resource/events/ResourceEvent.js",
 	"core/extension/resource/core/ResourceItem.js",
 	"core/extension/resource/core/ResourceConfig.js",
@@ -251,5 +255,7 @@ var egret_file_list = [
 	"core/extension/gui/core/UIStage.js",
 	"core/extension/gui/managers/impl/PopUpManagerImpl.js",
 	"core/extension/gui/managers/PopUpManager.js",
-	"greensock/TweenMax.min.js"
+	"greensock/TweenMax.min.js",
+	"jszip/jszip.min.js",
+	"jszip/FileSaver.js"
 ];

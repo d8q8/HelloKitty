@@ -38,6 +38,7 @@ var egret;
             function SkinnableTextBase() {
                 _super.call(this);
                 this._focusEnabled = true;
+                this.isFocus = false;
                 /**
                  * [SkinPart]实体文本输入组件
                  */
@@ -52,11 +53,12 @@ var egret;
                 this.promptDisplay = null;
                 this._prompt = null;
                 this.focusEnabled = true;
-                this.addEventListener("focus", this.focusInHandler, this);
-                this.addEventListener("blur", this.focusOutHandler, this);
             }
             var __egretProto__ = SkinnableTextBase.prototype;
             Object.defineProperty(__egretProto__, "focusEnabled", {
+                /**
+                 * 是否能够自动获得焦点的标志
+                 */
                 get: function () {
                     return this._focusEnabled;
                 },
@@ -70,6 +72,7 @@ var egret;
              * 焦点移入
              */
             __egretProto__.focusInHandler = function (event) {
+                this.isFocus = true;
                 if (event.target == this) {
                     this.setFocus();
                     return;
@@ -80,6 +83,7 @@ var egret;
              * 焦点移出
              */
             __egretProto__.focusOutHandler = function (event) {
+                this.isFocus = false;
                 if (event.target == this)
                     return;
                 this.invalidateSkinState();
@@ -427,9 +431,8 @@ var egret;
              * @inheritDoc
              */
             __egretProto__.getCurrentSkinState = function () {
-                var focus = gui.UIGlobals.stage.focus;
                 var skin = this.skin;
-                if (this._prompt && (!focus || !this.contains(focus)) && this.text == "") {
+                if (this._prompt && !this.isFocus && this.text == "") {
                     if (this.enabled && skin.hasState("normalWithPrompt"))
                         return "normalWithPrompt";
                     if (!this.enabled && skin.hasState("disabledWithPrompt"))
@@ -445,6 +448,10 @@ var egret;
                 _super.prototype.partAdded.call(this, partName, instance);
                 if (instance == this.textDisplay) {
                     this.textDisplayAdded();
+                    if (this.textDisplay instanceof gui.EditableText) {
+                        this.textDisplay._textField.addEventListener(egret.FocusEvent.FOCUS_IN, this.focusInHandler, this);
+                        this.textDisplay._textField.addEventListener(egret.FocusEvent.FOCUS_OUT, this.focusOutHandler, this);
+                    }
                     this.textDisplay.addEventListener("input", this.textDisplay_changingHandler, this);
                     this.textDisplay.addEventListener(egret.Event.CHANGE, this.textDisplay_changeHandler, this);
                 }
@@ -460,6 +467,10 @@ var egret;
                 _super.prototype.partRemoved.call(this, partName, instance);
                 if (instance == this.textDisplay) {
                     this.textDisplayRemoved();
+                    if (this.textDisplay instanceof gui.EditableText) {
+                        this.textDisplay._textField.removeEventListener(egret.FocusEvent.FOCUS_IN, this.focusInHandler, this);
+                        this.textDisplay._textField.removeEventListener(egret.FocusEvent.FOCUS_OUT, this.focusOutHandler, this);
+                    }
                     this.textDisplay.removeEventListener("input", this.textDisplay_changingHandler, this);
                     this.textDisplay.removeEventListener(egret.Event.CHANGE, this.textDisplay_changeHandler, this);
                 }

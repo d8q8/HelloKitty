@@ -67,6 +67,14 @@ var egret;
         __egretProto__.isIOS = function () {
             return this.ua.indexOf("iphone") >= 0 || this.ua.indexOf("ipad") >= 0 || this.ua.indexOf("ipod") >= 0;
         };
+        /**
+         * 获取ios版本
+         * @returns {string}
+         */
+        __egretProto__.getIOSVersion = function () {
+            var value = this.ua.toLowerCase().match(/cpu [^\d]*\d.*like mac os x/)[0];
+            return value.match(/\d(_\d)*/)[0];
+        };
         __egretProto__.getUserAgent = function () {
             return this.ua;
         };

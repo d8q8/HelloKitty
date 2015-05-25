@@ -50,12 +50,6 @@ var egret;
                 this.lastUnscaledWidth = NaN;
                 this.strokeColorChanged = false;
                 this._strokeColor = 0x000000;
-                /**
-                 * 表示描边宽度。
-                 * 0为没有描边。
-                 * 默认值为 0。
-                 * @member {number} egret.TextField#stroke
-                 */
                 this._stroke = 0;
                 this.strokeChanged = false;
                 this._padding = 0;
@@ -115,6 +109,12 @@ var egret;
                 this.invalidateProperties();
             };
             Object.defineProperty(__egretProto__, "stroke", {
+                /**
+                 * 表示描边宽度。
+                 * 0为没有描边。
+                 * 默认值为 0。
+                 * @member {number} egret.TextField#stroke
+                 */
                 get: function () {
                     return this._stroke;
                 },

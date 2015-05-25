@@ -73,9 +73,6 @@ var egret;
                 get: function () {
                     return this._getHeightInLines();
                 },
-                /**
-                 *  @private
-                 */
                 set: function (value) {
                     this._setHeightInLines(value);
                 },

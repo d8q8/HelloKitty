@@ -441,6 +441,64 @@ declare module egret {
 }
 declare module egret {
     /**
+     * @class egret.SoundEvent
+     * @classdesc
+     * 声音相关事件。
+     * 有事件：SoundEvent.SOUND_COMPLETE
+     */
+    class SoundEvent extends egret.Event {
+        /**
+         * 在声音完成播放后调度。
+         * @constant {string} egret.SoundEvent.SOUND_COMPLETE
+         */
+        static SOUND_COMPLETE: string;
+        /**
+         * 失去焦点
+         * @constant {string} egret.FocusEvent.FOCUS_OUT
+         */
+        static FOCUS_OUT: string;
+        /**
+         * 创建一个 egret.SoundEvent 对象
+         * @param type {string} 事件类型
+         * @param bubbles {boolean}
+         * @param cancelable {boolean}
+         * @param bytesLoaded {number}
+         * @param bytesTotal {number}
+         */
+        constructor(type: string, bubbles?: boolean, cancelable?: boolean);
+    }
+}
+declare module egret {
+    /**
+     * @class egret.FocusEvent
+     * @classdesc
+     * 用户将焦点从显示列表中的一个对象更改到另一个对象时，对象将调度 FocusEvent 对象。目前只支持输入文本。
+     * 有四种类型的焦点事件：FocusEvent.FOCUS_IN FocusEvent.FOCUS_OUT
+     */
+    class FocusEvent extends egret.Event {
+        /**
+         * 获得焦点
+         * @constant {string} egret.FocusEvent.FOCUS_IN
+         */
+        static FOCUS_IN: string;
+        /**
+         * 失去焦点
+         * @constant {string} egret.FocusEvent.FOCUS_OUT
+         */
+        static FOCUS_OUT: string;
+        /**
+         * 创建一个 egret.FocusEvent 对象
+         * @param type {string} 事件类型
+         * @param bubbles {boolean}
+         * @param cancelable {boolean}
+         * @param bytesLoaded {number}
+         * @param bytesTotal {number}
+         */
+        constructor(type: string, bubbles?: boolean, cancelable?: boolean);
+    }
+}
+declare module egret {
+    /**
      * @class egret.IOErrorEvent
      * @classdesc IO流事件，当错误导致输入或输出操作失败时调度 IOErrorEvent 对象。
      * @extends egret.Event
@@ -2453,11 +2511,20 @@ declare module egret {
          * @member {number} egret.DisplayObject#cacheAsBitmap
          */
         cacheAsBitmap: boolean;
+        /**
+         * @private
+         */
         renderTexture: RenderTexture;
         _makeBitmapCache(): boolean;
         _setCacheDirty(dirty?: boolean): void;
         static getTransformBounds(bounds: egret.Rectangle, mtx: egret.Matrix): egret.Rectangle;
+        /**
+         * @private
+         */
         colorTransform: ColorTransform;
+        /**
+         * @private
+         */
         filter: Filter;
     }
     /**
@@ -3018,6 +3085,24 @@ declare module egret {
          * @member {egret.BitmapFont} egret.BitmapText#font
          */
         font: BitmapFont;
+        _letterSpacing: number;
+        /**
+         * 字符之间的距离
+         * @default 0
+         * @version 1.7.2
+         * @param value
+         */
+        letterSpacing: number;
+        _setLetterSpacing(value: number): void;
+        _lineSpacing: number;
+        /**
+         * 行与行之间的距离
+         * @default 0
+         * @version 1.7.2
+         * @param value
+         */
+        lineSpacing: number;
+        _setLineSpacing(value: number): void;
         _setSizeDirty(): void;
         static EMPTY_FACTOR: number;
         _render(renderContext: RendererContext): void;
@@ -3046,7 +3131,7 @@ declare module egret {
         private renderContext;
         private strokeStyleColor;
         private fillStyleColor;
-        private _dirty;
+        _dirty: boolean;
         private lineX;
         private lineY;
         constructor();
@@ -3174,6 +3259,7 @@ declare module egret {
          * @member {egret.Graphics} egret.Shape#graphics
          */
         graphics: Graphics;
+        _draw(renderContext: RendererContext): void;
         _render(renderContext: RendererContext): void;
         _measureBounds(): egret.Rectangle;
     }
@@ -3197,6 +3283,7 @@ declare module egret {
          * @member {egret.Graphics} egret.Sprite#graphics
          */
         graphics: Graphics;
+        _draw(renderContext: RendererContext): void;
         _render(renderContext: RendererContext): void;
         _measureBounds(): egret.Rectangle;
         hitTest(x: number, y: number, ignoreTouchEnabled?: boolean): DisplayObject;
@@ -4699,6 +4786,11 @@ declare module egret {
          * @returns {boolean}
          */
         isIOS(): boolean;
+        /**
+         * 获取ios版本
+         * @returns {string}
+         */
+        getIOSVersion(): string;
         constructor();
         getUserAgent(): string;
         private header;
@@ -4857,7 +4949,13 @@ declare module egret {
          * @deprecated
          */
         setArrayBuffer(buffer: ArrayBuffer): void;
+        /**
+         * @private
+         */
         buffer: ArrayBuffer;
+        /**
+         * @private
+         */
         dataView: DataView;
         bufferOffset: number;
         /**
@@ -5079,18 +5177,21 @@ declare module egret {
         /**
          * 不做特殊处理
          * @constant {number} egret.Tween.NONE
+         * @private
          */
-        static NONE: number;
+        private static NONE;
         /**
          * 循环
          * @constant {number} egret.Tween.LOOP
+         * @private
          */
-        static LOOP: number;
+        private static LOOP;
         /**
          * 倒序
          * @constant {number} egret.Tween.REVERSE
+         * @private
          */
-        static REVERSE: number;
+        private static REVERSE;
         private static _tweens;
         private static IGNORE;
         private static _plugins;
@@ -5257,13 +5358,34 @@ declare module egret {
         static elasticInOut: Function;
     }
 }
+/**
+ * Created by yjtx on 15-5-18.
+ */
+declare module egret {
+    interface IAudio {
+        _setCurrentTime(value: number): void;
+        _getCurrentTime(): number;
+        _setVolume(value: number): void;
+        _getVolume(): number;
+        _setLoop(value: boolean): void;
+        _play(type?: string): void;
+        _pause(): void;
+        _load(): void;
+        _preload(type: string, callback?: Function, thisObj?: any): void;
+        _addEventListener(type: string, listener: Function, useCapture?: boolean): void;
+        _removeEventListener(type: string, listener: Function, useCapture?: boolean): void;
+        _destroy(): void;
+    }
+}
 declare module egret {
     /**
      * @class egret.Sound
      * @classdesc Sound 类允许您在应用程序中使用声音。
      * @link http://docs.egret-labs.org/post/manual/sound/playsound.html 播放音频
+     *
+     * @event egret.SoundEvent.SOUND_COMPLETE 在声音完成播放后调度。
      */
-    class Sound {
+    class Sound extends egret.EventDispatcher {
         /**
          * 背景音乐
          * @constant egret.Sound.MUSIC
@@ -5274,6 +5396,10 @@ declare module egret {
          * @constant egret.Sound.EFFECT
          */
         static EFFECT: string;
+        /**
+         * @deprecated
+         * @type {string}
+         */
         path: string;
         /**
          * 创建 egret.Sound 对象
@@ -5291,45 +5417,85 @@ declare module egret {
          */
         type: string;
         /**
-         * 播放声音
-         * @method egret.Sound#play
-         * @param loop {boolean} 是否循环播放，默认为false
+         * 当播放声音时，position 属性表示声音文件中当前播放的位置（以毫秒为单位）。
+         * h5支持，native不支持
+         * @returns {number}
          */
-        play(loop?: boolean): void;
+        position: number;
+        /**
+         * 播放声音
+         * @param loop  是否循环播放，默认为false
+         * @param position  是否从刚开始播放 h5支持，native不支持
+         */
+        play(loop?: boolean, position?: number): void;
+        private _pauseTime;
+        /**
+         * 声音停止播放
+         */
+        stop(): void;
         /**
          * 暂停声音
-         * @method egret.Sound#pause
          */
         pause(): void;
         /**
+         * 继续从上次暂停的位置播放
+         * h5支持，native不支持
+         */
+        resume(): void;
+        /**
          * 重新加载声音
-         * @method egret.Sound#load
          */
         load(): void;
+        private _listeners;
         /**
          * 添加事件监听
+         * h5支持，native不支持
          * @param type 事件类型
          * @param listener 监听函数
+         * @param thisObj 侦听函数绑定的this对象
          */
-        addEventListener(type: string, listener: Function): void;
+        addEventListener(type: string, listener: Function, thisObject?: any): void;
         /**
          * 移除事件监听
+         * h5支持，native不支持
          * @param type 事件类型
          * @param listener 监听函数
+         * @param thisObj 侦听函数绑定的this对象
          */
-        removeEventListener(type: string, listener: Function): void;
+        removeEventListener(type: string, listener: Function, thisObject?: any): void;
+        private getVirtualType(type);
         /**
+         * 音量范围从 0（静音）至 1（最大音量）。
+         * h5支持，native不支持
+         * @returns number
+         */
+        volume: number;
+        /**
+         * @deprecated
          * 设置音量
          * @param value 值需大于0 小于等于 1
          */
         setVolume(value: number): void;
         /**
+         * @deprecated
          * 获取当前音量值
          * @returns number
          */
         getVolume(): number;
-        preload(type: string): void;
-        _setAudio(value: any): void;
+        /**
+         * 将声音文件加载到内存，
+         * native中使用，html5里为空实现
+         * @param type 声音类型
+         * @param callback 回调函数
+         * @param thisObj 侦听函数绑定的this对象
+         */
+        preload(type: string, callback?: Function, thisObj?: any): void;
+        _setAudio(value: IAudio): void;
+        /**
+         * 释放当前音频
+         * native中使用，html5里为空实现
+         */
+        destroy(): void;
     }
 }
 declare module egret {
@@ -5341,12 +5507,14 @@ declare module egret {
          * @returns {number} sin值
          */
         static sin(value: number): number;
+        private static sinInt(value);
         /**
          * 得到对应角度值的cos近似值
          * @param value {number} 角度值
          * @returns {number} cos值
          */
         static cos(value: number): number;
+        private static cosInt(value);
     }
 }
 declare var egret_sin_map: {};

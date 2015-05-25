@@ -483,16 +483,19 @@ var egret;
         /**
          * 不做特殊处理
          * @constant {number} egret.Tween.NONE
+         * @private
          */
         Tween.NONE = 0;
         /**
          * 循环
          * @constant {number} egret.Tween.LOOP
+         * @private
          */
         Tween.LOOP = 1;
         /**
          * 倒序
          * @constant {number} egret.Tween.REVERSE
+         * @private
          */
         Tween.REVERSE = 2;
         Tween._tweens = [];

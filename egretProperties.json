@@ -1,22 +1,26 @@
 {
-	"document_class": "HelloKitty",
-	"native": {
-		"path_ignore": []
-	},
-	"modules": [
-		{
-			"name": "core"
-		},
-		{
-			"name": "res"
-		},
-		{
-			"name": "gui"
-		},
-		{
-			"name": "greensock",
-			"path": "."
-		}
-	],
-	"egret_version": "1.7.1"
+  "document_class": "HelloKitty",
+  "native": {
+    "path_ignore": []
+  },
+  "modules": [
+    {
+      "name": "core"
+    },
+    {
+      "name": "res"
+    },
+    {
+      "name": "gui"
+    },
+    {
+      "name": "greensock",
+      "path": "."
+    },
+    {
+      "name": "jszip",
+      "path": "."
+    }
+  ],
+  "egret_version": "1.7.2"
 }

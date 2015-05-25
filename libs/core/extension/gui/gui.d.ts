@@ -5824,7 +5824,11 @@ declare module egret.gui {
          */
         constructor();
         _focusEnabled: boolean;
+        /**
+         * 是否能够自动获得焦点的标志
+         */
         focusEnabled: boolean;
+        private isFocus;
         /**
          * 焦点移入
          */
@@ -6030,14 +6034,14 @@ declare module egret.gui {
          */
         strokeColor: number;
         _setStrokeColor(value: number): void;
+        private _stroke;
+        private strokeChanged;
         /**
          * 表示描边宽度。
          * 0为没有描边。
          * 默认值为 0。
          * @member {number} egret.TextField#stroke
          */
-        private _stroke;
-        private strokeChanged;
         stroke: number;
         private _padding;
         /**
@@ -6128,6 +6132,26 @@ declare module egret.gui {
          * @member egret.gui.BitmapLabel#font
          */
         font: any;
+        private _isLetterSpacingChanged;
+        _letterSpacing: number;
+        /**
+         * 字符之间的距离
+         * @default 0
+         * @version 1.7.2
+         * @param value
+         */
+        letterSpacing: number;
+        _setLetterSpacing(value: number): void;
+        private _isLineSpacingChanged;
+        _lineSpacing: number;
+        /**
+         * 行与行之间的距离
+         * @default 0
+         * @version 1.7.2
+         * @param value
+         */
+        lineSpacing: number;
+        _setLineSpacing(value: number): void;
         private createChildrenCalled;
         /**
          * 创建子对象
@@ -8409,7 +8433,13 @@ declare module egret.gui {
          * @private
          */
         _setViewportMetric(width: number, contentWidth: number): void;
+        /**
+         * @deprecated
+         */
         trackAlpha: number;
+        /**
+         * @deprecated
+         */
         thumbAlpha: number;
         setPosition(value: number): void;
         getPosition(): number;
@@ -8477,7 +8507,13 @@ declare module egret.gui {
          * @private
          */
         _setViewportMetric(height: number, contentHeight: number): void;
+        /**
+         * @deprecated
+         */
         trackAlpha: number;
+        /**
+         * @deprecated
+         */
         thumbAlpha: number;
         setPosition(value: number): void;
         getPosition(): number;
@@ -9364,6 +9400,10 @@ declare module egret.gui {
          * @member egret.gui.Scroller#autoHideScrollBars
          */
         autoHideScrollBars: boolean;
+        /**
+         * 自动隐藏滚动条延时时间(毫秒)，当autoHideScrollBars为true时有效
+         * @member egret.gui.Scroller#autoHideDelay
+         */
         autoHideDelay: number;
         private setAutoHideTimer();
         private hideOrShow(show);
@@ -9540,6 +9580,9 @@ declare module egret.gui {
     class EditableText extends TextBase implements IEditableText, IDisplayText, IViewport {
         constructor();
         private _selectable;
+        /**
+         * @inheritDoc
+         */
         selectable: boolean;
         private _displayAsPassword;
         private displayAsPasswordChanged;
@@ -9592,9 +9635,15 @@ declare module egret.gui {
          */
         widthInChars: number;
         private _contentWidth;
+        /**
+         * @inheritDoc
+         */
         contentWidth: number;
         private setContentWidth(value);
         private _contentHeight;
+        /**
+         * @inheritDoc
+         */
         contentHeight: number;
         private setContentHeight(value);
         private _horizontalScrollPosition;
@@ -9707,9 +9756,6 @@ declare module egret.gui {
         widthInChars: number;
         /**
          * 控件的默认高度（以行为单位测量）。
-         */
-        /**
-         *  @private
          */
         heightInLines: number;
         /**
@@ -10600,7 +10646,7 @@ declare module egret.gui {
          * 使用指定的EventDispatcher对象来抛出事件对象。抛出的对象将会缓存在对象池上，供下次循环复用。
          * @method egret.gui.TreeEvent.dispatchTreeEvent
          */
-        static dispatchTreeEvent(target: IEventDispatcher, type: string, itemIndex?: number, item?: any, itemRenderer?: ITreeItemRenderer, opening?: boolean): void;
+        static dispatchTreeEvent(target: IEventDispatcher, type: string, itemIndex?: number, item?: any, itemRenderer?: ITreeItemRenderer, opening?: boolean, bubbles?: boolean, cancelable?: boolean): void;
     }
 }
 declare module egret.gui {
@@ -11195,7 +11241,6 @@ declare module egret.gui {
          * @member egret.gui.TileLayout#columnWidth
          */
         /**
-         *  @private
          */
         columnWidth: number;
         /**
@@ -11208,7 +11253,6 @@ declare module egret.gui {
          * @member egret.gui.TileLayout#rowHeight
          */
         /**
-         *  @private
          */
         rowHeight: number;
         private _padding;

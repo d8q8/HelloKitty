@@ -425,12 +425,12 @@ var egret_h5_graphics;
         this.lineY = 0;
         this.strokeStyleColor = null;
         this.fillStyleColor = null;
-        this._dirty = false;
         this._minX = 0;
         this._minY = 0;
         this._maxX = 0;
         this._maxY = 0;
         this._firstCheck = true;
+        this._dirty = true;
     }
     egret_h5_graphics.clear = clear;
     function createEndFillCommand() {
@@ -445,6 +445,7 @@ var egret_h5_graphics;
     function endFill() {
         if (this.fillStyleColor != null) {
             this._fill();
+            this.fillStyleColor = null;
         }
     }
     egret_h5_graphics.endFill = endFill;
@@ -452,7 +453,6 @@ var egret_h5_graphics;
         if (this.fillStyleColor) {
             this.createEndFillCommand();
             this._pushCommand(this.endFillCommand);
-            this.fillStyleColor = null;
         }
         if (this.strokeStyleColor) {
             this.createEndLineCommand();

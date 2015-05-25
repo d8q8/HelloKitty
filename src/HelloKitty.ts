@@ -338,6 +338,17 @@ class HelloKitty extends egret.DisplayObjectContainer {
         }
 
 
+
+    }
+
+    private getZip(){
+        var zip = new JSZip();
+        zip.file("Hello.txt","Hello World\n");
+        var img = zip.folder("images");
+        var imgData = "R0lGODdhBQAFAIACAAAAAP/eACwAAAAABQAFAAACCIwPkWerClIBADs=";
+        img.file("smile.gif", imgData, {base64: true});
+        var content = zip.generate({type:"blob"});
+        saveAs(content,"examlpe.zip");
     }
 
     public createText(str:string, x:number, y:number, color:number):egret.TextField {

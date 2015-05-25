@@ -291,6 +291,15 @@ var HelloKitty = (function (_super) {
             this.addChild(this.createText("测试文本" + i, 50, 250 + 50 * i, _color[i]));
         }
     };
+    __egretProto__.getZip = function () {
+        var zip = new JSZip();
+        zip.file("Hello.txt", "Hello World\n");
+        var img = zip.folder("images");
+        var imgData = "R0lGODdhBQAFAIACAAAAAP/eACwAAAAABQAFAAACCIwPkWerClIBADs=";
+        img.file("smile.gif", imgData, { base64: true });
+        var content = zip.generate({ type: "blob" });
+        saveAs(content, "examlpe.zip");
+    };
     __egretProto__.createText = function (str, x, y, color) {
         var txt = new egret.TextField();
         txt.x = x;

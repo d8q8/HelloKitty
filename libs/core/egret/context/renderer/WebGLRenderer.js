@@ -230,6 +230,7 @@ var egret;
                         egret.RenderTexture["WebGLCanvas"] = document.createElement("canvas");
                         egret.RenderTexture["WebGLCanvas"]["avaliable"] = true;
                         egret.RenderTexture["WebGLRenderer"] = new egret.WebGLRenderer(egret.RenderTexture["WebGLCanvas"]);
+                        egret.RenderTexture["WebGLRenderer"].setAlpha(1);
                     }
                     self._webglBitmapData = egret.RenderTexture["WebGLCanvas"];
                     self.renderContext = egret.RenderTexture["WebGLRenderer"];

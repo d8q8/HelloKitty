@@ -41,7 +41,13 @@ var egret;
          * @returns {number} sin值
          */
         NumberUtils.sin = function (value) {
-            value = Math.round(value);
+            var valueFloor = Math.floor(value);
+            var valueCeil = valueFloor + 1;
+            var resultFloor = NumberUtils.sinInt(valueFloor);
+            var resultCeil = NumberUtils.sinInt(valueCeil);
+            return (value - valueFloor) * resultCeil + (valueCeil - value) * resultFloor;
+        };
+        NumberUtils.sinInt = function (value) {
             value = value % 360;
             if (value < 0) {
                 value += 360;
@@ -63,7 +69,13 @@ var egret;
          * @returns {number} cos值
          */
         NumberUtils.cos = function (value) {
-            value = Math.round(value);
+            var valueFloor = Math.floor(value);
+            var valueCeil = valueFloor + 1;
+            var resultFloor = NumberUtils.cosInt(valueFloor);
+            var resultCeil = NumberUtils.cosInt(valueCeil);
+            return (value - valueFloor) * resultCeil + (valueCeil - value) * resultFloor;
+        };
+        NumberUtils.cosInt = function (value) {
             value = value % 360;
             if (value < 0) {
                 value += 360;

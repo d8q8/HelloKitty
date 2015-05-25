@@ -83,18 +83,20 @@ var egret;
              * 使用指定的EventDispatcher对象来抛出事件对象。抛出的对象将会缓存在对象池上，供下次循环复用。
              * @method egret.gui.TreeEvent.dispatchTreeEvent
              */
-            TreeEvent.dispatchTreeEvent = function (target, type, itemIndex, item, itemRenderer, opening) {
+            TreeEvent.dispatchTreeEvent = function (target, type, itemIndex, item, itemRenderer, opening, bubbles, cancelable) {
                 if (itemIndex === void 0) { itemIndex = -1; }
                 if (item === void 0) { item = null; }
                 if (itemRenderer === void 0) { itemRenderer = null; }
                 if (opening === void 0) { opening = false; }
+                if (bubbles === void 0) { bubbles = false; }
+                if (cancelable === void 0) { cancelable = false; }
                 var eventClass = TreeEvent;
                 var props = egret.Event._getPropertyData(eventClass);
                 props.itemIndex = itemIndex;
                 props.item = item;
                 props.itemRenderer = itemRenderer;
                 props.opening = opening;
-                egret.Event._dispatchByTarget(eventClass, target, type, props);
+                egret.Event._dispatchByTarget(eventClass, target, type, props, bubbles, cancelable);
             };
             /**
              * 节点关闭,注意：只有通过交互操作引起的节点关闭才会抛出此事件。

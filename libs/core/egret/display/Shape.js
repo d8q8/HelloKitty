@@ -58,6 +58,12 @@ var egret;
             enumerable: true,
             configurable: true
         });
+        __egretProto__._draw = function (renderContext) {
+            if (this._graphics && this._graphics._dirty) {
+                this._setCacheDirty();
+            }
+            _super.prototype._draw.call(this, renderContext);
+        };
         __egretProto__._render = function (renderContext) {
             if (this._graphics)
                 this._graphics._draw(renderContext);

@@ -47,12 +47,12 @@ var egret;
                 return;
             }
             if (loader.dataFormat == egret.URLLoaderDataFormat.SOUND) {
-                //                if(WebAudio.canUseWebAudio) {
-                //                    this.loadWebAudio(loader);
-                //                }
-                //                else {
-                this.loadSound(loader);
-                //                }
+                if (egret.Browser.getInstance().isIOS() && egret.WebAudio.canUseWebAudio) {
+                    this.loadWebAudio(loader);
+                }
+                else {
+                    this.loadSound(loader);
+                }
                 return;
             }
             var request = loader._request;
@@ -117,8 +117,10 @@ var egret;
                 egret.clearTimeout(audio["__timeoutId"]);
                 audio.removeEventListener('canplaythrough', soundPreloadCanplayHandler, false);
                 audio.removeEventListener("error", soundPreloadErrorHandler, false);
+                var htmlAudio = new egret.Html5Audio();
+                htmlAudio._setAudio(audio);
                 var sound = new egret.Sound();
-                sound._setAudio(audio);
+                sound._setAudio(htmlAudio);
                 loader.data = sound;
                 egret.__callAsync(egret.Event.dispatchEvent, egret.Event, loader, egret.Event.COMPLETE);
             }
@@ -131,31 +133,26 @@ var egret;
             }
             ;
         };
-        //        private loadWebAudio(loader:URLLoader):void {
-        //            var url:string = loader._request.url;
-        //            var request = new XMLHttpRequest();
-        //            request.open("GET", url, true);
-        //            request.responseType = "arraybuffer";
-        //            console.log("loadWebAudio");
-        //            request.onload = function () {
-        //                WebAudio.ctx["decodeAudioData"](request.response, onSuccessHandler, onErrorHandler);
-        //            };
-        //            request.send();
-        //
-        //            function onSuccessHandler(buffer) {
-        //                var audio = new WebAudio();
-        //                audio._buffer = buffer;
-        //
-        //                var sound = new Sound();
-        //                sound._setAudio(audio);
-        //                loader.data = sound;
-        //                __callAsync(Event.dispatchEvent, Event, loader, Event.COMPLETE);
-        //            }
-        //
-        //            function onErrorHandler() {
-        //                IOErrorEvent.dispatchIOErrorEvent(loader);
-        //            }
-        //        }
+        __egretProto__.loadWebAudio = function (loader) {
+            var url = loader._request.url;
+            var request = new XMLHttpRequest();
+            request.open("GET", url, true);
+            request.responseType = "arraybuffer";
+            console.log("loadWebAudio");
+            request.onload = function () {
+                var audio = new egret.WebAudio();
+                audio._setArrayBuffer(request.response, function () {
+                    var sound = new egret.Sound();
+                    sound._setAudio(audio);
+                    loader.data = sound;
+                    egret.__callAsync(egret.Event.dispatchEvent, egret.Event, loader, egret.Event.COMPLETE);
+                });
+            };
+            request.send();
+            //function onErrorHandler() {
+            //    IOErrorEvent.dispatchIOErrorEvent(loader);
+            //}
+        };
         __egretProto__.getXHR = function () {
             if (window["XMLHttpRequest"]) {
                 return new window["XMLHttpRequest"]();
