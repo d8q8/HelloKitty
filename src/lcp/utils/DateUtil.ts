@@ -16,7 +16,7 @@ module lcp {
          */
         public static formatDate(dateToFormat:Date, formatString:string):string {
             var returnString:string = '';
-            var tempstr:string;
+            var tempstr:string = '';
             var i:number = -1;
             var l:number = formatString.length;
             var t:number;

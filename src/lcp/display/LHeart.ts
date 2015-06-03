@@ -15,8 +15,8 @@ module lcp {
         public constructor(vars?:IGraphics) {
             super();
             if(vars){
-                //vars.width = vars.radius * 2;
-                //vars.height = vars.radius * 2;
+                vars.width = vars.radius * 2;
+                vars.height = vars.radius * 2;
                 super.init(vars);
             }
         }

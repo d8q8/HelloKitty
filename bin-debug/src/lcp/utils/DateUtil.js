@@ -19,7 +19,7 @@ var lcp;
          */
         DateUtil.formatDate = function (dateToFormat, formatString) {
             var returnString = '';
-            var tempstr;
+            var tempstr = '';
             var i = -1;
             var l = formatString.length;
             var t;

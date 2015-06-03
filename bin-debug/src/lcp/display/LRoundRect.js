@@ -1,9 +1,3 @@
-var __extends = this.__extends || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    __.prototype = b.prototype;
-    d.prototype = new __();
-};
 /**
  * Created by d8q8 on 2014/8/15.
  * @module lcp
@@ -25,10 +19,11 @@ var lcp;
                 _super.prototype.init.call(this, vars);
             }
         }
-        LRoundRect.prototype.drawShape = function () {
+        var __egretProto__ = LRoundRect.prototype;
+        __egretProto__.drawShape = function () {
             this.graphics.drawRoundRect(0, 0, this.vars.width, this.vars.height, this.vars.ellipseWidth, this.vars.ellipseHeight);
         };
-        LRoundRect.prototype.clone = function (vars) {
+        __egretProto__.clone = function (vars) {
             return new LRoundRect(vars ? vars : this.vars);
         };
         return LRoundRect;

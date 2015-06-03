@@ -5,7 +5,9 @@
  * @constructor
  **/
 module lcp {
-
+    /**
+     * 单例工具类
+     */
     export class SingletonUtil {
         public CLASS_NAME:string = "SingletonUtil";
 

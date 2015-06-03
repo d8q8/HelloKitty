@@ -235,7 +235,7 @@ class HelloKitty extends egret.DisplayObjectContainer {
         console.log("先用白菜内裤去重:", lcp.ArrayUtil.removeDuplicates(arr_Num));
         console.log("白菜内裤另一种去重:", lcp.ArrayUtil.reDupliction(arr_Num));
         console.log("再用白菜内裤去随机:", lcp.ArrayUtil.randomize(lcp.ArrayUtil.removeDuplicates(arr_Num)));
-        console.log("用白菜内裤随机N个数:", lcp.ArrayUtil.randomNum(arr_Num, 10));
+        //console.log("用白菜内裤随机N个数:", lcp.ArrayUtil.randomNum(arr_Num, 10));
 
         var arr:Array<number> = [100, 100, 100, 100, 90, 100, 100, 90];
         console.log("比较什么就随意：", arr[0] == arr[1]);
@@ -305,7 +305,7 @@ class HelloKitty extends egret.DisplayObjectContainer {
         });
 
 
-        var circle2 = new lcp.LArc({
+        /*var circle2 = new lcp.LArc({
             x: 300,
             y: 500,
             radius: 100,
@@ -317,9 +317,9 @@ class HelloKitty extends egret.DisplayObjectContainer {
             linealpha: 0,
             fillcolor: 0x00ff00,
             fillalpha: 1
-        });
+        });*/
         this.addChild(circle1);
-        this.addChild(circle2);
+        //this.addChild(circle2);
 
 
         //egret.localStorage.setItem("a","123");
@@ -338,7 +338,21 @@ class HelloKitty extends egret.DisplayObjectContainer {
         }
 
         //获取压缩包,来自官方实例
-        this.getZip();
+        //this.getZip();
+
+        var roundrect = new lcp.LRoundRect({
+            x:150,
+            y:50,
+            width:300,
+            height:60,
+            ellipseWidth:60,
+            thickness: 5,
+            linecolor: 0xff0000,
+            linealpha: 1,
+            fillcolor: 0x00ff00,
+            fillalpha: 1
+        });
+        this.addChild(roundrect);
     }
 
 

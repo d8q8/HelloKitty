@@ -495,31 +495,6 @@ var lcp;
             return lcp.NumberUtil.randomIntegerWithinRange(0, 1) ? 1 : -1;
         };
         /**
-         * 随机数组中的n个不重复的数
-         * @param inArray
-         * @param n
-         * @returns {Array<any>}
-         */
-        ArrayUtil.randomNum = function (inArray, n) {
-            var t = [];
-            var generateRandom = function (n) {
-                var random = (Math.random() * n) >> 0;
-                for (var i = 0; i < t.length; i++) {
-                    if (t[i] == random) {
-                        return;
-                    }
-                }
-                t.push(random);
-            };
-            for (var i = 0; i < inArray.length; i++) {
-                //只生成n个随机数
-                if (t.length > n)
-                    break;
-                generateRandom(n);
-            }
-            return t;
-        };
-        /**
          * 数组求和
          * @param inArray
          * @returns {number}

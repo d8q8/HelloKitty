@@ -26,7 +26,7 @@ module lcp {
          * 使用方法如下
          * <code>
          *     var hexColor : string = lcp.ColorUtil.getColor(128, 255, 0, 255);
-         *     console.log(hexColor); // 输出 80FF00FF
+         *     console.log(hexColor); // 输出 -8323328
          * </code>
          *
          */

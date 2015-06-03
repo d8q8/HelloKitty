@@ -69,7 +69,7 @@ var lcp;
          * @returns {boolean}
          */
         __egretProto__.contains = function (item) {
-            return this.indexOf(item) != -1;
+            return (this.indexOf(item) != -1);
         };
         /**
          * 是否包含多项是否在列表中

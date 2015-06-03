@@ -73,7 +73,7 @@ module lcp {
 		 * @returns {boolean}
 		 */
 		public contains(item:any):boolean {
-			return this.indexOf(item) != -1;
+			return (this.indexOf(item) != -1);
 		}
 
 		/**

@@ -542,7 +542,7 @@ module lcp {
             var r:Array<any> = inArray.sort(ArrayUtil._sortRandom);
             var i:number = -1;
             var l:number = inArray.length;
-            while (++i < l) {
+            while (++i < l){
                 t.push(r[i]);
             }
             return t;
@@ -550,33 +550,6 @@ module lcp {
 
         public static _sortRandom(a:any, b:any):number {
             return NumberUtil.randomIntegerWithinRange(0, 1) ? 1 : -1;
-        }
-
-        /**
-         * 随机数组中的n个不重复的数
-         * @param inArray
-         * @param n
-         * @returns {Array<any>}
-         */
-        public static randomNum(inArray:Array<any>, n:number):Array<any> {
-            var t:Array<any> = [];
-            var generateRandom = (n)=> {
-                var random = (Math.random() * n) >> 0;
-                for (var i = 0; i < t.length; i++) {
-                    if (t[i] == random) {
-                        return;
-                    }
-                }
-                t.push(random);
-            }
-            //循环生成随机数
-            for (var i = 0; i<inArray.length ; i++) {
-                //只生成n个随机数
-                if (t.length > n)
-                    break;
-                generateRandom(n);
-            }
-            return t;
         }
 
         /**

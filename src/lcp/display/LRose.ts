@@ -15,8 +15,8 @@ module lcp {
         public constructor(vars?:IGraphics) {
             super();
             if(vars){
-                //vars.width = vars.radius * 2;
-                //vars.height = vars.radius * 2;
+                vars.width = vars.radius * 2;
+                vars.height = vars.radius * 2;
                 super.init(vars);
             }
         }
@@ -27,6 +27,7 @@ module lcp {
             var sin:number;
             var cos:number;
             this.graphics.moveTo(0, this.vars.radius);
+
             for (var i:number = 1; i < 360; i++)
             {
                 //计算极角和极径
