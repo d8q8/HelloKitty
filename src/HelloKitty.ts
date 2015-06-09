@@ -32,7 +32,7 @@ class HelloKitty extends egret.DisplayObjectContainer {
         console.log(lcp.StageReference.getStage().stageWidth);
 
         var sp = new lcp.LSprite();
-        this.addChild(sp);
+        //this.addChild(sp);
         //元件
         var rect = new lcp.LRose({
             x: 200,
@@ -140,8 +140,8 @@ class HelloKitty extends egret.DisplayObjectContainer {
         txt_shadow.textColor = 0xffffff;
         txt_shadow.alpha = .5;
 
-        console.log("主体1宽:", document.body.clientWidth,window.screen.width);
-        console.log("主体1高:", document.body.clientHeight,window.screen.height);
+        console.log("主体1宽:", document.body.clientWidth, window.screen.width);
+        console.log("主体1高:", document.body.clientHeight, window.screen.height);
         console.log("主体2宽:", document.documentElement.clientWidth);
         console.log("主体2高:", document.documentElement.clientHeight);
         console.log("舞台宽:", this.stage.stageWidth);
@@ -222,12 +222,12 @@ class HelloKitty extends egret.DisplayObjectContainer {
         timer.start();
         timer.addEventListener(egret.TimerEvent.TIMER, (e)=> {
             mark++;
-            console.log("计时测试:", mark, "次", e.target.delay, e.target.repeatCount,"当前计数:",e.target.currentCount);
+            console.log("计时测试:", mark, "次", e.target.delay, e.target.repeatCount, "当前计数:", e.target.currentCount);
         }, this);
         timer.addEventListener(egret.TimerEvent.TIMER_COMPLETE, (e)=> {
-            console.log("计时完成:", mark, "次", e.target.delay, e.target.repeatCount,"当前计数:",e.target.currentCount);
+            console.log("计时完成:", mark, "次", e.target.delay, e.target.repeatCount, "当前计数:", e.target.currentCount);
             timer.reset();
-            console.log("计时重置:", mark, "次,", e.target.delay, e.target.repeatCount, "当前计数:",e.target.currentCount);
+            console.log("计时重置:", mark, "次,", e.target.delay, e.target.repeatCount, "当前计数:", e.target.currentCount);
         }, this);
 
 
@@ -247,10 +247,10 @@ class HelloKitty extends egret.DisplayObjectContainer {
         }
 
         /*var urlloader = new egret.URLLoader();
-        urlloader.load(new egret.URLRequest("你的地址,最好是本地域的,不要跨域,跨域要自己解决."));
-        urlloader.addEventListener(egret.Event.COMPLETE, (e)=> {
-            console.log("获取接口数据:", e.target.data);
-        }, this);*/
+         urlloader.load(new egret.URLRequest("你的地址,最好是本地域的,不要跨域,跨域要自己解决."));
+         urlloader.addEventListener(egret.Event.COMPLETE, (e)=> {
+         console.log("获取接口数据:", e.target.data);
+         }, this);*/
 
         //var arr:any[] = ["a","国",1,5,"中","b","z",9,3,"c"];
         //console.log(arr.sort());
@@ -306,19 +306,19 @@ class HelloKitty extends egret.DisplayObjectContainer {
 
 
         /*var circle2 = new lcp.LArc({
-            x: 300,
-            y: 500,
-            radius: 100,
-            startAngle: 30,
-            endAngle: 180,
-            //angle: 200,
-            thickness: 5,
-            linecolor: 0xff0000,
-            linealpha: 0,
-            fillcolor: 0x00ff00,
-            fillalpha: 1
-        });*/
-        this.addChild(circle1);
+         x: 300,
+         y: 500,
+         radius: 100,
+         startAngle: 30,
+         endAngle: 180,
+         //angle: 200,
+         thickness: 5,
+         linecolor: 0xff0000,
+         linealpha: 0,
+         fillcolor: 0x00ff00,
+         fillalpha: 1
+         });*/
+        //this.addChild(circle1);
         //this.addChild(circle2);
 
 
@@ -334,36 +334,70 @@ class HelloKitty extends egret.DisplayObjectContainer {
         //var _color:Array<number> = [0xffffff,0xffff00,0xff0000,0x00ff00,0x0000ff];
         var _color:Array<number> = [16777215, 16776960, 16711680, 65280, 255];
         for (var i = 0; i < _color.length; i++) {
-            this.addChild(this.createText("测试文本" + i, 50, 250 + 50 * i, _color[i]));
+            //this.addChild(this.createText("测试文本" + i, 50, 250 + 50 * i, _color[i]));
         }
 
         //获取压缩包,来自官方实例
         //this.getZip();
 
         var roundrect = new lcp.LRoundRect({
-            x:150,
-            y:50,
-            width:300,
-            height:60,
-            ellipseWidth:60,
+            x: 150,
+            y: 50,
+            width: 300,
+            height: 60,
+            ellipseWidth: 60,
             thickness: 5,
             linecolor: 0xff0000,
             linealpha: 1,
             fillcolor: 0x00ff00,
             fillalpha: 1
         });
-        this.addChild(roundrect);
+        //this.addChild(roundrect);
+
+        //画表格
+        var startX:number = 200;//初始x坐标值
+        var startY:number = 200;//初始y坐标值
+        var cellWid:number = 50;//初始单元格宽
+        var cellHei:number = 50;//初始单元格高
+        var rowNum:number = 7;//行数
+        var total:number = 30;//总数
+        var thickness:number = 1;//边框粗细
+        var color:number = 0xff0000;//边框颜色
+        var alpha:number = 1;//透明度
+        for (var n:number = 0; n < total; n++) {
+            var cell = this.createCell(cellWid, cellHei,thickness,color,alpha);
+            cell.x = startX + cell.width * (n / rowNum >> 0);
+            cell.y = startY + cell.height * (n % rowNum >> 0);
+            this.addChild(cell);
+        }
+
     }
 
+    /**
+     * 画单元格
+     * @param width
+     * @param height
+     * @param thickness
+     * @param color
+     * @param alpha
+     * @returns {egret.Shape}
+     */
+    private createCell(width:number, height:number, thickness:number = 1, color:number = 0xff0000, alpha:number = 1):egret.Shape {
+        var cell = new egret.Shape();
+        cell.graphics.lineStyle(thickness, color, alpha);
+        cell.graphics.drawRect(0, 0, width, height);
+        cell.graphics.endFill();
+        return cell;
+    }
 
-    private getZip(){
+    private getZip() {
         var zip = new JSZip();
-        zip.file("Hello.txt","Hello World\n");
+        zip.file("Hello.txt", "Hello World\n");
         var img = zip.folder("images");
         var imgData = "R0lGODdhBQAFAIACAAAAAP/eACwAAAAABQAFAAACCIwPkWerClIBADs=";
         img.file("smile.gif", imgData, {base64: true});
-        var content = zip.generate({type:"blob"});
-        saveAs(content,"examlpe.zip");
+        var content = zip.generate({type: "blob"});
+        saveAs(content, "examlpe.zip");
     }
 
     public createText(str:string, x:number, y:number, color:number):egret.TextField {
@@ -389,7 +423,7 @@ class HelloKitty extends egret.DisplayObjectContainer {
         var sp:egret.Sprite = new egret.Sprite();
         this.addChild(sp);
         this.stage.addEventListener(egret.TouchEvent.TOUCH_BEGIN, (e)=> {
-            sp.graphics.lineStyle(5, 0xff0000,1,true);
+            sp.graphics.lineStyle(5, 0xff0000, 1, true);
             sp.graphics.moveTo(e.stageX, e.stageY);
             this.stage.addEventListener(egret.TouchEvent.TOUCH_MOVE, arguments.callee, this);
         }, this);

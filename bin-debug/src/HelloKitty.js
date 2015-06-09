@@ -25,7 +25,7 @@ var HelloKitty = (function (_super) {
         lcp.StageReference.setStage(this.stage);
         console.log(lcp.StageReference.getStage().stageWidth);
         var sp = new lcp.LSprite();
-        this.addChild(sp);
+        //this.addChild(sp);
         //元件
         var rect = new lcp.LRose({
             x: 200,
@@ -212,10 +212,10 @@ var HelloKitty = (function (_super) {
             }
         }
         /*var urlloader = new egret.URLLoader();
-        urlloader.load(new egret.URLRequest("你的地址,最好是本地域的,不要跨域,跨域要自己解决."));
-        urlloader.addEventListener(egret.Event.COMPLETE, (e)=> {
-            console.log("获取接口数据:", e.target.data);
-        }, this);*/
+         urlloader.load(new egret.URLRequest("你的地址,最好是本地域的,不要跨域,跨域要自己解决."));
+         urlloader.addEventListener(egret.Event.COMPLETE, (e)=> {
+         console.log("获取接口数据:", e.target.data);
+         }, this);*/
         //var arr:any[] = ["a","国",1,5,"中","b","z",9,3,"c"];
         //console.log(arr.sort());
         console.log(lcp.NumberUtil.roundDecimalToPlace(3.14159265, 2));
@@ -264,19 +264,19 @@ var HelloKitty = (function (_super) {
             linecolor: 0x00ff00
         });
         /*var circle2 = new lcp.LArc({
-            x: 300,
-            y: 500,
-            radius: 100,
-            startAngle: 30,
-            endAngle: 180,
-            //angle: 200,
-            thickness: 5,
-            linecolor: 0xff0000,
-            linealpha: 0,
-            fillcolor: 0x00ff00,
-            fillalpha: 1
-        });*/
-        this.addChild(circle1);
+         x: 300,
+         y: 500,
+         radius: 100,
+         startAngle: 30,
+         endAngle: 180,
+         //angle: 200,
+         thickness: 5,
+         linecolor: 0xff0000,
+         linealpha: 0,
+         fillcolor: 0x00ff00,
+         fillalpha: 1
+         });*/
+        //this.addChild(circle1);
         //this.addChild(circle2);
         //egret.localStorage.setItem("a","123");
         //egret.localStorage.getItem("a");
@@ -288,7 +288,6 @@ var HelloKitty = (function (_super) {
         //var _color:Array<number> = [0xffffff,0xffff00,0xff0000,0x00ff00,0x0000ff];
         var _color = [16777215, 16776960, 16711680, 65280, 255];
         for (var i = 0; i < _color.length; i++) {
-            this.addChild(this.createText("测试文本" + i, 50, 250 + 50 * i, _color[i]));
         }
         //获取压缩包,来自官方实例
         //this.getZip();
@@ -304,7 +303,42 @@ var HelloKitty = (function (_super) {
             fillcolor: 0x00ff00,
             fillalpha: 1
         });
-        this.addChild(roundrect);
+        //this.addChild(roundrect);
+        //画表格
+        var startX = 200; //初始x坐标值
+        var startY = 200; //初始y坐标值
+        var cellWid = 50; //初始单元格宽
+        var cellHei = 50; //初始单元格高
+        var rowNum = 7; //行数
+        var total = 30; //总数
+        var thickness = 1; //边框粗细
+        var color = 0xff0000; //边框颜色
+        var alpha = 1; //透明度
+        for (var n = 0; n < total; n++) {
+            var cell = this.createCell(cellWid, cellHei, thickness, color, alpha);
+            cell.x = startX + cell.width * (n / rowNum >> 0);
+            cell.y = startY + cell.height * (n % rowNum >> 0);
+            this.addChild(cell);
+        }
+    };
+    /**
+     * 画单元格
+     * @param width
+     * @param height
+     * @param thickness
+     * @param color
+     * @param alpha
+     * @returns {egret.Shape}
+     */
+    __egretProto__.createCell = function (width, height, thickness, color, alpha) {
+        if (thickness === void 0) { thickness = 1; }
+        if (color === void 0) { color = 0xff0000; }
+        if (alpha === void 0) { alpha = 1; }
+        var cell = new egret.Shape();
+        cell.graphics.lineStyle(thickness, color, alpha);
+        cell.graphics.drawRect(0, 0, width, height);
+        cell.graphics.endFill();
+        return cell;
     };
     __egretProto__.getZip = function () {
         var zip = new JSZip();
