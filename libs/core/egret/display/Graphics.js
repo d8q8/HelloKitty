@@ -37,9 +37,8 @@ var egret;
      */
     var Graphics = (function () {
         function Graphics() {
-            this.canvasContext = null;
+            this._renderContext = null;
             this.commandQueue = null;
-            this.renderContext = null;
             this.strokeStyleColor = null;
             this.fillStyleColor = null;
             this._dirty = false;
@@ -64,8 +63,18 @@ var egret;
          */
         __egretProto__.beginFill = function (color, alpha) {
             if (alpha === void 0) { alpha = 1; }
+            this.fillStyleColor = this._parseColor(color, alpha);
+            this._pushCommand(new Command(this._setStyle, this, [this.fillStyleColor]));
+        };
+        __egretProto__._parseColor = function (color, alpha) {
+            var _colorBlue = color & 0x0000FF;
+            var _colorGreen = (color & 0x00ff00) >> 8;
+            var _colorRed = color >> 16;
+            return "rgba(" + _colorRed + "," + _colorGreen + "," + _colorBlue + "," + alpha + ")";
         };
         __egretProto__._setStyle = function (colorStr) {
+            this._renderContext.fillStyle = colorStr;
+            this._renderContext.beginPath();
         };
         /**
          * 绘制一个矩形
@@ -76,6 +85,12 @@ var egret;
          * @param height {number} 矩形的高度（以像素为单位）。
          */
         __egretProto__.drawRect = function (x, y, width, height) {
+            this._pushCommand(new Command(function (x, y, width, height) {
+                this._renderContext.beginPath();
+                this._renderContext.rect(x, y, width, height);
+                this._renderContext.closePath();
+            }, this, [x, y, width, height]));
+            //this._fill();
             this._checkRect(x, y, width, height);
         };
         /**
@@ -86,6 +101,12 @@ var egret;
          * @param r {number} 圆的半径（以像素为单位）。
          */
         __egretProto__.drawCircle = function (x, y, r) {
+            this._pushCommand(new Command(function (x, y, r) {
+                this._renderContext.beginPath();
+                this._renderContext.arc(x, y, r, 0, Math.PI * 2);
+                this._renderContext.closePath();
+            }, this, [x, y, r]));
+            //this._fill();
             this._checkRect(x - r, y - r, 2 * r, 2 * r);
         };
         /**
@@ -99,6 +120,31 @@ var egret;
          * @param ellipseHeight {number} 用于绘制圆角的椭圆的高度（以像素为单位）。 （可选）如果未指定值，则默认值与为 ellipseWidth 参数提供的值相匹配。
          */
         __egretProto__.drawRoundRect = function (x, y, width, height, ellipseWidth, ellipseHeight) {
+            //非等值椭圆角实现
+            this._pushCommand(new Command(function (x, y, width, height, ellipseWidth, ellipseHeight) {
+                var _x = x; //控制X偏移
+                var _y = y; //控制Y偏移
+                var _w = width;
+                var _h = height;
+                var _ew = ellipseWidth / 2;
+                var _eh = ellipseHeight ? ellipseHeight / 2 : _ew;
+                var right = _x + _w;
+                var bottom = _y + _h;
+                var ax = right;
+                var ay = bottom - _eh;
+                this._renderContext.beginPath();
+                this._renderContext.moveTo(ax, ay);
+                this._renderContext.quadraticCurveTo(right, bottom, right - _ew, bottom);
+                this._renderContext.lineTo(_x + _ew, bottom);
+                this._renderContext.quadraticCurveTo(_x, bottom, _x, bottom - _eh);
+                this._renderContext.lineTo(_x, _y + _eh);
+                this._renderContext.quadraticCurveTo(_x, _y, _x + _ew, _y);
+                this._renderContext.lineTo(right - _ew, _y);
+                this._renderContext.quadraticCurveTo(right, _y, right, _y + _eh);
+                this._renderContext.lineTo(ax, ay);
+                this._renderContext.closePath();
+            }, this, [x, y, width, height, ellipseWidth, ellipseHeight]));
+            //this._fill();
             this._checkRect(x, y, width, height);
         };
         /**
@@ -110,7 +156,22 @@ var egret;
          * @param height {number} 矩形的高度（以像素为单位）。
          */
         __egretProto__.drawEllipse = function (x, y, width, height) {
-            this._checkRect(x - width, y - height, 2 * width, 2 * height);
+            //基于均匀压缩算法
+            this._pushCommand(new Command(function (x, y, width, height) {
+                var _x = x + width / 2; //控制X偏移
+                var _y = y + height / 2; //控制Y偏移
+                var r = (width > height) ? width : height; //选宽高较大者做为arc半径参数
+                var ratioX = width / r; //横轴缩放比率
+                var ratioY = height / r; //纵轴缩放比率
+                r /= 2;
+                this._renderContext.scale(ratioX, ratioY); //进行缩放(均匀压缩)
+                this._renderContext.beginPath();
+                this._renderContext.arc(_x / ratioX, _y / ratioY, r, 0, 2 * Math.PI);
+                this._renderContext.closePath();
+                this._renderContext.scale(1 / ratioX, 1 / ratioY); //缩放回去
+            }, this, [x, y, width, height]));
+            //this._fill();
+            this._checkRect(x, y, width, height);
         };
         /**
          * 指定一种线条样式以用于随后对 lineTo() 或 drawCircle() 等 Graphics 方法的调用。
@@ -133,6 +194,17 @@ var egret;
             if (caps === void 0) { caps = null; }
             if (joints === void 0) { joints = null; }
             if (miterLimit === void 0) { miterLimit = 3; }
+            if (this.strokeStyleColor) {
+                this._createEndLineCommand();
+                this._pushCommand(this._endLineCommand);
+            }
+            this.strokeStyleColor = this._parseColor(color, alpha);
+            this._pushCommand(new Command(function (lineWidth, strokeStyle) {
+                this._renderContext.lineWidth = lineWidth;
+                this._renderContext.strokeStyle = strokeStyle;
+                this._renderContext.beginPath();
+            }, this, [thickness, this.strokeStyleColor]));
+            this.moveTo(this.lineX, this.lineY);
         };
         /**
          * 使用当前线条样式绘制一条从当前绘图位置开始到 (x, y) 结束的直线；当前绘图位置随后会设置为 (x, y)。
@@ -141,6 +213,12 @@ var egret;
          * @param y {number} 一个表示相对于父显示对象注册点的垂直位置的数字（以像素为单位）。
          */
         __egretProto__.lineTo = function (x, y) {
+            this._pushCommand(new Command(function (x, y) {
+                this._renderContext.lineTo(x, y);
+            }, this, [x, y]));
+            this._checkPoint(this.lineX, this.lineY);
+            this.lineX = x;
+            this.lineY = y;
             this._checkPoint(x, y);
         };
         /**
@@ -154,7 +232,34 @@ var egret;
          * @param anchorY {number} 一个数字，指定下一个锚点相对于父显示对象注册点的垂直位置。
          */
         __egretProto__.curveTo = function (controlX, controlY, anchorX, anchorY) {
+            this._pushCommand(new Command(function (x, y, ax, ay) {
+                this._renderContext.quadraticCurveTo(x, y, ax, ay);
+            }, this, [controlX, controlY, anchorX, anchorY]));
+            this._checkPoint(this.lineX, this.lineY);
+            this.lineX = anchorX;
+            this.lineY = anchorY;
             this._checkPoint(controlX, controlY);
+            this._checkPoint(anchorX, anchorY);
+        };
+        /**
+         * 从当前绘图位置到指定的锚点绘制一条三次贝塞尔曲线。三次贝塞尔曲线由两个锚点和两个控制点组成。该曲线内插这两个锚点，并向两个控制点弯曲。
+         * @method egret.Graphics#curveTo
+         * @param controlX1 {number} 指定首个控制点相对于父显示对象的注册点的水平位置。
+         * @param controlY1 {number} 指定首个控制点相对于父显示对象的注册点的垂直位置。
+         * @param controlX2 {number} 指定第二个控制点相对于父显示对象的注册点的水平位置。
+         * @param controlY2 {number} 指定第二个控制点相对于父显示对象的注册点的垂直位置。
+         * @param anchorX {number} 指定锚点相对于父显示对象的注册点的水平位置。
+         * @param anchorY {number} 指定锚点相对于父显示对象的注册点的垂直位置。
+         */
+        __egretProto__.cubicCurveTo = function (controlX1, controlY1, controlX2, controlY2, anchorX, anchorY) {
+            this._pushCommand(new Command(function (x1, y1, x2, y2, ax, ay) {
+                this._renderContext.bezierCurveTo(x1, y1, x2, y2, ax, ay);
+            }, this, [controlX1, controlY1, controlX2, controlY2, anchorX, anchorY]));
+            this._checkPoint(this.lineX, this.lineY);
+            this.lineX = anchorX;
+            this.lineY = anchorY;
+            this._checkPoint(controlX1, controlY1);
+            this._checkPoint(controlX2, controlY2);
             this._checkPoint(anchorX, anchorY);
         };
         /**
@@ -164,13 +269,22 @@ var egret;
          * @param y {number} 一个表示相对于父显示对象注册点的垂直位置的数字（以像素为单位）。
          */
         __egretProto__.moveTo = function (x, y) {
-            this._checkPoint(x, y);
+            this._pushCommand(new Command(function (x, y) {
+                this._renderContext.moveTo(x, y);
+            }, this, [x, y]));
+            this.lineX = x;
+            this.lineY = y;
         };
         /**
          * 清除绘制到此 Graphics 对象的图形，并重置填充和线条样式设置。
          * @method egret.Graphics#clear
          */
         __egretProto__.clear = function () {
+            this.commandQueue.length = 0;
+            this.lineX = 0;
+            this.lineY = 0;
+            this.strokeStyleColor = null;
+            this.fillStyleColor = null;
             this._minX = 0;
             this._minY = 0;
             this._maxX = 0;
@@ -183,8 +297,37 @@ var egret;
          * @method egret.Graphics#endFill
          */
         __egretProto__.endFill = function () {
+            if (this.fillStyleColor != null) {
+                this._fill();
+                this.fillStyleColor = null;
+            }
+        };
+        __egretProto__._beginDraw = function (renderContext) {
+        };
+        __egretProto__._endDraw = function (renderContext) {
         };
         __egretProto__._draw = function (renderContext) {
+            var length = this.commandQueue.length;
+            if (length == 0) {
+                return;
+            }
+            this._beginDraw(renderContext);
+            for (var i = 0; i < length; i++) {
+                var command = this.commandQueue[i];
+                command.method.apply(command.thisObject, command.args);
+            }
+            if (this.fillStyleColor) {
+                this._createEndFillCommand();
+                command = this._endFillCommand;
+                command.method.apply(command.thisObject, command.args);
+            }
+            if (this.strokeStyleColor) {
+                this._createEndLineCommand();
+                command = this._endLineCommand;
+                command.method.apply(command.thisObject, command.args);
+            }
+            this._endDraw(renderContext);
+            this._dirty = false;
         };
         __egretProto__._checkRect = function (x, y, w, h) {
             if (this._firstCheck) {
@@ -222,6 +365,36 @@ var egret;
         };
         __egretProto__._measureBounds = function () {
             return egret.Rectangle.identity.initialize(this._minX, this._minY, this._maxX - this._minX, this._maxY - this._minY);
+        };
+        __egretProto__._createEndFillCommand = function () {
+            if (!this._endFillCommand) {
+                this._endFillCommand = new Command(function () {
+                    this._renderContext.fill();
+                    this._renderContext.closePath();
+                }, this, null);
+            }
+        };
+        __egretProto__._fill = function () {
+            if (this.fillStyleColor) {
+                this._createEndFillCommand();
+                this._pushCommand(this._endFillCommand);
+            }
+            if (this.strokeStyleColor) {
+                this._createEndLineCommand();
+                this._pushCommand(this._endLineCommand);
+            }
+        };
+        __egretProto__._createEndLineCommand = function () {
+            if (!this._endLineCommand) {
+                this._endLineCommand = new Command(function () {
+                    this._renderContext.stroke();
+                    this._renderContext.closePath();
+                }, this, null);
+            }
+        };
+        __egretProto__._pushCommand = function (cmd) {
+            this.commandQueue.push(cmd);
+            this._dirty = true;
         };
         return Graphics;
     })();

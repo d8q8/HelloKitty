@@ -108,6 +108,7 @@ var egret;
             }
             switch (valueArr[0].toLowerCase()) {
                 case "color":
+                case "textcolor":
                     valueArr[1] = valueArr[1].replace(/#/, "0x");
                     info.textColor = parseInt(valueArr[1]);
                     break;

@@ -1,7 +1,9 @@
 declare module egret {
     var egret_string_code: {};
 }
+
 declare var __extends: any;
+
 declare module egret {
     /**
      * @class egret.Logger
@@ -65,6 +67,7 @@ declare module egret {
     }
     function getString(id: number, ...args: any[]): string;
 }
+
 declare module egret {
     /**
      * @classdesc
@@ -81,6 +84,7 @@ declare module egret {
         hashCode: number;
     }
 }
+
 /**
  * @namespace egret
  */
@@ -108,6 +112,7 @@ declare module egret {
         hashCode: number;
     }
 }
+
 declare module egret {
     /**
      * @class egret.Recycler
@@ -155,6 +160,7 @@ declare module egret {
         dispose(): void;
     }
 }
+
 declare module egret {
     var __START_TIME: number;
     /**
@@ -164,6 +170,7 @@ declare module egret {
      */
     function getTimer(): number;
 }
+
 declare module egret {
     var __callLaterFunctionList: Array<any>;
     var __callLaterThisList: Array<any>;
@@ -187,6 +194,7 @@ declare module egret {
      */
     function __callAsync(method: Function, thisObject: any, ...args: any[]): void;
 }
+
 declare module egret {
     /**
      * @private
@@ -200,6 +208,36 @@ declare module egret {
         static push(callback: Function, thisObject: any): void;
     }
 }
+
+declare module egret {
+    /**
+     * 绘图上下文
+     */
+    interface RenderContext {
+        lineWidth: number;
+        strokeStyle: any;
+        fillStyle: any;
+        arc(x: number, y: number, radius: number, startAngle: number, endAngle: number, anticlockwise?: boolean): void;
+        quadraticCurveTo(cpx: number, cpy: number, x: number, y: number): void;
+        lineTo(x: number, y: number): void;
+        fill(fillRule?: string): void;
+        closePath(): void;
+        rect(x: number, y: number, w: number, h: number): void;
+        moveTo(x: number, y: number): void;
+        fillRect(x: number, y: number, w: number, h: number): void;
+        bezierCurveTo(cp1x: number, cp1y: number, cp2x: number, cp2y: number, x: number, y: number): void;
+        stroke(): void;
+        strokeRect(x: number, y: number, w: number, h: number): void;
+        beginPath(): void;
+        arcTo(x1: number, y1: number, x2: number, y2: number, radius: number): void;
+        translate(x: number, y: number): void;
+        scale(x: number, y: number): void;
+        rotate(angle: number): void;
+        restore(): void;
+        save(): void;
+    }
+}
+
 declare module egret {
     /**
      * @classdesc
@@ -400,6 +438,7 @@ declare module egret {
         static dispatchEvent(target: IEventDispatcher, type: string, bubbles?: boolean, data?: any): void;
     }
 }
+
 declare module egret {
     /**
      * @class egret.HTTPStatusEvent
@@ -439,6 +478,7 @@ declare module egret {
         static dispatchHTTPStatusEvent(target: IEventDispatcher, status: number): void;
     }
 }
+
 declare module egret {
     /**
      * @class egret.SoundEvent
@@ -453,11 +493,6 @@ declare module egret {
          */
         static SOUND_COMPLETE: string;
         /**
-         * 失去焦点
-         * @constant {string} egret.FocusEvent.FOCUS_OUT
-         */
-        static FOCUS_OUT: string;
-        /**
          * 创建一个 egret.SoundEvent 对象
          * @param type {string} 事件类型
          * @param bubbles {boolean}
@@ -468,6 +503,7 @@ declare module egret {
         constructor(type: string, bubbles?: boolean, cancelable?: boolean);
     }
 }
+
 declare module egret {
     /**
      * @class egret.FocusEvent
@@ -497,6 +533,7 @@ declare module egret {
         constructor(type: string, bubbles?: boolean, cancelable?: boolean);
     }
 }
+
 declare module egret {
     /**
      * @class egret.IOErrorEvent
@@ -524,6 +561,7 @@ declare module egret {
         static dispatchIOErrorEvent(target: IEventDispatcher): void;
     }
 }
+
 declare module egret {
     /**
      * @class egret.TouchEvent
@@ -657,6 +695,7 @@ declare module egret {
         static dispatchTouchEvent(target: IEventDispatcher, type: string, touchPointID?: number, stageX?: number, stageY?: number, ctrlKey?: boolean, altKey?: boolean, shiftKey?: boolean, touchDown?: boolean): void;
     }
 }
+
 /** @namespace egret */
 declare module egret {
     /**
@@ -694,6 +733,7 @@ declare module egret {
         static dispatchTimerEvent(target: IEventDispatcher, type: string): void;
     }
 }
+
 declare module egret {
     /**
      * 用户在富文本中单击超链接时，对象将调度 TextEvent 对象。文本事件类型：TextEvent.LINK。
@@ -724,6 +764,7 @@ declare module egret {
         static dispatchTextEvent(target: IEventDispatcher, type: string, text: string): void;
     }
 }
+
 declare module egret {
     /**
      * @class egret.ProgressEvent
@@ -771,6 +812,7 @@ declare module egret {
         static dispatchProgressEvent(target: IEventDispatcher, type: string, bytesLoaded?: number, bytesTotal?: number): void;
     }
 }
+
 declare module egret {
     /**
      * @class egret.EventPhase
@@ -796,6 +838,7 @@ declare module egret {
         static BUBBLING_PHASE: number;
     }
 }
+
 declare module egret {
     /**
      *
@@ -854,6 +897,7 @@ declare module egret {
         willTrigger(type: string): boolean;
     }
 }
+
 declare module egret {
     /**
      *
@@ -955,6 +999,7 @@ declare module egret {
         dispatchEventWith(type: string, bubbles?: boolean, data?: Object): void;
     }
 }
+
 declare module egret {
     /**
      * @class egret.MainContext
@@ -1039,6 +1084,7 @@ declare module egret {
 }
 declare var testDeviceType: () => boolean;
 declare var testRuntimeType: () => boolean;
+
 declare module egret {
     /**
      * @class egret.Profiler
@@ -1096,6 +1142,7 @@ declare module egret {
         onDrawImage(): void;
     }
 }
+
 declare module egret {
     /**
      * Ticker是egret引擎的心跳控制器，是游戏唯一的时间处理入口。
@@ -1167,6 +1214,7 @@ declare module egret {
         static getInstance(): egret.Ticker;
     }
 }
+
 declare module egret {
     /**
      * @class egret.HorizontalAlign
@@ -1204,6 +1252,7 @@ declare module egret {
         static CONTENT_JUSTIFY: string;
     }
 }
+
 declare module egret {
     /**
      * @class egret.VerticalAlign
@@ -1241,6 +1290,7 @@ declare module egret {
         static CONTENT_JUSTIFY: string;
     }
 }
+
 declare module egret {
     /**
      * @class egret.Timer
@@ -1302,6 +1352,7 @@ declare module egret {
         private onEnterFrame(frameTime);
     }
 }
+
 declare module egret {
     /**
      * 返回一个对象的完全限定名<br/>
@@ -1322,6 +1373,7 @@ declare module egret {
     */
     function getQualifiedSuperclassName(value: any): string;
 }
+
 declare module egret {
     /**
      * 返回 name 参数指定的类的类对象引用。
@@ -1334,6 +1386,7 @@ declare module egret {
     function getDefinitionByName(name: string): any;
 }
 declare var __global: any;
+
 declare module egret {
     /**
      * 在指定的延迟（以毫秒为单位）后运行指定的函数。
@@ -1352,6 +1405,7 @@ declare module egret {
      */
     function clearTimeout(key: number): void;
 }
+
 declare module egret {
     /**
      * 检查指定的应用程序域之内是否存在一个公共定义。该定义可以是一个类、一个命名空间或一个函数的定义。
@@ -1363,6 +1417,7 @@ declare module egret {
      */
     function hasDefinition(name: string): boolean;
 }
+
 declare module egret {
     /**
      * 转换数字为颜色字符串
@@ -1372,6 +1427,7 @@ declare module egret {
      */
     function toColorString(value: number): string;
 }
+
 declare module egret {
     /**
      * @class egret.Matrix
@@ -1546,6 +1602,7 @@ declare module egret {
         toArray(transpose: any): any;
     }
 }
+
 declare module egret {
     /**
      * @class egret.Point
@@ -1595,6 +1652,7 @@ declare module egret {
         static distance(p1: egret.Point, p2: egret.Point): number;
     }
 }
+
 declare module egret {
     /**
      * @class egret.Rectangle
@@ -1684,6 +1742,7 @@ declare module egret {
         containsPoint(point: Point): boolean;
     }
 }
+
 declare module egret {
     /**
      * @deprecated
@@ -1705,6 +1764,7 @@ declare module egret {
         parserXML(textxml: string): any;
     }
 }
+
 declare module egret {
     /**
      * @class egret.StageDelegate
@@ -1943,6 +2003,7 @@ declare module egret {
         _apply(delegate: StageDelegate, designedResolutionWidth: number, designedResolutionHeight: number): void;
     }
 }
+
 declare module egret {
     /**
      * @classdesc
@@ -2012,6 +2073,7 @@ declare module egret {
         _getSize(resultRect: Rectangle): egret.Rectangle;
     }
 }
+
 declare module egret {
     /**
      * @classdesc 注入器
@@ -2061,6 +2123,7 @@ declare module egret {
         static getInstance(clazz: any, named?: string): any;
     }
 }
+
 declare module egret {
     /**
      * @private
@@ -2069,6 +2132,7 @@ declare module egret {
         type: string;
     }
 }
+
 declare module egret {
     /**
      * @private
@@ -2079,6 +2143,7 @@ declare module egret {
         constructor(blurX: number, blurY: number);
     }
 }
+
 declare module egret {
     /**
      * @class egret.BlendMode
@@ -2112,6 +2177,7 @@ declare module egret {
         static ERASE_REVERSE: string;
     }
 }
+
 declare module egret {
     /**
      * @private
@@ -2157,6 +2223,7 @@ declare module egret {
         constructor();
     }
 }
+
 declare module egret {
     /**
      * @private
@@ -2170,6 +2237,7 @@ declare module egret {
         constructor();
     }
 }
+
 declare module egret {
     /**
      * @class egret.DisplayObject
@@ -2535,6 +2603,7 @@ declare module egret {
         updateColor(r: number, g: number, b: number, a: number, addR: number, addG: number, addB: number, addA: number): void;
     }
 }
+
 declare module egret {
     /**
      * @extends egret.DisplayObject
@@ -2673,6 +2742,7 @@ declare module egret {
         getChildByName(name: string): DisplayObject;
     }
 }
+
 declare module egret {
     /**
      * @classdesc
@@ -2702,6 +2772,7 @@ declare module egret {
         static EXACT_FIT: string;
     }
 }
+
 declare module egret {
     /**
      * @class egret.Stage
@@ -2791,6 +2862,7 @@ declare module egret {
         static registerScaleMode(key: string, value: ContentStrategy, override?: boolean): void;
     }
 }
+
 declare module egret {
     /**
      * @private
@@ -2817,6 +2889,7 @@ declare module egret {
         _vScrollTween: Tween;
     }
 }
+
 declare module egret {
     /**
      * @class egret.ScrollView
@@ -2981,6 +3054,7 @@ declare module egret {
         hitTest(x: number, y: number, ignoreTouchEnabled?: boolean): DisplayObject;
     }
 }
+
 declare module egret {
     /**
      * @class egret.BitmapFillMode
@@ -3002,6 +3076,7 @@ declare module egret {
         static SCALE: string;
     }
 }
+
 declare module egret {
     /**
      * @class egret.Bitmap
@@ -3056,6 +3131,7 @@ declare module egret {
         _measureBounds(): egret.Rectangle;
     }
 }
+
 declare module egret {
     /**
      * @classdesc
@@ -3117,6 +3193,7 @@ declare module egret {
         _getTextLines(): Array<string>;
     }
 }
+
 declare module egret {
     /**
      * @class egret.Graphics
@@ -3126,14 +3203,15 @@ declare module egret {
      * @link http://docs.egret-labs.org/post/manual/graphics/drawrect.html  绘制矩形
      */
     class Graphics {
-        private canvasContext;
+        _renderContext: RenderContext;
         private commandQueue;
-        private renderContext;
         private strokeStyleColor;
         private fillStyleColor;
         _dirty: boolean;
         private lineX;
         private lineY;
+        private _endLineCommand;
+        private _endFillCommand;
         constructor();
         /**
          * 指定一种简单的单一颜色填充，在绘制时该填充将在随后对其他 Graphics 方法（如 lineTo() 或 drawCircle()）的调用中使用。
@@ -3143,6 +3221,7 @@ declare module egret {
          * @param alpha {number} 填充的 Alpha 值
          */
         beginFill(color: number, alpha?: number): void;
+        _parseColor(color: number, alpha: number): string;
         private _setStyle(colorStr);
         /**
          * 绘制一个矩形
@@ -3213,6 +3292,17 @@ declare module egret {
          */
         curveTo(controlX: number, controlY: number, anchorX: number, anchorY: number): void;
         /**
+         * 从当前绘图位置到指定的锚点绘制一条三次贝塞尔曲线。三次贝塞尔曲线由两个锚点和两个控制点组成。该曲线内插这两个锚点，并向两个控制点弯曲。
+         * @method egret.Graphics#curveTo
+         * @param controlX1 {number} 指定首个控制点相对于父显示对象的注册点的水平位置。
+         * @param controlY1 {number} 指定首个控制点相对于父显示对象的注册点的垂直位置。
+         * @param controlX2 {number} 指定第二个控制点相对于父显示对象的注册点的水平位置。
+         * @param controlY2 {number} 指定第二个控制点相对于父显示对象的注册点的垂直位置。
+         * @param anchorX {number} 指定锚点相对于父显示对象的注册点的水平位置。
+         * @param anchorY {number} 指定锚点相对于父显示对象的注册点的垂直位置。
+         */
+        cubicCurveTo(controlX1: number, controlY1: number, controlX2: number, controlY2: number, anchorX: number, anchorY: number): void;
+        /**
          * 将当前绘图位置移动到 (x, y)。如果缺少任何一个参数，则此方法将失败，并且当前绘图位置不改变。
          * @method egret.Graphics#moveTo
          * @param x {number} 一个表示相对于父显示对象注册点的水平位置的数字（以像素为单位）。
@@ -3229,6 +3319,8 @@ declare module egret {
          * @method egret.Graphics#endFill
          */
         endFill(): void;
+        _beginDraw(renderContext: RendererContext): void;
+        _endDraw(renderContext: RendererContext): void;
         _draw(renderContext: RendererContext): void;
         private _firstCheck;
         private _minX;
@@ -3240,8 +3332,13 @@ declare module egret {
         private _lastY;
         _checkPoint(x: number, y: number): void;
         _measureBounds(): egret.Rectangle;
+        private _createEndFillCommand();
+        private _fill();
+        private _createEndLineCommand();
+        private _pushCommand(cmd);
     }
 }
+
 declare module egret {
     /**
      * @class egret.Shape
@@ -3264,6 +3361,7 @@ declare module egret {
         _measureBounds(): egret.Rectangle;
     }
 }
+
 declare module egret {
     /**
      * @extends egret.DisplayObjectContainer
@@ -3289,6 +3387,7 @@ declare module egret {
         hitTest(x: number, y: number, ignoreTouchEnabled?: boolean): DisplayObject;
     }
 }
+
 declare module egret {
     /**
      * @private
@@ -3343,6 +3442,7 @@ declare module egret {
         static _getScrollNum(textfield: egret.TextField): number;
     }
 }
+
 declare module egret {
     /**
      * @private
@@ -3376,6 +3476,7 @@ declare module egret {
         constructor();
     }
 }
+
 declare module egret {
     /**
      * @private
@@ -3438,6 +3539,7 @@ declare module egret {
         elements: Array<IWTextElement>;
     }
 }
+
 declare module egret {
     /**
      * @class egret.TextField
@@ -3672,6 +3774,7 @@ declare module egret {
         private onTapHandler(e);
     }
 }
+
 declare module egret {
     /**
      * @class egret.HtmlTextParser
@@ -3695,6 +3798,7 @@ declare module egret {
         private addToArray(infoStr);
     }
 }
+
 declare module egret {
     /**
      * @class egret.TextFieldType
@@ -3714,6 +3818,7 @@ declare module egret {
         static INPUT: string;
     }
 }
+
 declare module egret {
     /**
      * @class egret.SpriteSheet
@@ -3779,6 +3884,7 @@ declare module egret {
         dispose(): void;
     }
 }
+
 declare module egret {
     /**
      * @private
@@ -3804,6 +3910,7 @@ declare module egret {
         _updateProperties(): void;
     }
 }
+
 declare module egret {
     /**
      * @classdesc
@@ -3835,6 +3942,7 @@ declare module egret {
         private getConfigByKey(configText, key);
     }
 }
+
 declare module egret {
     /**
      * @class egret.MovieClip
@@ -3973,6 +4081,7 @@ declare module egret {
         private setIsStopped(value);
     }
 }
+
 declare module egret {
     class FrameLabel extends EventDispatcher {
         private _name;
@@ -3995,6 +4104,7 @@ declare module egret {
         clone(): FrameLabel;
     }
 }
+
 declare module egret {
     /**
      * @class egret.MovieClipData
@@ -4064,6 +4174,7 @@ declare module egret {
         private _setMCData(value);
     }
 }
+
 declare module egret {
     /**
      * @class egret.MovieClipDataFactory
@@ -4118,6 +4229,7 @@ declare module egret {
         private setTexture(value);
     }
 }
+
 declare module egret {
     /**
      * @classdesc
@@ -4184,6 +4296,7 @@ declare module egret {
         static create(): StageText;
     }
 }
+
 declare module egret {
     /**
      * @class egret.URLRequestMethod
@@ -4204,6 +4317,7 @@ declare module egret {
         static POST: string;
     }
 }
+
 declare module egret {
     /**
      * @class egret.URLLoaderDataFormat
@@ -4238,6 +4352,7 @@ declare module egret {
         static SOUND: string;
     }
 }
+
 declare module egret {
     /**
      * @class egret.URLVariables
@@ -4273,6 +4388,7 @@ declare module egret {
         private encodeArray(key, value);
     }
 }
+
 declare module egret {
     /**
      * @class egret.URLRequestHeader
@@ -4297,6 +4413,7 @@ declare module egret {
         constructor(name: string, value: string);
     }
 }
+
 declare module egret {
     /**
      * @class egret.URLRequest
@@ -4343,6 +4460,7 @@ declare module egret {
         requestHeaders: Array<URLRequestHeader>;
     }
 }
+
 declare module egret {
     /**
      * @class egret.URLLoader
@@ -4392,6 +4510,7 @@ declare module egret {
         __recycle(): void;
     }
 }
+
 declare module egret {
     /**
      * @class egret.Texture
@@ -4496,6 +4615,7 @@ declare module egret_native {
         function removeTexture(filePath: string): void;
     }
 }
+
 declare module egret {
     /**
      * @class egret.RenderTexture
@@ -4525,6 +4645,7 @@ declare module egret {
         dispose(): void;
     }
 }
+
 declare module egret {
     /**
      * @class egret.RendererContext
@@ -4659,6 +4780,7 @@ declare module egret {
         static registerBlendModeForGL(key: string, src: number, dst: number, override?: boolean): void;
     }
 }
+
 declare module egret {
     /**
      * @private
@@ -4678,6 +4800,7 @@ declare module egret {
         static mode: string;
     }
 }
+
 declare module egret {
     /**
      *
@@ -4705,6 +4828,7 @@ declare module egret {
         onTouchEnd(x: number, y: number, identifier: number): void;
     }
 }
+
 declare module egret {
     /**
      * @class egret.NetContext
@@ -4719,6 +4843,7 @@ declare module egret {
         getChangeList(): Array<any>;
     }
 }
+
 declare module egret {
     /**
      * @classdesc
@@ -4742,6 +4867,7 @@ declare module egret {
         executeMainLoop(callback: Function, thisObject: any): void;
     }
 }
+
 declare module egret {
     /**
      */
@@ -4766,6 +4892,7 @@ declare module egret {
         static addCallback(functionName: string, listener: Function): void;
     }
 }
+
 declare module egret {
     /**
      * 这个类是HTML5的WebWrapper的第一个版本
@@ -4812,6 +4939,7 @@ declare module egret {
         skew(a: any): string;
     }
 }
+
 declare module egret.localStorage {
     /**
      * 读取数据
@@ -4839,6 +4967,7 @@ declare module egret.localStorage {
      */
     function clear(): void;
 }
+
 declare module egret {
     /**
      * @class egret.XML
@@ -4896,6 +5025,7 @@ declare module egret {
         static getAttributes(xml: any, result?: Array<any>): Array<string>;
     }
 }
+
 declare module egret {
     /**
      * Endian 类中包含一些值，它们表示用于表示多字节数字的字节顺序。
@@ -5155,6 +5285,7 @@ declare module egret {
         private stringToCodePoints(string);
     }
 }
+
 declare module egret {
     /**
      * 获取浏览器或者Runtime参数，如果没有设置返回空字符串
@@ -5165,6 +5296,7 @@ declare module egret {
      */
     function getOption(key: string): string;
 }
+
 declare module egret {
     /**
      * @class egret.Tween
@@ -5312,6 +5444,7 @@ declare module egret {
         tick(delta: number): void;
     }
 }
+
 declare module egret {
     /**
      * 缓动函数集合，使用不同的缓动函数使得动画按照对应的方程进行
@@ -5358,6 +5491,7 @@ declare module egret {
         static elasticInOut: Function;
     }
 }
+
 /**
  * Created by yjtx on 15-5-18.
  */
@@ -5377,6 +5511,7 @@ declare module egret {
         _destroy(): void;
     }
 }
+
 declare module egret {
     /**
      * @class egret.Sound
@@ -5454,7 +5589,7 @@ declare module egret {
          * @param listener 监听函数
          * @param thisObj 侦听函数绑定的this对象
          */
-        addEventListener(type: string, listener: Function, thisObject?: any): void;
+        addEventListener(type: string, listener: Function, thisObject: any): void;
         /**
          * 移除事件监听
          * h5支持，native不支持
@@ -5462,7 +5597,7 @@ declare module egret {
          * @param listener 监听函数
          * @param thisObj 侦听函数绑定的this对象
          */
-        removeEventListener(type: string, listener: Function, thisObject?: any): void;
+        removeEventListener(type: string, listener: Function, thisObject: any): void;
         private getVirtualType(type);
         /**
          * 音量范围从 0（静音）至 1（最大音量）。
@@ -5498,6 +5633,7 @@ declare module egret {
         destroy(): void;
     }
 }
+
 declare module egret {
     class NumberUtils {
         static isNumber(value: any): boolean;
@@ -5519,6 +5655,7 @@ declare module egret {
 }
 declare var egret_sin_map: {};
 declare var egret_cos_map: {};
+
 declare module egret {
     /**
      * @private
@@ -5539,3 +5676,21 @@ declare module egret {
         private destroy();
     }
 }
+
+declare module egret {
+    /**
+     * @private
+     */
+    interface IVersionController {
+        fetchVersion(): void;
+        checkIsNewVersion(url: string): boolean;
+        saveVersion(url: string): void;
+        /**
+         * 获取所有有变化的文件
+         * @returns {Array<string>}
+         */
+        getChangeList(): Array<string>;
+        getVirtualUrl(url: string): string;
+    }
+}
+

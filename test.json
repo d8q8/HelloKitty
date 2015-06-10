@@ -1,0 +1,9 @@
+{
+  "name": "test",
+  "dependence": ["core"],
+  "source":"src/test",
+  "file_list": [
+    "test.js",
+    "test.d.ts"
+  ]
+}

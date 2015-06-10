@@ -144,7 +144,6 @@ var egret;
          * @param thisObj 侦听函数绑定的this对象
          */
         __egretProto__.addEventListener = function (type, listener, thisObject) {
-            if (thisObject === void 0) { thisObject = null; }
             _super.prototype.addEventListener.call(this, type, listener, thisObject);
             var self = this;
             var sound = this.audio;
@@ -155,12 +154,12 @@ var egret;
                 var func;
                 if (type == egret.SoundEvent.SOUND_COMPLETE) {
                     func = function (e) {
-                        self.dispatchEvent(new egret.SoundEvent(egret.SoundEvent.SOUND_COMPLETE));
+                        egret.Event._dispatchByTarget(egret.SoundEvent, self, egret.SoundEvent.SOUND_COMPLETE);
                     };
                 }
                 else {
                     func = function (e) {
-                        self.dispatchEvent(e);
+                        egret.Event._dispatchByTarget(egret.Event, self, e.type);
                     };
                 }
                 this._listeners.push({ type: type, func: func });
@@ -176,7 +175,6 @@ var egret;
          * @param thisObj 侦听函数绑定的this对象
          */
         __egretProto__.removeEventListener = function (type, listener, thisObject) {
-            if (thisObject === void 0) { thisObject = null; }
             _super.prototype.removeEventListener.call(this, type, listener, thisObject);
             var self = this;
             var sound = this.audio;

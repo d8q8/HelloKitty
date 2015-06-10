@@ -371,6 +371,9 @@ class HelloKitty extends egret.DisplayObjectContainer {
             this.addChild(cell);
         }
 
+        Test.test("asdfasdfas");
+
+
     }
 
     /**

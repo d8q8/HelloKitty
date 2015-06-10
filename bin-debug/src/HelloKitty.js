@@ -320,6 +320,7 @@ var HelloKitty = (function (_super) {
             cell.y = startY + cell.height * (n % rowNum >> 0);
             this.addChild(cell);
         }
+        Test.test("asdfasdfas");
     };
     /**
      * 画单元格

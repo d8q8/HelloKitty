@@ -65,7 +65,7 @@ var egret;
          * @returns {boolean}
          */
         __egretProto__.isIOS = function () {
-            return this.ua.indexOf("iphone") >= 0 || this.ua.indexOf("ipad") >= 0 || this.ua.indexOf("ipod") >= 0;
+            return this.ua.indexOf("windows") < 0 && (this.ua.indexOf("iphone") >= 0 || this.ua.indexOf("ipad") >= 0 || this.ua.indexOf("ipod") >= 0);
         };
         /**
          * 获取ios版本

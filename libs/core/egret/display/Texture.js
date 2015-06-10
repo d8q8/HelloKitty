@@ -147,7 +147,7 @@ var egret;
         };
         __egretProto__._drawForCanvas = function (context, sourceX, sourceY, sourceWidth, sourceHeight, destX, destY, destWidth, destHeight, renderType) {
             var bitmapData = this._bitmapData;
-            if (!bitmapData["avaliable"]) {
+            if (!bitmapData || !bitmapData["avaliable"]) {
                 return;
             }
             if (renderType != undefined) {
@@ -159,7 +159,7 @@ var egret;
         };
         __egretProto__._drawForNative = function (context, sourceX, sourceY, sourceWidth, sourceHeight, destX, destY, destWidth, destHeight, renderType) {
             var bitmapData = this._bitmapData;
-            if (!bitmapData["avaliable"]) {
+            if (!bitmapData || !bitmapData["avaliable"]) {
                 return;
             }
             if (renderType !== undefined) {
@@ -219,14 +219,13 @@ var egret;
             console.log("_disposeForNative");
         };
         Texture.deleteWebGLTexture = function (texture) {
-            var context = egret.MainContext.instance.rendererContext;
-            var gl = context["gl"];
             var bitmapData = texture._bitmapData;
             if (bitmapData) {
                 var webGLTexture = bitmapData.webGLTexture;
-                if (webGLTexture && gl) {
+                if (webGLTexture) {
                     for (var key in webGLTexture) {
                         var glTexture = webGLTexture[key];
+                        var gl = glTexture.glContext;
                         gl.deleteTexture(glTexture);
                     }
                 }
@@ -239,6 +238,7 @@ var egret;
             var bitmapData = Texture._bitmapDataFactory[url];
             if (!bitmapData) {
                 bitmapData = document.createElement("img");
+                bitmapData.crossOrigin = "anonymous";
                 bitmapData.setAttribute("bitmapSrc", url);
                 Texture._bitmapDataFactory[url] = bitmapData;
             }
@@ -295,23 +295,23 @@ var egret;
             }
             var list = Texture._bitmapCallbackMap[url];
             if (list && list.length) {
+                delete Texture._bitmapCallbackMap[url];
                 var l = list.length;
                 for (var i = 0; i < l; i++) {
                     var callback = list[i];
                     callback(0, bitmapData);
                 }
-                delete Texture._bitmapCallbackMap[url];
             }
         };
         Texture._onError = function (url, bitmapData) {
             var list = Texture._bitmapCallbackMap[url];
             if (list && list.length) {
+                delete Texture._bitmapCallbackMap[url];
                 var l = list.length;
                 for (var i = 0; i < l; i++) {
                     var callback = list[i];
                     callback(1, bitmapData);
                 }
-                delete Texture._bitmapCallbackMap[url];
             }
         };
         Texture._createBitmapDataForNative = function (url, callback) {

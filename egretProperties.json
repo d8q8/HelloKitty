@@ -8,6 +8,9 @@
       "name": "core"
     },
     {
+      "name": "version_old"
+    },
+    {
       "name": "res"
     },
     {
@@ -20,7 +23,11 @@
     {
       "name": "jszip",
       "path": "."
+    },
+    {
+      "name": "test",
+      "path": "."
     }
   ],
-  "egret_version": "1.7.2"
+  "egret_version": "1.7.3"
 }

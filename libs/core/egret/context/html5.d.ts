@@ -37,6 +37,7 @@ declare module egret_html5_localStorage {
     function clear(): void;
     function init(): void;
 }
+
 declare module egret {
     /**
      * @class egret.HTML5CanvasRenderer
@@ -84,26 +85,7 @@ declare module egret {
         drawCursor(x1: number, y1: number, x2: number, y2: number): void;
     }
 }
-declare module egret_h5_graphics {
-    function beginFill(color: number, alpha?: number): void;
-    function drawRect(x: number, y: number, width: number, height: number): void;
-    function drawCircle(x: number, y: number, r: number): void;
-    function drawRoundRect(x: number, y: number, width: number, height: number, ellipseWidth: number, ellipseHeight?: number): void;
-    function drawEllipse(x: number, y: number, width: number, height: number): void;
-    function lineStyle(thickness?: number, color?: number, alpha?: number, pixelHinting?: boolean, scaleMode?: string, caps?: string, joints?: string, miterLimit?: number): void;
-    function lineTo(x: number, y: number): void;
-    function curveTo(controlX: Number, controlY: Number, anchorX: Number, anchorY: Number): void;
-    function moveTo(x: number, y: number): void;
-    function clear(): void;
-    function createEndFillCommand(): void;
-    function endFill(): void;
-    function _fill(): void;
-    function createEndLineCommand(): void;
-    function _pushCommand(cmd: any): void;
-    function _draw(renderContext: egret.RendererContext): void;
-    function _setStyle(colorStr: string): void;
-    function init(): void;
-}
+
 declare module egret {
     /**
      * @private
@@ -113,6 +95,7 @@ declare module egret {
         renderContext: any;
     }
 }
+
 declare module egret {
     /**
      * @class egret.WebGLRenderer
@@ -195,7 +178,8 @@ declare module egret_webgl_graphics {
     function drawEllipse(x: number, y: number, width: number, height: number): void;
     function lineStyle(thickness?: number, color?: number, alpha?: number, pixelHinting?: boolean, scaleMode?: string, caps?: string, joints?: string, miterLimit?: number): void;
     function lineTo(x: number, y: number): void;
-    function curveTo(controlX: Number, controlY: Number, anchorX: Number, anchorY: Number): void;
+    function curveTo(controlX: number, controlY: number, anchorX: number, anchorY: number): void;
+    function cubicCurveTo(controlX1: number, controlY1: number, controlX2: number, controlY2: number, anchorX: number, anchorY: number): void;
     function moveTo(x: number, y: number): void;
     function clear(): void;
     function endFill(): void;
@@ -204,6 +188,7 @@ declare module egret_webgl_graphics {
     function _setStyle(r: number, g: number, b: number, a: number): void;
     function init(): void;
 }
+
 declare module egret {
     /**
      * @private
@@ -217,6 +202,7 @@ declare module egret {
         static checkCanUseWebGL(): boolean;
     }
 }
+
 declare module egret {
     /**
      * @private
@@ -241,6 +227,7 @@ declare module egret {
         syncUniforms(): void;
     }
 }
+
 declare module egret {
     /**
      * @private
@@ -265,6 +252,7 @@ declare module egret {
         constructor(gl: WebGLRenderingContext);
     }
 }
+
 declare module egret {
     /**
      * @private
@@ -283,6 +271,7 @@ declare module egret {
         constructor(gl: WebGLRenderingContext);
     }
 }
+
 declare module egret {
     /**
      * @private
@@ -304,6 +293,7 @@ declare module egret {
         private init();
     }
 }
+
 declare module egret {
     /**
      *
@@ -325,6 +315,7 @@ declare module egret {
         private setAttribs(attribs);
     }
 }
+
 declare module egret {
     /**
      * @class egret.HTML5NetContext
@@ -333,15 +324,24 @@ declare module egret {
      * @private
      */
     class HTML5NetContext extends NetContext {
+        _versionCtr: egret.IVersionController;
         constructor();
+        initVersion(versionCtr: egret.IVersionController): void;
         proceed(loader: URLLoader): void;
         private loadSound(loader);
         private loadWebAudio(loader);
         private getXHR();
         private setResponseType(xhr, responseType);
         private loadTexture(loader);
+        /**
+         * 获取虚拟url
+         * @param url
+         * @returns {string}
+         */
+        private getVirtualUrl(url);
     }
 }
+
 declare module egret {
     /**
      * @private
@@ -362,6 +362,7 @@ declare module egret {
         private getLocation(rootDiv, event);
     }
 }
+
 declare module egret {
     /**
      * @classdesc
@@ -417,6 +418,7 @@ declare module egret {
         static getInstance(): HTMLInput;
     }
 }
+
 declare module egret {
     /**
      * @private
@@ -476,6 +478,7 @@ declare module egret {
         _setCurrentTime(value: number): void;
     }
 }
+
 declare module egret {
     /**
      * @private
@@ -493,6 +496,9 @@ declare module egret {
         private gain;
         private bufferSource;
         private paused;
+        private static decodeArr;
+        private static isDecoding;
+        static decodeAudios(): void;
         constructor();
         private _loop;
         /**
@@ -562,3 +568,4 @@ interface AudioBufferSourceNode {
     removeEventListener(type: string, listener: Function, useCapture?: boolean): any;
     disconnect(): any;
 }
+

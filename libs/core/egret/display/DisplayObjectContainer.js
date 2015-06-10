@@ -203,7 +203,7 @@ var egret;
                     if (notifyListeners) {
                         childAddToStage.dispatchEventWith(egret.Event.REMOVED_FROM_STAGE);
                     }
-                    childAddToStage.stage = null;
+                    childAddToStage._DO_Props_._stage = null;
                 }
             }
             child._parentChanged(null);

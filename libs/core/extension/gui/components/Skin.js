@@ -577,14 +577,14 @@ var egret;
                 }
                 else {
                     if (this.hasEventListener(gui.StateChangeEvent.STATE_CHANGE_COMPLETE)) {
-                        gui.StateChangeEvent.dispatchStateChangeEvent(this, gui.StateChangeEvent.CURRENT_STATE_CHANGE);
+                        gui.StateChangeEvent.dispatchStateChangeEvent(this, gui.StateChangeEvent.STATE_CHANGE_COMPLETE);
                     }
                 }
             };
             __egretProto__.transition_effectEndHandler = function (event) {
                 this._currentTransition = null;
                 if (this.hasEventListener(gui.StateChangeEvent.STATE_CHANGE_COMPLETE)) {
-                    gui.StateChangeEvent.dispatchStateChangeEvent(this, gui.StateChangeEvent.CURRENT_STATE_CHANGE);
+                    gui.StateChangeEvent.dispatchStateChangeEvent(this, gui.StateChangeEvent.STATE_CHANGE_COMPLETE);
                 }
             };
             /**

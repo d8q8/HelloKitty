@@ -333,55 +333,31 @@ var egret;
             /**
              * 计算当前的选中项列表
              */
-            __egretProto__.calculateSelectedIndices = function (index, shiftKey, ctrlKey) {
-                var i;
+            __egretProto__.calculateSelectedIndices = function (index) {
                 var interval = [];
-                if (!shiftKey) {
-                    if (ctrlKey) {
-                        if (this._selectedIndices.length > 0) {
-                            if (this._selectedIndices.length == 1 && (this._selectedIndices[0] == index)) {
-                                if (!this.requireSelection)
-                                    return interval;
-                                interval.splice(0, 0, this._selectedIndices[0]);
-                                return interval;
-                            }
-                            else {
-                                var found = false;
-                                for (i = 0; i < this._selectedIndices.length; i++) {
-                                    if (this._selectedIndices[i] == index)
-                                        found = true;
-                                    else if (this._selectedIndices[i] != index)
-                                        interval.splice(0, 0, this._selectedIndices[i]);
-                                }
-                                if (!found) {
-                                    interval.splice(0, 0, index);
-                                }
-                                return interval;
-                            }
-                        }
-                        else {
-                            interval.splice(0, 0, index);
+                if (this._selectedIndices.length > 0) {
+                    if (this._selectedIndices.length == 1 && (this._selectedIndices[0] == index)) {
+                        if (!this.requireSelection)
                             return interval;
-                        }
+                        interval.splice(0, 0, this._selectedIndices[0]);
+                        return interval;
                     }
                     else {
-                        interval.splice(0, 0, index);
+                        var found = false;
+                        for (var i = 0; i < this._selectedIndices.length; i++) {
+                            if (this._selectedIndices[i] == index)
+                                found = true;
+                            else if (this._selectedIndices[i] != index)
+                                interval.splice(0, 0, this._selectedIndices[i]);
+                        }
+                        if (!found) {
+                            interval.splice(0, 0, index);
+                        }
                         return interval;
                     }
                 }
                 else {
-                    var start = this._selectedIndices.length > 0 ? this._selectedIndices[this._selectedIndices.length - 1] : 0;
-                    var end = index;
-                    if (start < end) {
-                        for (i = start; i <= end; i++) {
-                            interval.splice(0, 0, i);
-                        }
-                    }
-                    else {
-                        for (i = start; i >= end; i--) {
-                            interval.splice(0, 0, i);
-                        }
-                    }
+                    interval.splice(0, 0, index);
                     return interval;
                 }
             };
@@ -398,7 +374,7 @@ var egret;
                 else
                     newIndex = this.dataGroup.getElementIndex((event.currentTarget));
                 if (this._allowMultipleSelection) {
-                    this._setSelectedIndices(this.calculateSelectedIndices(newIndex, event.shiftKey, event.ctrlKey), true);
+                    this._setSelectedIndices(this.calculateSelectedIndices(newIndex), true);
                 }
                 else {
                     this._setSelectedIndex(newIndex, true);

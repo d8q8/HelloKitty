@@ -511,7 +511,7 @@ var egret;
                 return;
             }
             var bitmapData = texture._bitmapData;
-            if (!bitmapData["avaliable"]) {
+            if (!bitmapData || !bitmapData["avaliable"]) {
                 return;
             }
             if (repeat !== undefined) {
@@ -631,6 +631,7 @@ var egret;
             if (!bitmapData.webGLTexture[this.glID]) {
                 var gl = this.gl;
                 bitmapData.webGLTexture[this.glID] = gl.createTexture();
+                bitmapData.webGLTexture[this.glID].glContext = gl;
                 gl.bindTexture(gl.TEXTURE_2D, bitmapData.webGLTexture[this.glID]);
                 gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, true);
                 gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, bitmapData);
@@ -872,6 +873,9 @@ var egret_webgl_graphics;
     function curveTo(controlX, controlY, anchorX, anchorY) {
     }
     egret_webgl_graphics.curveTo = curveTo;
+    function cubicCurveTo(controlX1, controlY1, controlX2, controlY2, anchorX, anchorY) {
+    }
+    egret_webgl_graphics.cubicCurveTo = cubicCurveTo;
     function moveTo(x, y) {
     }
     egret_webgl_graphics.moveTo = moveTo;

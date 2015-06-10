@@ -41,7 +41,11 @@ var egret;
             egret.Texture.createBitmapData = egret.Texture._createBitmapDataForCanvasAndWebGl;
         }
         var __egretProto__ = HTML5NetContext.prototype;
+        __egretProto__.initVersion = function (versionCtr) {
+            this._versionCtr = versionCtr;
+        };
         __egretProto__.proceed = function (loader) {
+            var self = this;
             if (loader.dataFormat == egret.URLLoaderDataFormat.TEXTURE) {
                 this.loadTexture(loader);
                 return;
@@ -57,10 +61,9 @@ var egret;
             }
             var request = loader._request;
             var xhr = this.getXHR();
-            //            xhr.onload = onLoadComplete;
             xhr.onreadystatechange = onReadyStateChange;
-            var url = egret.NetContext._getUrl(request);
-            xhr.open(request.method, url, true);
+            var virtualUrl = self.getVirtualUrl(egret.NetContext._getUrl(request));
+            xhr.open(request.method, virtualUrl, true);
             this.setResponseType(xhr, loader.dataFormat);
             if (request.method == egret.URLRequestMethod.GET || !request.data) {
                 xhr.send();
@@ -107,8 +110,8 @@ var egret;
             }
         };
         __egretProto__.loadSound = function (loader) {
-            var request = loader._request;
-            var audio = new Audio(request.url);
+            var virtualUrl = this.getVirtualUrl(loader._request.url);
+            var audio = new Audio(virtualUrl);
             audio["__timeoutId"] = egret.setTimeout(soundPreloadCanplayHandler, this, 100);
             audio.addEventListener('canplaythrough', soundPreloadCanplayHandler, false);
             audio.addEventListener("error", soundPreloadErrorHandler, false);
@@ -134,9 +137,9 @@ var egret;
             ;
         };
         __egretProto__.loadWebAudio = function (loader) {
-            var url = loader._request.url;
+            var virtualUrl = this.getVirtualUrl(loader._request.url);
             var request = new XMLHttpRequest();
-            request.open("GET", url, true);
+            request.open("GET", virtualUrl, true);
             request.responseType = "arraybuffer";
             console.log("loadWebAudio");
             request.onload = function () {
@@ -176,8 +179,8 @@ var egret;
             }
         };
         __egretProto__.loadTexture = function (loader) {
-            var request = loader._request;
-            egret.Texture.createBitmapData(request.url, function (code, bitmapData) {
+            var virtualUrl = this.getVirtualUrl(loader._request.url);
+            egret.Texture.createBitmapData(virtualUrl, function (code, bitmapData) {
                 if (code != 0) {
                     egret.IOErrorEvent.dispatchIOErrorEvent(loader);
                     return;
@@ -187,6 +190,17 @@ var egret;
                 loader.data = texture;
                 egret.__callAsync(egret.Event.dispatchEvent, egret.Event, loader, egret.Event.COMPLETE);
             });
+        };
+        /**
+         * 获取虚拟url
+         * @param url
+         * @returns {string}
+         */
+        __egretProto__.getVirtualUrl = function (url) {
+            if (this._versionCtr) {
+                return this._versionCtr.getVirtualUrl(url);
+            }
+            return url;
         };
         return HTML5NetContext;
     })(egret.NetContext);
