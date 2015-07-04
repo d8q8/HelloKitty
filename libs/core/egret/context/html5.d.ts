@@ -9,15 +9,18 @@ declare module egret {
         frameRate: number;
         private _time;
         private static instance;
+        private static countTime;
         /**
          * @method egret.HTML5DeviceContext#constructor
          */
         constructor(frameRate?: number);
+        setFrameRate(frameRate: any): void;
         static requestAnimationFrame: Function;
         static cancelAnimationFrame: Function;
         static _thisObject: any;
         static _callback: Function;
         private _requestAnimationId;
+        private static count;
         private enterFrame();
         /**
          * @method egret.HTML5DeviceContext#executeMainLoop
@@ -51,12 +54,6 @@ declare module egret {
          * @member egret.HTML5CanvasRenderer#canvasContext
          */
         private canvasContext;
-        private _matrixA;
-        private _matrixB;
-        private _matrixC;
-        private _matrixD;
-        private _matrixTx;
-        private _matrixTy;
         _transformTx: number;
         _transformTy: number;
         private blendValue;
@@ -83,8 +80,11 @@ declare module egret {
         onRenderStart(): void;
         onRenderFinish(): void;
         drawCursor(x1: number, y1: number, x2: number, y2: number): void;
+        createLinearGradient(x0: number, y0: number, x1: number, y1: number): CanvasGradient;
+        createRadialGradient(x0: number, y0: number, r0: number, x1: number, y1: number, r1: number): CanvasGradient;
     }
 }
+declare var originCanvas2DFill: (fillRule?: string) => void;
 
 declare module egret {
     /**
@@ -117,11 +117,15 @@ declare module egret {
         private projectionX;
         private projectionY;
         private shaderManager;
+        private width;
+        private height;
         constructor(canvas?: HTMLCanvasElement);
         onRenderFinish(): void;
+        private static initWebGLCanvas();
         private initAll();
         private createCanvas();
         private onResize();
+        private setSize(width, height);
         private contextLost;
         private handleContextLost();
         private handleContextRestored();
@@ -138,6 +142,8 @@ declare module egret {
         private currentBatchSize;
         drawRepeatImage(texture: Texture, sourceX: any, sourceY: any, sourceWidth: any, sourceHeight: any, destX: any, destY: any, destWidth: any, destHeight: any, repeat: any): void;
         drawImage(texture: Texture, sourceX: any, sourceY: any, sourceWidth: any, sourceHeight: any, destX: any, destY: any, destWidth: any, destHeight: any, repeat?: any): void;
+        private _drawImage(texture, sourceX, sourceY, sourceWidth, sourceHeight, destX, destY, destWidth, destHeight);
+        private useGlow(texture, sourceX, sourceY, sourceWidth, sourceHeight, destX, destY, destWidth, destHeight);
         private _drawWebGL();
         private worldTransform;
         setTransform(matrix: Matrix): void;
@@ -151,10 +157,12 @@ declare module egret {
         popMask(): void;
         private scissor(x, y, w, h);
         private colorTransformMatrix;
-        setGlobalColorTransform(colorTransformMatrix: Array<any>): void;
-        setGlobalFilter(filterData: Filter): void;
+        private setGlobalColorTransform(colorTransformMatrix);
+        private setBlurData(blurX, blurY);
+        setGlobalFilters(filtersData: Array<Filter>): void;
         private filterType;
-        private setFilterProperties(filterData);
+        private filters;
+        private setFilterProperties(filtersData);
         private html5Canvas;
         private canvasContext;
         setupFont(textField: TextField, style?: egret.ITextStyle): void;
@@ -172,6 +180,7 @@ declare module egret {
 }
 declare module egret_webgl_graphics {
     function beginFill(color: number, alpha?: number): void;
+    function beginGradientFill(type: string, colors: Array<number>, alphas: Array<number>, ratios: Array<number>, matrix?: egret.Matrix): void;
     function drawRect(x: number, y: number, width: number, height: number): void;
     function drawCircle(x: number, y: number, r: number): void;
     function drawRoundRect(x: number, y: number, width: number, height: number, ellipseWidth: number, ellipseHeight?: number): void;
@@ -329,6 +338,7 @@ declare module egret {
         initVersion(versionCtr: egret.IVersionController): void;
         proceed(loader: URLLoader): void;
         private loadSound(loader);
+        private loadQQAudio(loader);
         private loadWebAudio(loader);
         private getXHR();
         private setResponseType(xhr, responseType);
@@ -452,13 +462,15 @@ declare module egret {
         _setAudio(audio: any): void;
         private initStart();
         private _listeners;
+        private _onEndedCall;
         /**
          * 添加事件监听
          * @param type 事件类型
          * @param listener 监听函数
          */
         _addEventListener(type: string, listener: Function, useCapture?: boolean): void;
-        /**s
+        private removeListeners();
+        /**
          * 移除事件监听
          * @param type 事件类型
          * @param listener 监听函数
@@ -466,6 +478,7 @@ declare module egret {
         _removeEventListener(type: string, listener: Function, useCapture?: boolean): void;
         _preload(type: string, callback?: Function, thisObj?: any): void;
         _destroy(): void;
+        private _volume;
         /**
          * 获取当前音量值
          * @returns number
@@ -536,6 +549,7 @@ declare module egret {
         _load(): void;
         _setArrayBuffer(buffer: ArrayBuffer, callback: Function): void;
         _preload(type: string, callback?: Function, thisObj?: any): void;
+        private _volume;
         /**
          * 获取当前音量值
          * @returns number
@@ -567,5 +581,97 @@ interface AudioBufferSourceNode {
     addEventListener(type: string, listener: Function, useCapture?: boolean): any;
     removeEventListener(type: string, listener: Function, useCapture?: boolean): any;
     disconnect(): any;
+}
+
+declare module QZAppExternal {
+    function playLocalSound(call: any, data: any): any;
+    function playLocalBackSound(data: any): any;
+    function preloadSound(call: any, data: any): any;
+    function stopSound(): any;
+    function stopBackSound(): any;
+}
+declare module egret {
+    /**
+     * @private
+     */
+    class QQAudio implements IAudio {
+        constructor();
+        private _loop;
+        private _type;
+        /**
+         * 播放声音
+         * @method egret.Sound#play
+         * @param loop {boolean} 是否循环播放，默认为false
+         */
+        _play(type?: string): void;
+        /**
+         * 暂停声音
+         * @method egret.Sound#pause
+         */
+        _pause(): void;
+        /**
+         * 添加事件监听
+         * @param type 事件类型
+         * @param listener 监听函数
+         */
+        _addEventListener(type: string, listener: Function, useCapture?: boolean): void;
+        /**s
+         * 移除事件监听
+         * @param type 事件类型
+         * @param listener 监听函数
+         */
+        _removeEventListener(type: string, listener: Function, useCapture?: boolean): void;
+        /**
+         * 重新加载声音
+         * @method egret.Sound#load
+         */
+        _load(): void;
+        _preload(type: string, callback?: Function, thisObj?: any): void;
+        private _path;
+        _setPath(path: string): void;
+        /**
+         * 获取当前音量值
+         * @returns number
+         */
+        _getVolume(): number;
+        _setVolume(value: number): void;
+        _setLoop(value: boolean): void;
+        private _currentTime;
+        _getCurrentTime(): number;
+        _setCurrentTime(value: number): void;
+        _destroy(): void;
+    }
+}
+
+declare module egret {
+    class AudioType {
+        static QQ_AUDIO: number;
+        static WEB_AUDIO: number;
+        static HTML5_AUDIO: number;
+    }
+    class SystemOSType {
+        static WPHONE: number;
+        static IOS: number;
+        static ADNROID: number;
+    }
+    /**
+     * html5兼容性配置
+     * @private
+     */
+    class Html5Capatibility extends HashObject {
+        static _canUseBlob: boolean;
+        static _audioType: number;
+        static _AudioClass: any;
+        static _QQRootPath: string;
+        static _System_OS: number;
+        constructor();
+        private static ua;
+        static _init(): void;
+        /**
+         * 获取ios版本
+         * @returns {string}
+         */
+        private static getIOSVersion();
+    }
 }
 

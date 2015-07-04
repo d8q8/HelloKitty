@@ -764,8 +764,17 @@ var egret;
             this.appendElement({ text: text });
         };
         __egretProto__.appendElement = function (element) {
-            this._textArr.push(element);
-            this.setMiddleStyle(this._textArr);
+            var self = this;
+            var properties = self._TF_Props_;
+            var text = properties._text + element.text;
+            if (properties._displayAsPassword) {
+                self._setBaseText(text);
+            }
+            else {
+                properties._text = text;
+                self._textArr.push(element);
+                self.setMiddleStyle(self._textArr);
+            }
         };
         __egretProto__._getLinesArr = function () {
             var self = this;

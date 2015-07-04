@@ -54,6 +54,7 @@ var egret;
             this._scaleMode = "";
             this._stageWidth = NaN;
             this._stageHeight = NaN;
+            this._frameRate = 60;
             this.touchEnabled = true;
             this._DO_Props_._stage = this;
             this._stageWidth = width;
@@ -135,6 +136,17 @@ var egret;
              */
             get: function () {
                 return this._stageHeight;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(__egretProto__, "frameRate", {
+            get: function () {
+                return this._frameRate;
+            },
+            set: function (value) {
+                this._frameRate = value;
+                egret.MainContext.instance.deviceContext.setFrameRate(value);
             },
             enumerable: true,
             configurable: true

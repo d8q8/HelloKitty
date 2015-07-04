@@ -60,7 +60,6 @@ var egret;
                 return;
             }
             var frameTime = advancedTime * this._timeScale;
-            frameTime *= this._timeScale;
             this._callList = this.callBackList.concat();
             this._callIndex = 0;
             for (; this._callIndex < this._callList.length; this._callIndex++) {

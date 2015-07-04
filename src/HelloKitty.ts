@@ -19,7 +19,6 @@ class HelloKitty extends egret.DisplayObjectContainer {
         this.removeEventListener(egret.Event.ADDED_TO_STAGE, this.onAddToStage, this);
         egret.Profiler.getInstance().run();
         this.init();
-
     }
 
     private init() {
@@ -368,10 +367,22 @@ class HelloKitty extends egret.DisplayObjectContainer {
             var cell = this.createCell(cellWid, cellHei,thickness,color,alpha);
             cell.x = startX + cell.width * (n / rowNum >> 0);
             cell.y = startY + cell.height * (n % rowNum >> 0);
-            this.addChild(cell);
+            //this.addChild(cell);
         }
 
         Test.test("asdfasdfas");
+
+        var matrix = new egret.Matrix();
+        matrix.createGradientBox(200,200,60);
+
+        var sp1 = new egret.Sprite();
+        this.addChild(sp1);
+        sp1.graphics.clear();
+        sp1.graphics.lineStyle(1,0x00ff00);
+        sp1.graphics.beginGradientFill(egret.GradientType.LINEAR,[0xff0000,0x0000ff],[0,1],[0,255],matrix);
+        sp1.graphics.drawCircle(100,100,100);
+        sp1.x = sp1.y = 200;
+        sp1.graphics.endFill();
 
 
     }
@@ -684,7 +695,7 @@ class HelloKitty extends egret.DisplayObjectContainer {
             var starttime = egret.getTimer();//开始时间
             var startX, startY, startZ, endX, endY, endZ;//开始坐标和结束坐标
             startX = startY = startZ = endX = endY = endZ = 0;
-            window.addEventListener('devicemotion', (e)=> {
+            window.addEventListener('devicemotion', (e:DeviceMotionEvent)=> {
                 var acceleration = e.accelerationIncludingGravity;
                 var endtime = egret.getTimer();//结束时间
                 if ((endtime - starttime) > 100) {

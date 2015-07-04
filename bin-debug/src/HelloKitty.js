@@ -318,9 +318,18 @@ var HelloKitty = (function (_super) {
             var cell = this.createCell(cellWid, cellHei, thickness, color, alpha);
             cell.x = startX + cell.width * (n / rowNum >> 0);
             cell.y = startY + cell.height * (n % rowNum >> 0);
-            this.addChild(cell);
         }
         Test.test("asdfasdfas");
+        var matrix = new egret.Matrix();
+        matrix.createGradientBox(200, 200, 60);
+        var sp1 = new egret.Sprite();
+        this.addChild(sp1);
+        sp1.graphics.clear();
+        sp1.graphics.lineStyle(1, 0x00ff00);
+        sp1.graphics.beginGradientFill(egret.GradientType.LINEAR, [0xff0000, 0x0000ff], [0, 1], [0, 255], matrix);
+        sp1.graphics.drawCircle(100, 100, 100);
+        sp1.x = sp1.y = 200;
+        sp1.graphics.endFill();
     };
     /**
      * 画单元格

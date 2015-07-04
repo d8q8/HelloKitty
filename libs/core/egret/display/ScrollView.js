@@ -233,7 +233,8 @@ var egret;
             var size = this.getBounds(egret.Rectangle.identity);
             var height = size.height;
             var width = size.width;
-            this.scrollRect = new egret.Rectangle(this._ScrV_Props_._scrollLeft, this._ScrV_Props_._scrollTop, width, height);
+            //这里将坐标取整，避免有些浏览器精度低产生“黑线”问题
+            this.scrollRect = new egret.Rectangle(Math.round(this._ScrV_Props_._scrollLeft), Math.round(this._ScrV_Props_._scrollTop), width, height);
             this.dispatchEvent(new egret.Event(egret.Event.CHANGE));
         };
         __egretProto__._checkScrollPolicy = function () {
