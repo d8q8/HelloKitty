@@ -328,8 +328,8 @@ var HelloKitty = (function (_super) {
         sp1.graphics.lineStyle(1, 0x00ff00);
         sp1.graphics.beginGradientFill(egret.GradientType.LINEAR, [0xff0000, 0x0000ff], [0, 1], [0, 255], matrix);
         sp1.graphics.drawCircle(100, 100, 100);
-        sp1.x = sp1.y = 200;
         sp1.graphics.endFill();
+        sp1.x = sp1.y = 200;
     };
     /**
      * 画单元格
