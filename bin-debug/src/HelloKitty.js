@@ -365,7 +365,7 @@ var HelloKitty = (function (_super) {
         mymask.graphics.drawCircle(0, 0, 50);
         mymask.graphics.endFill();
         mymask.x = mymask.y = 100;
-        //mymask.blendMode = egret.BlendMode.ERASE_REVERSE;
+        mymask.blendMode = egret.BlendMode.ERASE_REVERSE;
         var mymask1 = new egret.Shape();
         rect1.addChild(mymask1);
         mymask1.x = mymask.x;
@@ -373,6 +373,20 @@ var HelloKitty = (function (_super) {
         mymask1.graphics.lineStyle(5, 0x0000ff);
         mymask1.graphics.drawCircle(0, 0, 50);
         mymask1.graphics.endFill();
+        var _move = false;
+        //console.log(this);
+        this.stage.addEventListener(egret.TouchEvent.TOUCH_BEGIN, function () {
+            _move = true;
+            if (_move)
+                _this.stage.addEventListener(egret.TouchEvent.TOUCH_MOVE, _this.touchHandler, _this);
+        }, this);
+        this.stage.addEventListener(egret.TouchEvent.TOUCH_END, function () {
+            _move = false;
+        }, this);
+    };
+    __egretProto__.touchHandler = function (e) {
+        console.log("11111111111", e.currentTarget, e.target);
+        console.log("22222", this, this.numChildren); //注意看这个...this是什么...
     };
     /**
      * 画单元格

@@ -435,7 +435,7 @@ class HelloKitty extends egret.DisplayObjectContainer {
         mymask.graphics.endFill();
         mymask.x=mymask.y=100;
 
-        //mymask.blendMode = egret.BlendMode.ERASE_REVERSE;
+        mymask.blendMode = egret.BlendMode.ERASE_REVERSE;
 
         var mymask1:egret.Shape = new egret.Shape();
         rect1.addChild(mymask1);
@@ -445,8 +445,22 @@ class HelloKitty extends egret.DisplayObjectContainer {
         mymask1.graphics.drawCircle(0,0,50);
         mymask1.graphics.endFill();
 
+        var _move:boolean=false;
+        //console.log(this);
+        this.stage.addEventListener(egret.TouchEvent.TOUCH_BEGIN,()=>{
+            _move=true;
+            if(_move)
+                this.stage.addEventListener(egret.TouchEvent.TOUCH_MOVE,this.touchHandler,this);
+        },this);
+        this.stage.addEventListener(egret.TouchEvent.TOUCH_END,()=>{
+            _move=false;
+        },this);
 
+    }
 
+    private touchHandler(e:egret.Event):void{
+        console.log("11111111111",e.currentTarget,e.target);
+        console.log("22222",this,this.numChildren);//注意看这个...this是什么...
     }
 
     /**
