@@ -126,12 +126,12 @@ class GameApp extends egret.DisplayObjectContainer{
         //根据name关键字，异步获取一个json配置文件，name属性请参考resources/resource.json配置文件的内容。
         RES.getResAsync("description",this.startAnimation,this)*/
 
-        var data = RES.getRes("animation_json");//获取动画文件的信息配置文件
-        var texture = RES.getRes("animation_png");//获取动画文件的图片
-        var mc = new egret.MovieClip(data,texture);//创建MovieClip
-        this.addChild(mc);//添加到显示列表，显示影片剪辑
-        mc.frameRate = 24;//设置动画的帧频
-        mc.gotoAndPlay("start");//跳转到指定帧标签并开始播放
+        //var data = RES.getRes("animation_json");//获取动画文件的信息配置文件
+        //var texture = RES.getRes("animation_png");//获取动画文件的图片
+        //var mc = new egret.MovieClip(data,texture);//创建MovieClip
+        //this.addChild(mc);//添加到显示列表，显示影片剪辑
+        //mc.frameRate = 24;//设置动画的帧频
+        //mc.gotoAndPlay("start");//跳转到指定帧标签并开始播放
 
     }
     /**

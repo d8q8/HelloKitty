@@ -19,7 +19,7 @@ module lcp {
         public CLASS_NAME:string = "LHelper";
 
         public constructor() {
-            egret.Logger.warning("不可以实例化"+this.CLASS_NAME+"类,这是静态帮助类");
+            egret.Logger.warningWithErrorId(1000002,"不可以实例化"+this.CLASS_NAME+"类,这是静态帮助类");
         }
 
         /**

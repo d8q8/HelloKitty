@@ -112,8 +112,10 @@ var HelloKitty = (function (_super) {
         txt.height = 40;
         txt.text = "请输入文本";
         txt.textColor = 0xff0000;
+        //txt.aaa=2;
         txt.addEventListener(egret.Event.CHANGE, function (e) {
             txt_shadow.text = txt.text;
+            //console.log("文本自定义值：",txt.aaa);
         }, this);
         txt_shadow.multiline = true;
         txt_shadow.text = txt.text;
@@ -189,7 +191,7 @@ var HelloKitty = (function (_super) {
         //测试Timer
         var mark = 0;
         var timer = new egret.Timer(1000, 5);
-        timer.start();
+        //timer.start();
         timer.addEventListener(egret.TimerEvent.TIMER, function (e) {
             mark++;
             console.log("计时测试:", mark, "次", e.target.delay, e.target.repeatCount, "当前计数:", e.target.currentCount);
@@ -312,10 +314,12 @@ var HelloKitty = (function (_super) {
         var rowNum = 7; //行数
         var total = 30; //总数
         var thickness = 1; //边框粗细
-        var color = 0xff0000; //边框颜色
+        var color = 0x00ff00; //边框颜色
         var alpha = 1; //透明度
+        var fillcolor = 0xff0000; //填充颜色
+        var fillalpha = 1; //填充透明度
         for (var n = 0; n < total; n++) {
-            var cell = this.createCell(cellWid, cellHei, thickness, color, alpha);
+            var cell = this.createCell(cellWid, cellHei, thickness, color, alpha, fillcolor, fillalpha);
             cell.x = startX + cell.width * (n / rowNum >> 0);
             cell.y = startY + cell.height * (n % rowNum >> 0);
         }
@@ -323,13 +327,52 @@ var HelloKitty = (function (_super) {
         var matrix = new egret.Matrix();
         matrix.createGradientBox(200, 200, 60);
         var sp1 = new egret.Sprite();
-        this.addChild(sp1);
+        //this.addChild(sp1);
+        sp1.x = 100;
+        sp1.y = 100;
         sp1.graphics.clear();
         sp1.graphics.lineStyle(1, 0x00ff00);
-        sp1.graphics.beginGradientFill(egret.GradientType.LINEAR, [0xff0000, 0x0000ff], [0, 1], [0, 255], matrix);
-        sp1.graphics.drawCircle(100, 100, 100);
+        //sp1.graphics.beginGradientFill(egret.GradientType.LINEAR,[0xff0000,0x0000ff],[0,1],[0,255],matrix);
+        sp1.graphics.beginFill(0xff0000);
+        sp1.graphics.drawRect(0, 0, 100, 100);
         sp1.graphics.endFill();
-        sp1.x = sp1.y = 200;
+        sp1.graphics.beginFill(0xff0000);
+        sp1.graphics.drawRect(100, 0, 100, 100);
+        sp1.graphics.endFill();
+        sp1.graphics.beginFill(0xff0000);
+        sp1.graphics.drawRect(0, 100, 100, 100);
+        sp1.graphics.endFill();
+        sp1.graphics.beginFill(0xff0000);
+        sp1.graphics.drawRect(100, 100, 100, 100);
+        sp1.graphics.endFill();
+        //测试单例类
+        var txt = lcp.SingletonUtil.singleton(egret.TextField);
+        txt.text = "测试单例";
+        //this.addChild(txt);
+        //测试异形遮罩
+        var rect1 = new egret.Sprite();
+        this.addChild(rect1);
+        var mymask = new egret.Shape();
+        rect1.addChild(mymask);
+        rect1.graphics.lineStyle(2, 0xff0000); //上层边框不影响
+        rect1.graphics.beginFill(0x00ff00);
+        rect1.graphics.drawRect(0, 0, 300, 200);
+        rect1.graphics.endFill();
+        rect1.x = 100;
+        rect1.y = 200;
+        //mymask.graphics.lineStyle(5,0x0000ff);//这里就是坑...看清楚...
+        mymask.graphics.beginFill(0xff0000);
+        mymask.graphics.drawCircle(0, 0, 50);
+        mymask.graphics.endFill();
+        mymask.x = mymask.y = 100;
+        //mymask.blendMode = egret.BlendMode.ERASE_REVERSE;
+        var mymask1 = new egret.Shape();
+        rect1.addChild(mymask1);
+        mymask1.x = mymask.x;
+        mymask1.y = mymask.y;
+        mymask1.graphics.lineStyle(5, 0x0000ff);
+        mymask1.graphics.drawCircle(0, 0, 50);
+        mymask1.graphics.endFill();
     };
     /**
      * 画单元格
@@ -340,12 +383,15 @@ var HelloKitty = (function (_super) {
      * @param alpha
      * @returns {egret.Shape}
      */
-    __egretProto__.createCell = function (width, height, thickness, color, alpha) {
+    __egretProto__.createCell = function (width, height, thickness, color, alpha, fillcolor, fillalpha) {
         if (thickness === void 0) { thickness = 1; }
-        if (color === void 0) { color = 0xff0000; }
+        if (color === void 0) { color = 0x00ff00; }
         if (alpha === void 0) { alpha = 1; }
+        if (fillcolor === void 0) { fillcolor = 0xff0000; }
+        if (fillalpha === void 0) { fillalpha = 1; }
         var cell = new egret.Shape();
         cell.graphics.lineStyle(thickness, color, alpha);
+        cell.graphics.beginFill(fillcolor, fillalpha);
         cell.graphics.drawRect(0, 0, width, height);
         cell.graphics.endFill();
         return cell;
@@ -377,20 +423,22 @@ var HelloKitty = (function (_super) {
         var _this = this;
         var sp = new egret.Sprite();
         this.addChild(sp);
-        this.stage.addEventListener(egret.TouchEvent.TOUCH_BEGIN, function (e) {
+        var touch_move = function (e) {
+            sp.graphics.lineTo(e.stageX, e.stageY);
+        };
+        var touch_begin = function (e) {
             sp.graphics.lineStyle(5, 0xff0000, 1, true);
             sp.graphics.moveTo(e.stageX, e.stageY);
-            _this.stage.addEventListener(egret.TouchEvent.TOUCH_MOVE, arguments.callee, _this);
-        }, this);
-        this.stage.addEventListener(egret.TouchEvent.TOUCH_MOVE, function (e) {
-            //console.log(e.stageX,e.stageY);
-            sp.graphics.lineTo(e.stageX, e.stageY);
-        }, this);
-        this.stage.addEventListener(egret.TouchEvent.TOUCH_END, function (e) {
-            _this.stage.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, arguments.callee, _this);
-            _this.stage.removeEventListener(egret.TouchEvent.TOUCH_END, arguments.callee, _this);
-            _this.stage.removeEventListener(egret.TouchEvent.TOUCH_MOVE, arguments.callee, _this);
-        }, this);
+            _this.stage.addEventListener(egret.TouchEvent.TOUCH_MOVE, touch_move, _this);
+        };
+        var touch_end = function (e) {
+            _this.stage.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, touch_begin, _this);
+            _this.stage.removeEventListener(egret.TouchEvent.TOUCH_END, touch_end, _this);
+            _this.stage.removeEventListener(egret.TouchEvent.TOUCH_MOVE, touch_move, _this);
+        };
+        this.stage.addEventListener(egret.TouchEvent.TOUCH_BEGIN, touch_begin, this);
+        this.stage.addEventListener(egret.TouchEvent.TOUCH_MOVE, touch_move, this);
+        this.stage.addEventListener(egret.TouchEvent.TOUCH_END, touch_end, this);
     };
     /**
      * 测试碰撞
